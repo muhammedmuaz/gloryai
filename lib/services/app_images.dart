@@ -30,7 +30,11 @@ class AppImages {
   static final introMockupGlory = _concatPathAndImage("glory_intro_mockup.png");
   static final ratingImageIconGlory = _concatPathAndImage("rating_image_icon.svg");
   static final messiahIconGlory = _concatPathAndImage("messiah_icon.png");
-
+  static final sliderCandleIconGlory = _concatPathAndImage("slider_candle_icon.svg");
+  static final prayIconGlory = _concatPathAndImage("pray_icon.svg");
+  static final chatIconGlory = _concatPathAndImage("chat_icon.svg");
+  static final heartFilledIconGlory = _concatPathAndImage("heart_fill_icon.svg");
+  static final googleIconGlory = _concatPathAndImage("google_icon.svg");
   // Lotties
   static final loadingLottie = _concatPathAndLottie("loading.json");
   static final bibleLottie = _concatPathAndLottie("bible.json");

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gloryai/const/data_const.dart';
 import 'package:gloryai/const/design_const.dart';
+import 'package:gloryai/generic_widgets/screen_widgets/screen_padding.dart';
 import 'package:gloryai/routing/app_navigator.dart';
 import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/services/app_images.dart';
@@ -9,14 +10,13 @@ import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
 import '../../generic_widgets/image/gloryai_asset_image.dart';
 
-class IntroQuoteScreen extends StatelessWidget {
-  const IntroQuoteScreen({super.key});
+class IntroNeverMissDailyScreen extends StatelessWidget {
+  const IntroNeverMissDailyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
     final width = ScreenHelper.getScreenWidth(context);
-
     return Scaffold(
       body: Container(
         height: height,
@@ -33,67 +33,46 @@ class IntroQuoteScreen extends StatelessWidget {
           ),
         ),
         child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                AddHeight(0.05),
-                // Logo
-                SizedBox(
-                  width: width * 0.6,
-                  child: GloryAiAssetImage(imagePath: AppImages.applogo),
-                ),
-                AddHeight(0.03),
-                // Eye icon
-                SizedBox(
-                  height: height * 0.05,
-                  width: double.maxFinite,
-                  child: GloryAiAssetImage(
-                    imagePath: AppImages.eyeIcon,
-                    fit: BoxFit.fitHeight,
+          child: ScreenPadding(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  AddHeight(0.05),
+                  SizedBox(
+                    width: width * 0.6,
+                    child: GloryAiAssetImage(imagePath: AppImages.applogo),
                   ),
-                ),
-                AddHeight(0.02),
-                // Text
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: DataConstants.kScreenHorizontalPadding,
-                  ),
-                  child: DefaultTextStyle(
+                  AddHeight(0.05),
+                  // Tagline with attention-grabbing animation
+                  Text(
+                    'Never Miss\nYour Daily\n Spiritual Time?',
+                    textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontSize: 24,
                       fontWeight: FontWeight.w400,
                       color: DesignConstants.kTextPurpleColor,
-                      height: 1.4,
                     ),
+                  ),
+
+                  AddHeight(0.01),
+                  Text(
+                    'Gentle reminders to help nurture your daily walk with God',
                     textAlign: TextAlign.center,
-                    child: Column(
-                      children: [
-                        _buildTextLine('This is an entirely'),
-                        _buildTextLine('anonymous place'),
-                        _buildTextLine('for your faith journey'),
-                        const SizedBox(height: 16),
-                        _buildTextLine('No names, no profiles'),
-                        _buildTextLine('- just genuine spiritual'),
-                        _buildTextLine('connection.'),
-                      ],
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                      color: DesignConstants.kTextPurpleColor,
                     ),
                   ),
-                ),
-                // Messiah Icon
-                SizedBox(
-                  height: height * 0.35,
-                  child: GloryAiAssetImage(
-                    imagePath: AppImages.messiahIconGlory,
-                  ),
-                ),
-              ],
+                  AddHeight(0.03),
+
+                  AddHeight(0.2),
+                ],
+              ),
             ),
           ),
         ),
       ),
-      // Floating action button
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -101,7 +80,9 @@ class IntroQuoteScreen extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              AppNavigation.navigateTo(AppRoutesNames.introWhereFindScreen);
+              AppNavigation.navigateTo(
+                AppRoutesNames.introLoginScreen,
+              );
             },
             child: Container(
                   height: 55,
@@ -115,23 +96,30 @@ class IntroQuoteScreen extends StatelessWidget {
                     color: DesignConstants.kTextGreenColor,
                     boxShadow: [
                       BoxShadow(
-                        color: DesignConstants.kTextGreenColor.withOpacity(0.4),
+                        color: DesignConstants.kTextGreenColor.withOpacity(0.3),
                         blurRadius: 10,
-                        spreadRadius: 0,
+                        spreadRadius: 2,
                         offset: const Offset(0, 4),
                       ),
                     ],
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        DesignConstants.kTextGreenColor.withOpacity(0.9),
+                        DesignConstants.kTextGreenColor,
+                      ],
+                    ),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Next',
+                        'Stay Connected',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w700,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
                           color: Colors.white,
-                          letterSpacing: 0.5,
                         ),
                       ),
                     ],
@@ -151,18 +139,41 @@ class IntroQuoteScreen extends StatelessWidget {
                   curve: Curves.easeInOut,
                 ),
           ),
-          AddHeight(0.015),
+          AddHeight(0.012),
+          RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Want the Lord’s word every morning?\nTap',
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                    color: DesignConstants.kTextPurpleColor.withOpacity(0.8),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                  ),
+                ),
+                TextSpan(
+                  text: ' \'Allow\' ',
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                    color: DesignConstants.kTextPurpleColor,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                  ),
+                ),
+                TextSpan(
+                  text: 'on the next screen to get it.',
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                    color: DesignConstants.kTextPurpleColor.withOpacity(0.8),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
           AddHeight(0.015),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
-  }
-
-  Widget _buildTextLine(String text) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
-      child: Text(text),
     );
   }
 }

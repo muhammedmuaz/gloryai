@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gloryai/const/data_const.dart';
 import 'package:gloryai/const/design_const.dart';
-import 'package:gloryai/generic_widgets/page%20animations/page_animations.dart';
-import 'package:gloryai/screens/intro/intro_quote_screen.dart';
+import 'package:gloryai/routing/app_navigator.dart';
+import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/services/app_images.dart';
 import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
@@ -17,19 +17,19 @@ class IntroRating2Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
     final width = ScreenHelper.getScreenWidth(context);
+    final mockupDuration = 800.ms;
     final logoDuration = 800.ms;
-    final taglineDelay = logoDuration * 0.5;
-    final taglineDuration = 600.ms;
-    final bottomElementsDelay = taglineDelay + taglineDuration * 0.5;
-    final bottomElementsDuration = 700.ms;
+    final titleDelay = logoDuration * 0.5;
+    final titleDuration = 600.ms;
+    final subtitleDelay = titleDelay + titleDuration * 0.5;
+    final subtitleDuration = 500.ms;
+    final mockupDelay = subtitleDelay + subtitleDuration;
+    final bottomElementsDelay = mockupDelay + mockupDuration * 0.5;
 
     return Scaffold(
       body: Container(
         height: height,
         width: width,
-        // padding: EdgeInsets.symmetric(
-        //   horizontal: DataConstants.kScreenHorizontalPadding,
-        // ),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -47,30 +47,11 @@ class IntroRating2Screen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               AddHeight(0.05),
-              // --- Animated Logo ---
               SizedBox(
                     width: width * 0.6,
                     child: GloryAiAssetImage(imagePath: AppImages.applogo),
                   )
-                  .animate()
-                  .fadeIn(duration: logoDuration, curve: Curves.easeOut)
-                  .slideY(
-                    begin: -0.2,
-                    end: 0,
-                    duration: logoDuration,
-                    curve: Curves.easeOut,
-                  )
-                  // Add a subtle continuous animation after entrance
-                  .then(delay: 300.ms) // Wait a bit after entrance
-                  .animate(
-                    onPlay: (controller) => controller.repeat(reverse: true),
-                  )
-                  .moveY(
-                    begin: -4,
-                    end: 4,
-                    duration: 2500.ms,
-                    curve: Curves.easeInOutSine,
-                  ),
+                  ,
               AddHeight(0.05),
               SizedBox(
                 height: height * 0.1,
@@ -79,21 +60,11 @@ class IntroRating2Screen extends StatelessWidget {
                       imagePath: AppImages.ratingImageIconGlory,
                       fit: BoxFit.fitHeight,
                     )
-                    .animate(
-                      delay: taglineDelay,
-                    ) // Start after logo starts fading in
-                    .fadeIn(duration: taglineDuration, curve: Curves.easeOut)
-                    .slideY(
-                      begin: 0.3,
-                      end: 0,
-                      duration: taglineDuration,
-                      curve: Curves.easeOut,
-                    ),
+                   
+           
               ),
               AddHeight(0.05),
-            
               AddHeight(0.03),
-
               SizedBox(
                 height: height * 0.5,
                 child: Stack(
@@ -224,7 +195,7 @@ class IntroRating2Screen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            AddHeight(0.025)
+                            AddHeight(0.04)
                           ],
                         ),
                       ),
@@ -243,41 +214,8 @@ class IntroRating2Screen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               GestureDetector(
-                // In IntroScreen, modify the GestureDetector's onTap:
                 onTap: () {
-                  // final RenderBox button =
-                  //     context.findRenderObject() as RenderBox;
-                  // final buttonPosition = button.localToGlobal(Offset.zero);
-                  // final buttonSize = button.size;
-                  // final buttonCenter = Offset(
-                  //   buttonPosition.dx + buttonSize.width / 2,
-                  //   buttonPosition.dy + buttonSize.height / 2,
-                  // );
-
-                  // Navigator.push(
-                  //   context,
-                  //   PageRouteBuilder(
-                  //     transitionDuration: const Duration(milliseconds: 800),
-                  //     pageBuilder:
-                  //         (context, animation, secondaryAnimation) =>
-                  //             const IntroQuoteScreen(),
-                  //     transitionsBuilder: (
-                  //       context,
-                  //       animation,
-                  //       secondaryAnimation,
-                  //       child,
-                  //     ) {
-                  //       return ClipPath(
-                  //         clipper: CircleRevealClipper(
-                  //           fraction: animation.value,
-                  //           center: buttonCenter,
-                  //         ),
-                  //         child: child,
-                  //       );
-                  //     },
-                  //   ),
-                  // );
-             
+                AppNavigation.navigateTo(AppRoutesNames.introIlluminateSpiritScreen);
                 },
                 child: Container(
                   height: 55,
@@ -300,23 +238,26 @@ class IntroRating2Screen extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
+                ).animate(
+                  delay: bottomElementsDelay,
+                  onPlay: (controller) => controller.repeat(reverse: true),
+                )
+                .shimmer(
+                  delay: 2000.ms,
+                  duration: 1000.ms,
+                  color: Colors.white.withOpacity(0.2),
+                )
+                .scaleXY(
+                  begin: 1,
+                  end: 1.02,
+                  duration: 1500.ms,
+                  curve: Curves.easeInOut,
                 ),
               ),
               AddHeight(0.015),
               AddHeight(0.015),
             ],
-          )
-          .animate(
-            delay: bottomElementsDelay,
-          ) // Start after tagline starts animating
-          .fadeIn(duration: bottomElementsDuration, curve: Curves.easeOut)
-          .slideY(
-            begin: 0.4,
-            end: 0,
-            duration: bottomElementsDuration,
-            curve: Curves.easeOut,
           ),
-
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

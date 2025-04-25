@@ -1,27 +1,33 @@
+import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:gloryai/screens/home_screen.dart';
-import 'package:gloryai/screens/intro/intro_beginning_screen.dart';
-import 'package:gloryai/screens/intro/intro_demo_screen.dart';
-import 'package:gloryai/screens/intro/intro_devotional_screen.dart';
-import 'package:gloryai/screens/intro/intro_loving_god_screen.dart';
-import 'package:gloryai/screens/intro/intro_quote_2_screen.dart';
-import 'package:gloryai/screens/intro/intro_quotes_slider_screen.dart';
-import 'package:gloryai/screens/intro/intro_rating2_screen.dart';
-import 'package:gloryai/screens/intro/intro_scripture2_screen.dart';
-import 'package:gloryai/screens/intro/intro_scripture_screen.dart';
-import 'package:gloryai/screens/intro/intro_tradition_select_screen.dart';
-import 'package:gloryai/services/app_images.dart';
-import 'package:gloryai/screens/intro/intro_screen.dart';
+import 'package:gloryai/firebase_options.dart';
+import 'package:gloryai/routing/app_navigator.dart';
+import 'package:gloryai/routing/app_route_generator.dart';
+import 'package:gloryai/routing/app_route_names.dart';
+import 'package:gloryai/services/api_links.dart';
 import 'package:gloryai/theme/gloryai_theme.dart';
-import 'package:google_generative_ai/google_generative_ai.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
-import 'package:lottie/lottie.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-void main() {
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  ApiLinks.init(environment: currentEnvironment);
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const GloryApp());
 }
 
@@ -49,7 +55,10 @@ class _GloryAppState extends State<GloryApp> {
       title: 'Glory.ai',
       debugShowCheckedModeBanner: false,
       theme: GloyAiTheme.lightTheme,
-      home: const IntroScreen(),
+       initialRoute: AppRoutesNames.initial,
+        navigatorKey: AppNavigation.navigatorKey,
+        onGenerateRoute: RouteGenerator.generateRoute,
+      // home: DevotionalScreen(),
     );
   }
 }

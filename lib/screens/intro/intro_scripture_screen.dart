@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gloryai/const/data_const.dart';
 import 'package:gloryai/const/design_const.dart';
-import 'package:gloryai/generic_widgets/page%20animations/page_animations.dart';
 import 'package:gloryai/generic_widgets/screen_widgets/screen_padding.dart';
-import 'package:gloryai/screens/intro/intro_quote_2_screen.dart';
+import 'package:gloryai/routing/app_navigator.dart';
+import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/services/app_images.dart';
 import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
@@ -17,12 +17,6 @@ class IntroScriptureScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
     final width = ScreenHelper.getScreenWidth(context);
-    final logoDuration = 800.ms;
-    final taglineDelay = logoDuration * 0.5;
-    final taglineDuration = 600.ms;
-    final bottomElementsDelay = taglineDelay + taglineDuration * 0.5;
-    final bottomElementsDuration = 700.ms;
-
     return Scaffold(
       body: Container(
         height: height,
@@ -47,28 +41,9 @@ class IntroScriptureScreen extends StatelessWidget {
                 children: [
                   AddHeight(0.05),
                   SizedBox(
-                        width: width * 0.6,
-                        child: GloryAiAssetImage(imagePath: AppImages.applogo),
-                      )
-                      .animate()
-                      .fadeIn(duration: logoDuration, curve: Curves.easeOut)
-                      .slideY(
-                        begin: -0.2,
-                        end: 0,
-                        duration: logoDuration,
-                        curve: Curves.easeOut,
-                      )
-                      .then(delay: 300.ms)
-                      .animate(
-                        onPlay: (controller) => controller.repeat(reverse: true),
-                      )
-                      .moveY(
-                        begin: -4,
-                        end: 4,
-                        duration: 2500.ms,
-                        curve: Curves.easeInOutSine,
-                      ), // Gentle float
-              
+                    width: width * 0.6,
+                    child: GloryAiAssetImage(imagePath: AppImages.applogo),
+                  ),
                   AddHeight(0.05),
                   // --- Animated Tagline ---
                   Padding(
@@ -77,8 +52,7 @@ class IntroScriptureScreen extends StatelessWidget {
                     ),
                     child: Text(
                       'Daily Scripture\nto Light Your Path',
-                      textAlign:
-                          TextAlign.center,
+                      textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
@@ -92,8 +66,7 @@ class IntroScriptureScreen extends StatelessWidget {
                     ),
                     child: Text(
                       'Every morning, we\'ll share a verse chosen\nfor your faith journey-building\na foundation for your daily walk with God.',
-                      textAlign:
-                          TextAlign.center,
+                      textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
@@ -108,13 +81,16 @@ class IntroScriptureScreen extends StatelessWidget {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: DesignConstants.kBlossom,
-                      borderRadius: BorderRadius.circular(8.0)
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
-                    child: Text('1.', style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    child: Text(
+                      '1.',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
                         color: Colors.white,
-                      ),),
+                      ),
+                    ),
                   ),
                   AddHeight(0.01),
                   Padding(
@@ -123,8 +99,7 @@ class IntroScriptureScreen extends StatelessWidget {
                     ),
                     child: Text(
                       'Deep Understanding',
-                      textAlign:
-                          TextAlign.center,
+                      textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
@@ -138,8 +113,7 @@ class IntroScriptureScreen extends StatelessWidget {
                     ),
                     child: Text(
                       'Explore scripture\'s meaning with faith-centered insights whenever you need.',
-                      textAlign:
-                          TextAlign.center,
+                      textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 18,
                         fontWeight: FontWeight.w400,
@@ -154,13 +128,16 @@ class IntroScriptureScreen extends StatelessWidget {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: DesignConstants.kBlossom,
-                      borderRadius: BorderRadius.circular(8.0)
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
-                    child: Text('2.', style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    child: Text(
+                      '2.',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
                         color: Colors.white,
-                      ),),
+                      ),
+                    ),
                   ),
                   AddHeight(0.01),
                   Padding(
@@ -169,8 +146,7 @@ class IntroScriptureScreen extends StatelessWidget {
                     ),
                     child: Text(
                       'Personalized',
-                      textAlign:
-                          TextAlign.center,
+                      textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
@@ -184,8 +160,7 @@ class IntroScriptureScreen extends StatelessWidget {
                     ),
                     child: Text(
                       'Scripture chosen uniquely for your faith tradition and journey.',
-                      textAlign:
-                          TextAlign.center,
+                      textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 18,
                         fontWeight: FontWeight.w400,
@@ -200,13 +175,16 @@ class IntroScriptureScreen extends StatelessWidget {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: DesignConstants.kBlossom,
-                      borderRadius: BorderRadius.circular(8.0)
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
-                    child: Text('3.', style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    child: Text(
+                      '3.',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
                         color: Colors.white,
-                      ),),
+                      ),
+                    ),
                   ),
                   AddHeight(0.01),
                   Padding(
@@ -215,8 +193,7 @@ class IntroScriptureScreen extends StatelessWidget {
                     ),
                     child: Text(
                       'Daily Guidance',
-                      textAlign:
-                          TextAlign.center,
+                      textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
@@ -230,8 +207,7 @@ class IntroScriptureScreen extends StatelessWidget {
                     ),
                     child: Text(
                       'Start each morning with God\'s Word to illuminate your path.',
-                      textAlign:
-                          TextAlign.center,
+                      textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 18,
                         fontWeight: FontWeight.w400,
@@ -239,10 +215,7 @@ class IntroScriptureScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // CircularFindContainer(onTap: () {}, title: 'Orthodox'),
-                  // AddHeight(0.01),
-                  // CircularFindContainer(onTap: () {}, title: 'Anglican'),
-                  // AddHeight(0.01),
+                  AddHeight(0.2)
                 ],
               ),
             ),
@@ -250,46 +223,15 @@ class IntroScriptureScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  final RenderBox button =
-                      context.findRenderObject() as RenderBox;
-                  final buttonPosition = button.localToGlobal(Offset.zero);
-                  final buttonSize = button.size;
-                  final buttonCenter = Offset(
-                    buttonPosition.dx + buttonSize.width / 2,
-                    buttonPosition.dy + buttonSize.height / 2,
-                  );
-
-                  Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      transitionDuration: const Duration(milliseconds: 800),
-                      pageBuilder:
-                          (context, animation, secondaryAnimation) =>
-                              const IntroQuote2Screen(),
-                      transitionsBuilder: (
-                        context,
-                        animation,
-                        secondaryAnimation,
-                        child,
-                      ) {
-                        return ClipPath(
-                          clipper: CircleRevealClipper(
-                            fraction: animation.value,
-                            center: buttonCenter,
-                          ),
-                          child: child,
-                        );
-                      },
-                    ),
-                  );
-                },
-                child: Container(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GestureDetector(
+            onTap: () {
+              AppNavigation.navigateTo(AppRoutesNames.introQuote2Screen);
+            },
+            child: Container(
                   height: 55,
                   width: width * 0.85,
                   alignment: Alignment.center,
@@ -310,22 +252,25 @@ class IntroScriptureScreen extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
+                )
+                .animate(onPlay: (controller) => controller.repeat())
+                .shimmer(
+                  delay: 1000.ms,
+                  duration: 1800.ms,
+                  color: Colors.white.withOpacity(0.3),
+                )
+                .animate(onPlay: (controller) => controller.repeat())
+                .scale(
+                  begin: const Offset(1, 1),
+                  end: const Offset(1.02, 1.02),
+                  duration: 2000.ms,
+                  curve: Curves.easeInOut,
                 ),
-              ),
-              AddHeight(0.015),
-              AddHeight(0.015),
-            ],
-          )
-          .animate(
-            delay: bottomElementsDelay,
-          )
-          .fadeIn(duration: bottomElementsDuration, curve: Curves.easeOut)
-          .slideY(
-            begin: 0.4,
-            end: 0,
-            duration: bottomElementsDuration,
-            curve: Curves.easeOut,
           ),
+          AddHeight(0.015),
+          AddHeight(0.015),
+        ],
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

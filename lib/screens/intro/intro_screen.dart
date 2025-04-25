@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gloryai/const/data_const.dart';
 import 'package:gloryai/const/design_const.dart';
-import 'package:gloryai/generic_widgets/page%20animations/page_animations.dart';
-import 'package:gloryai/screens/intro/intro_rating_screen.dart';
+import 'package:gloryai/routing/app_navigator.dart';
+import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/services/app_images.dart';
 import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
@@ -134,6 +134,9 @@ class IntroScreen extends StatelessWidget {
                   },
                 ),
               ),
+           
+           
+           AddHeight(0.2),
             ],
           ),
         ),
@@ -147,40 +150,43 @@ class IntroScreen extends StatelessWidget {
           // Proceed Button with enhanced animations
           GestureDetector(
             onTap: () {
-              final RenderBox button = context.findRenderObject() as RenderBox;
-              final buttonPosition = button.localToGlobal(Offset.zero);
-              final buttonSize = button.size;
-              final buttonCenter = Offset(
-                buttonPosition.dx + buttonSize.width / 2,
-                buttonPosition.dy + buttonSize.height / 2,
-              );
 
-              Navigator.push(
-                context,
-                PageRouteBuilder(
-                  transitionDuration: const Duration(milliseconds: 800),
-                  pageBuilder: (context, animation, secondaryAnimation) =>
-                      const IntroRatingScreen(),
-                  transitionsBuilder: (
-                    context,
-                    animation,
-                    secondaryAnimation,
-                    child,
-                  ) {
-                    return ClipPath(
-                      clipper: CircleRevealClipper(
-                        fraction: animation.value,
-                        center: buttonCenter,
-                      ),
-                      child: child,
-                    );
-                  },
-                ),
-              );
+
+              AppNavigation.navigateTo(AppRoutesNames.introRatingScreen);
+              // final RenderBox button = context.findRenderObject() as RenderBox;
+              // final buttonPosition = button.localToGlobal(Offset.zero);
+              // final buttonSize = button.size;
+              // final buttonCenter = Offset(
+              //   buttonPosition.dx + buttonSize.width / 2,
+              //   buttonPosition.dy + buttonSize.height / 2,
+              // );
+
+              // Navigator.push(
+              //   context,
+              //   PageRouteBuilder(
+              //     transitionDuration: const Duration(milliseconds: 800),
+              //     pageBuilder: (context, animation, secondaryAnimation) =>
+              //         const IntroRatingScreen(),
+              //     transitionsBuilder: (
+              //       context,
+              //       animation,
+              //       secondaryAnimation,
+              //       child,
+              //     ) {
+              //       return ClipPath(
+              //         clipper: CircleRevealClipper(
+              //           fraction: animation.value,
+              //           center: buttonCenter,
+              //         ),
+              //         child: child,
+              //       );
+              //     },
+              //   ),
+              // );
+      
+      
             },
-            child: MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: AnimatedContainer(
+            child:AnimatedContainer(
                 duration: 300.ms,
                 height: 55,
                 width: width,
@@ -220,28 +226,9 @@ class IntroScreen extends StatelessWidget {
                         letterSpacing: 0.5,
                       ),
                     ),
-                    const SizedBox(width: 8),
-                    const Icon(Icons.arrow_forward, color: Colors.white, size: 24)
-                      .animate(
-                        delay: bottomElementsDelay + 200.ms,
-                        onPlay: (controller) => controller.repeat(),
-                      )
-                      .slideX(
-                        begin: 0,
-                        end: 4,
-                        duration: 1000.ms,
-                        curve: Curves.easeInOut,
-                      )
-                      .then(delay: 500.ms)
-                      .slideX(
-                        begin: -4,
-                        end: 0,
-                        duration: 1000.ms,
-                      ),
                   ],
                 ),
-              ),
-            )
+              )
             .animate(delay: bottomElementsDelay)
             .fadeIn(duration: bottomElementsDuration)
             .slideY(
@@ -267,37 +254,39 @@ class IntroScreen extends StatelessWidget {
           ),
           AddHeight(0.015),
           // Login Text with refined animation
-          MouseRegion(
-            cursor: SystemMouseCursors.click,
+          GestureDetector(
+            onTap:(){
+              AppNavigation.navigateTo(AppRoutesNames.introLoginScreen);
+            },
             child: RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: 'Already have an account?',
-                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                      color: DesignConstants.kTextPurpleColor.withOpacity(0.8),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Already have an account?',
+                      style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        color: DesignConstants.kTextPurpleColor.withOpacity(0.8),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  TextSpan(
-                    text: ' Log in',
-                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                      color: DesignConstants.kTextPurpleColor,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 17,
+                    TextSpan(
+                      text: ' Log in',
+                      style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        color: DesignConstants.kTextPurpleColor,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 17,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
+              )
+              .animate(delay: bottomElementsDelay + 100.ms)
+              .fadeIn(duration: 500.ms)
+              .slideY(
+                begin: 0.2,
+                end: 0,
+                duration: 500.ms,
               ),
-            )
-            .animate(delay: bottomElementsDelay + 100.ms)
-            .fadeIn(duration: 500.ms)
-            .slideY(
-              begin: 0.2,
-              end: 0,
-              duration: 500.ms,
-            ),
           ),
           AddHeight(0.015),
         ],
