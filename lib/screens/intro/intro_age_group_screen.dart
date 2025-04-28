@@ -9,24 +9,22 @@ import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
 import '../../generic_widgets/image/gloryai_asset_image.dart';
 
-class IntroWhereFindScreen extends StatefulWidget {
-  const IntroWhereFindScreen({super.key});
+class IntroAgeGroupScreen extends StatefulWidget {
+  const IntroAgeGroupScreen({super.key});
 
   @override
-  State<IntroWhereFindScreen> createState() => _IntroWhereFindScreenState();
+  State<IntroAgeGroupScreen> createState() => _IntroAgeGroupScreenState();
 }
 
-class _IntroWhereFindScreenState extends State<IntroWhereFindScreen> {
+class _IntroAgeGroupScreenState extends State<IntroAgeGroupScreen> {
   String? _selectedOption;
   final List<String> _options = [
-    'Facebook',
-    'Instagram',
-    'TikTok',
-    'Friends',
-    'AppStore',
-    'Web Search',
-    'Church',
-    'Other',
+    '10-17',
+    '18-25',
+    '26-35',
+    '36-45',
+    '46-55',
+    '56 and above',
   ];
 
   @override
@@ -65,13 +63,27 @@ class _IntroWhereFindScreenState extends State<IntroWhereFindScreen> {
                   horizontal: DataConstants.kScreenHorizontalPadding,
                 ),
                 child: Text(
-                  'Where did you find out about Glory?',
+                  'Faith journeys evolve based on life experiences.\nThis allows us to offer scripture and guidance that aligns with your life stage.',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    color: DesignConstants.kTextPurpleColor,
+                  ),
+                ),
+              ),
+              AddHeight(0.03),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: DataConstants.kScreenHorizontalPadding,
+                ),
+                child: Text(
+                  'Which age category do you belong to?',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontSize: 24,
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w500,
                     color: DesignConstants.kTextPurpleColor,
-                    height: 1.3,
                   ),
                 ),
               ),
@@ -94,7 +106,7 @@ class _IntroWhereFindScreenState extends State<IntroWhereFindScreen> {
                 ),
               ),
 
-              AddHeight(0.1),
+              AddHeight(0.13),
             ],
           ),
         ),
@@ -104,12 +116,27 @@ class _IntroWhereFindScreenState extends State<IntroWhereFindScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: DataConstants.kScreenHorizontalPadding,
+            ),
+            child: Text(
+              'Your answers will remain private and secure.',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: DesignConstants.kTextPurpleColor,
+              ),
+            ),
+          ),
+          AddHeight(0.01),
           GestureDetector(
             onTap:
                 _selectedOption != null
                     ? () {
                       AppNavigation.navigateTo(
-                        AppRoutesNames.introAgeGroupScreen,
+                        AppRoutesNames.introGenderSelectScreen,
                       );
                     }
                     : null,
@@ -130,6 +157,7 @@ class _IntroWhereFindScreenState extends State<IntroWhereFindScreen> {
                       BoxShadow(
                         color: (_selectedOption != null
                                 ? DesignConstants.kTextGreenColor
+                                // ignore: deprecated_member_use
                                 : Colors.grey.withOpacity(0.3))
                             .withOpacity(0.4),
                         blurRadius: 10,

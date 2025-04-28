@@ -32,70 +32,103 @@ class IntroQuote2Screen extends StatelessWidget {
           ),
         ),
         child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Stack(
             children: [
-              AddHeight(0.05),
-              // Logo with enhanced animations
+              Center(
+                child: Container(
+                  width: width,
+                  margin: EdgeInsets.only(bottom: 12.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: DataConstants.kScreenHorizontalPadding,
+                  ),
+                  child: GloryAiAssetImage(imagePath: AppImages.cloudIcon),
+                ),
+              ),
               SizedBox(
-                width: width * 0.6,
-                child: GloryAiAssetImage(imagePath: AppImages.applogo),
-              ),
-              AddHeight(0.15),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: DataConstants.kScreenHorizontalPadding,
-                ),
-                child: Text(
-                  '„Your word\nis a lamp\nto my feet\nand a light\nto my path."',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
-                    color: DesignConstants.kTextPurpleColor,
-                    height: 1.4,
-                  ),
-                ),
-              ),
-
-              AddHeight(0.05),
-              // Bible reference with subtle entrance
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: DataConstants.kScreenHorizontalPadding,
-                ),
-                child: Text(
-                  'Psalm 119:105',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: DesignConstants.kTextGreenColor,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              ),
-
-              AddHeight(0.05),
-              // Share button with attention-grabbing animation
-              Container(
-                height: 40,
-                width: 40,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: DesignConstants.kBlossom,
-                  borderRadius: BorderRadius.circular(8.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: DesignConstants.kBlossom.withOpacity(0.3),
-                      blurRadius: 8,
-                      spreadRadius: 1,
-                      offset: const Offset(0, 3),
+                height: height,
+                width: width,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    AddHeight(0.05),
+                    SizedBox(
+                      width: width * 0.6,
+                      child: GloryAiAssetImage(imagePath: AppImages.applogo),
                     ),
+                    AddHeight(0.15),
+                    Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: DataConstants.kScreenHorizontalPadding,
+                          ),
+                          child: Text(
+                            '„Your word\nis a lamp\nto my feet\nand a light\nto my path."',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.copyWith(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w500,
+                              color: DesignConstants.kTextPurpleColor,
+                              height: 1.4,
+                            ),
+                          ),
+                        )
+                        .animate(delay: Duration(milliseconds: 300))
+                        .fadeIn()
+                        .slideY(begin: 0.2, end: 0, curve: Curves.easeOutCubic),
+
+                    AddHeight(0.03),
+                    // Bible reference with subtle entrance
+                    Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: DataConstants.kScreenHorizontalPadding,
+                          ),
+                          child: Text(
+                            'Psalm 119:105',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.copyWith(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: DesignConstants.kTextGreenColor,
+                              fontStyle: FontStyle.italic,
+                              letterSpacing: -0.2,
+                            ),
+                          ),
+                        )
+                        .animate(delay: Duration(milliseconds: 600))
+                        .fadeIn()
+                        .slideY(begin: 0.2, end: 0, curve: Curves.easeOutCubic),
+
+                    AddHeight(0.05),
+                    // Share button with attention-grabbing animation
+                    Container(
+                          height: 40,
+                          width: 40,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: DesignConstants.kBlossom,
+                            borderRadius: BorderRadius.circular(8.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: DesignConstants.kBlossom.withOpacity(
+                                  0.3,
+                                ),
+                                blurRadius: 8,
+                                spreadRadius: 1,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: Icon(Icons.share, color: Colors.white),
+                        )
+                        .animate(delay: Duration(milliseconds: 900))
+                        .fadeIn()
+                        .slideY(begin: 0.2, end: 0, curve: Curves.easeOutCubic),
                   ],
                 ),
-                child: Icon(Icons.share, color: Colors.white),
               ),
             ],
           ),
@@ -109,36 +142,28 @@ class IntroQuote2Screen extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           GestureDetector(
-            onTap:
-                () => AppNavigation.navigateTo(
-                  AppRoutesNames.introScripture2Screen,
-                ),
+            onTap: () {
+              AppNavigation.navigateTo(AppRoutesNames.introScripture2Screen);
+            },
             child: Container(
-                  height: 55,
-                  width: width * 0.85,
+                  width: double.maxFinite,
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(
                     horizontal: DataConstants.kScreenHorizontalPadding,
                   ),
+                  padding: EdgeInsets.symmetric(vertical: 12.0),
+
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100.0),
                     color: DesignConstants.kTextGreenColor,
                     boxShadow: [
                       BoxShadow(
-                        color: DesignConstants.kTextGreenColor.withOpacity(0.3),
+                        color: DesignConstants.kTextGreenColor.withOpacity(0.4),
                         blurRadius: 10,
-                        spreadRadius: 2,
+                        spreadRadius: 0,
                         offset: const Offset(0, 4),
                       ),
                     ],
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        DesignConstants.kTextGreenColor.withOpacity(0.9),
-                        DesignConstants.kTextGreenColor,
-                      ],
-                    ),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -146,7 +171,7 @@ class IntroQuote2Screen extends StatelessWidget {
                       Text(
                         'Next',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 22,
+                          fontSize: 21,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
                           letterSpacing: 0.5,
@@ -169,8 +194,6 @@ class IntroQuote2Screen extends StatelessWidget {
                   curve: Curves.easeInOut,
                 ),
           ),
-          AddHeight(0.015),
-          AddHeight(0.015),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

@@ -33,67 +33,64 @@ class IntroQuoteScreen extends StatelessWidget {
           ),
         ),
         child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                AddHeight(0.05),
-                // Logo
-                SizedBox(
-                  width: width * 0.6,
-                  child: GloryAiAssetImage(imagePath: AppImages.applogo),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              AddHeight(0.05),
+              SizedBox(
+                width: width * 0.6,
+                child: GloryAiAssetImage(imagePath: AppImages.applogo),
+              ),
+              AddHeight(0.03),
+              SizedBox(
+                height: height * 0.05,
+                width: double.maxFinite,
+                child: GloryAiAssetImage(
+                  imagePath: AppImages.eyeIcon,
+                  fit: BoxFit.fitHeight,
                 ),
-                AddHeight(0.03),
-                // Eye icon
-                SizedBox(
-                  height: height * 0.05,
-                  width: double.maxFinite,
-                  child: GloryAiAssetImage(
-                    imagePath: AppImages.eyeIcon,
-                    fit: BoxFit.fitHeight,
-                  ),
+              ),
+              AddHeight(0.02),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: DataConstants.kScreenHorizontalPadding,
                 ),
-                AddHeight(0.02),
-                // Text
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: DataConstants.kScreenHorizontalPadding,
+                child: Text(
+                  "This is an entirely anonymous place for your faith journey",
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 21,
+                    fontWeight: FontWeight.w400,
+                    color: DesignConstants.kTextPurpleColor,
                   ),
-                  child: DefaultTextStyle(
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w400,
-                      color: DesignConstants.kTextPurpleColor,
-                      height: 1.4,
-                    ),
-                    textAlign: TextAlign.center,
-                    child: Column(
-                      children: [
-                        _buildTextLine('This is an entirely'),
-                        _buildTextLine('anonymous place'),
-                        _buildTextLine('for your faith journey'),
-                        const SizedBox(height: 16),
-                        _buildTextLine('No names, no profiles'),
-                        _buildTextLine('- just genuine spiritual'),
-                        _buildTextLine('connection.'),
-                      ],
-                    ),
-                  ),
+                  textAlign: TextAlign.center,
                 ),
-                // Messiah Icon
-                SizedBox(
-                  height: height * 0.35,
-                  child: GloryAiAssetImage(
-                    imagePath: AppImages.messiahIconGlory,
-                  ),
+              ),
+              AddHeight(0.01),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: DataConstants.kScreenHorizontalPadding,
                 ),
-              ],
-            ),
+                child: Text(
+                  "No names, no profiles - just genuine spiritual connection.",
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 21,
+                    fontWeight: FontWeight.w400,
+                    color: DesignConstants.kTextPurpleColor,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              // Messiah Icon
+              Expanded(
+                // height: height * 0.,.
+                child: GloryAiAssetImage(imagePath: AppImages.messiahIconGlory),
+              ),
+              SizedBox(height: height * 0.13),
+            ],
           ),
         ),
       ),
-      // Floating action button
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -104,12 +101,13 @@ class IntroQuoteScreen extends StatelessWidget {
               AppNavigation.navigateTo(AppRoutesNames.introWhereFindScreen);
             },
             child: Container(
-                  height: 55,
-                  width: width * 0.85,
+                  width: double.maxFinite,
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(
                     horizontal: DataConstants.kScreenHorizontalPadding,
                   ),
+                  padding: EdgeInsets.symmetric(vertical: 12.0),
+
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100.0),
                     color: DesignConstants.kTextGreenColor,
@@ -128,7 +126,7 @@ class IntroQuoteScreen extends StatelessWidget {
                       Text(
                         'Next',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 22,
+                          fontSize: 21,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
                           letterSpacing: 0.5,
@@ -151,18 +149,9 @@ class IntroQuoteScreen extends StatelessWidget {
                   curve: Curves.easeInOut,
                 ),
           ),
-          AddHeight(0.015),
-          AddHeight(0.015),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
-  }
-
-  Widget _buildTextLine(String text) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
-      child: Text(text),
     );
   }
 }

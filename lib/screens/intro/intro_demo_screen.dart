@@ -22,8 +22,6 @@ class IntroDemoScreen extends StatelessWidget {
     final botMessageDuration = 600.ms;
     final userMessageDelay = conversationDelay + botMessageDuration;
     final userMessageDuration = 600.ms;
-    final bottomElementsDelay = userMessageDelay + userMessageDuration;
-    final bottomElementsDuration = 700.ms;
 
     return Scaffold(
       body: Container(
@@ -181,90 +179,65 @@ class IntroDemoScreen extends StatelessWidget {
 
       // Next button with enhanced animations
       floatingActionButton: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  AppNavigation.navigateTo(
-                    AppRoutesNames.introDevotionalScreen,
-                  );
-                },
-                child: Container(
-                      height: 55,
-                      width: width * 0.85,
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.symmetric(
-                        horizontal: DataConstants.kScreenHorizontalPadding,
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GestureDetector(
+            onTap: () {
+              AppNavigation.navigateTo(AppRoutesNames.introDevotionalScreen);
+            },
+            child: Container(
+                  width: double.maxFinite,
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.symmetric(
+                    horizontal: DataConstants.kScreenHorizontalPadding,
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 12.0),
+
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100.0),
+                    color: DesignConstants.kTextGreenColor,
+                    boxShadow: [
+                      BoxShadow(
+                        color: DesignConstants.kTextGreenColor.withOpacity(0.4),
+                        blurRadius: 10,
+                        spreadRadius: 0,
+                        offset: const Offset(0, 4),
                       ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100.0),
-                        color: DesignConstants.kTextGreenColor,
-                        boxShadow: [
-                          BoxShadow(
-                            color: DesignConstants.kTextGreenColor.withOpacity(
-                              0.3,
-                            ),
-                            blurRadius: 10,
-                            spreadRadius: 2,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            DesignConstants.kTextGreenColor.withOpacity(0.9),
-                            DesignConstants.kTextGreenColor,
-                          ],
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Next',
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontSize: 21,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          letterSpacing: 0.5,
                         ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Next',
-                            style: Theme.of(
-                              context,
-                            ).textTheme.bodyMedium!.copyWith(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                              letterSpacing: 0.5,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                    .animate(
-                      delay: bottomElementsDelay,
-                      onPlay: (controller) => controller.repeat(reverse: true),
-                    )
-                    .shimmer(
-                      delay: 2000.ms,
-                      duration: 1000.ms,
-                      color: Colors.white.withOpacity(0.2),
-                    )
-                    .scaleXY(
-                      begin: 1,
-                      end: 1.02,
-                      duration: 1500.ms,
-                      curve: Curves.easeInOut,
-                    ),
-              ),
-              AddHeight(0.015),
-              AddHeight(0.015),
-            ],
-          )
-          .animate(delay: bottomElementsDelay)
-          .fadeIn(duration: bottomElementsDuration, curve: Curves.easeOut)
-          .slideY(
-            begin: 0.4,
-            end: 0,
-            duration: bottomElementsDuration,
-            curve: Curves.easeOutBack,
+                    ],
+                  ),
+                )
+                .animate(onPlay: (controller) => controller.repeat())
+                .shimmer(
+                  delay: 1000.ms,
+                  duration: 1800.ms,
+                  color: Colors.white.withOpacity(0.3),
+                )
+                .animate(onPlay: (controller) => controller.repeat())
+                .scale(
+                  begin: const Offset(1, 1),
+                  end: const Offset(1.02, 1.02),
+                  duration: 2000.ms,
+                  curve: Curves.easeInOut,
+                ),
           ),
+        ],
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

@@ -9,6 +9,8 @@ import 'package:gloryai/services/app_images.dart';
 import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
 import '../../generic_widgets/image/gloryai_asset_image.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
+
 
 class IntroLovingGodScreen extends StatelessWidget {
   const IntroLovingGodScreen({super.key});
@@ -66,40 +68,25 @@ class IntroLovingGodScreen extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        Text(
-                          'In this moment of challenges, I come to\nYou seeking strength. You know what\nI face, the burdens on my heart, and the\ntrials that feel overwhelming.',
-                          textAlign: TextAlign.center,
-                          style: Theme.of(
-                            context,
-                          ).textTheme.bodyMedium!.copyWith(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            color: DesignConstants.kTextPurpleColor,
-                          ),
+                      
+                      AnimatedTextKit(
+                          animatedTexts: [
+                            TyperAnimatedText(
+                              'In this moment of challenges, I come to you seeking strength. You know what I face, the burdens on my heart, and the trials that feel overwhelming.\n\n Grant me the courage to move forward, the wisdom to make good decisions, and the faith to trust that I am never alone. Renew my strength, Lord, and fill my spirit with hope.\n\nThank You for walking with me every step of the way. Amen.',
+                              textAlign: TextAlign.center,
+                              textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: DesignConstants.kTextPurpleColor,
+                              ),
+                              speed: 10.milliseconds,
+                            ),
+                          ],
+                          totalRepeatCount: 1,
+                          displayFullTextOnTap: true,
                         ),
-
-                        Text(
-                          '\nGrant me the courage to move forward,\nthe wisdom to make good decisions, and\nthe faith to trust that I am never alone.\nRenew my strength, Lord,\nand fill my spirit with hope',
-                          textAlign: TextAlign.center,
-                          style: Theme.of(
-                            context,
-                          ).textTheme.bodyMedium!.copyWith(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            color: DesignConstants.kTextPurpleColor,
-                          ),
-                        ),
-                        Text(
-                          '\n\nThank You for walking with me\nevery step of the way.\nAmen.',
-                          textAlign: TextAlign.center,
-                          style: Theme.of(
-                            context,
-                          ).textTheme.bodyMedium!.copyWith(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            color: DesignConstants.kTextPurpleColor,
-                          ),
-                        ),
+                      
+                      
                       ],
                     ),
                   ),
@@ -123,7 +110,6 @@ class IntroLovingGodScreen extends StatelessWidget {
                     child: Icon(Icons.share, color: Colors.white),
                   ),
                   AddHeight(0.2),
-
                 ],
               ),
             ),

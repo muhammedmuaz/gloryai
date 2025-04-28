@@ -7,6 +7,7 @@ import 'package:gloryai/firebase_options.dart';
 import 'package:gloryai/routing/app_navigator.dart';
 import 'package:gloryai/routing/app_route_generator.dart';
 import 'package:gloryai/routing/app_route_names.dart';
+import 'package:gloryai/screens/intro/intro_quotes_slider_screen.dart';
 import 'package:gloryai/services/api_links.dart';
 import 'package:gloryai/theme/gloryai_theme.dart';
 
@@ -51,14 +52,12 @@ class _GloryAppState extends State<GloryApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      
       title: 'Glory.ai',
       debugShowCheckedModeBanner: false,
       theme: GloyAiTheme.lightTheme,
        initialRoute: AppRoutesNames.initial,
         navigatorKey: AppNavigation.navigatorKey,
         onGenerateRoute: RouteGenerator.generateRoute,
-      // home: DevotionalScreen(),
     );
   }
 }

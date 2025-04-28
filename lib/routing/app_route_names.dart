@@ -26,5 +26,6 @@ class AppRoutesNames {
   static const introDailyGuidedScreen = "/introDailyGuidedScreen";
   static const homeScreen2 = "/homeScreen2";
   static const devotionalScreen = "/devotionalScreen";
+  static const introAgeGroupScreen = "/introAgeGroupScreen";
   }
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gloryai/const/data_const.dart';
 import 'package:gloryai/const/design_const.dart';
-import 'package:gloryai/generic_widgets/screen_widgets/screen_padding.dart';
 import 'package:gloryai/routing/app_navigator.dart';
 import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/services/app_images.dart';
@@ -10,13 +9,23 @@ import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
 import '../../generic_widgets/image/gloryai_asset_image.dart';
 
-class IntroGenderSelectScreen extends StatelessWidget {
+class IntroGenderSelectScreen extends StatefulWidget {
   const IntroGenderSelectScreen({super.key});
+
+  @override
+  State<IntroGenderSelectScreen> createState() =>
+      _IntroGenderSelectScreenState();
+}
+
+class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
+  String? _selectedOption;
+  final List<String> _options = ['Male', 'Female'];
 
   @override
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
     final width = ScreenHelper.getScreenWidth(context);
+
     return Scaffold(
       body: Container(
         height: height,
@@ -33,96 +42,100 @@ class IntroGenderSelectScreen extends StatelessWidget {
           ),
         ),
         child: SafeArea(
-          child: ScreenPadding(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                AddHeight(0.05),
-                // Logo with enhanced animation
-                SizedBox(
-                  width: width * 0.6,
-                  child: GloryAiAssetImage(imagePath: AppImages.applogo),
-                ),
-                AddHeight(0.05),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: DataConstants.kScreenHorizontalPadding,
-                  ),
-                  child: Text(
-                    'How\nshould Glory\naddress you?',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w400,
-                      color: DesignConstants.kTextPurpleColor,
-                      height: 1.3,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 4,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                AddHeight(0.05),
-                // Gender options with staggered animations
-                Column(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              AddHeight(0.05),
+              SizedBox(
+                width: width * 0.6,
+                child: GloryAiAssetImage(imagePath: AppImages.applogo),
+              ),
+              
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    _buildGenderOption(context, 'Male'),
-                    AddHeight(0.01),
-                    _buildGenderOption(context, 'Female'),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: DataConstants.kScreenHorizontalPadding,
+                      ),
+                      child: Text(
+                        'Where should Glory address you?',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w400,
+                          color: DesignConstants.kTextPurpleColor,
+                          height: 1.3,
+                        ),
+                      ),
+                    ),
+                    AddHeight(0.03),
+                    Column(
+                      children:
+                          _options.map((option) {
+                            return Column(
+                              children: [
+                                _buildCircularOption(context, option),
+                                AddHeight(0.01),
+                              ],
+                            );
+                          }).toList(),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: DataConstants.kScreenHorizontalPadding),
+                      child: GloryAiAssetImage(imagePath: AppImages.cloudIcon),
+                    ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 0),
-                  child: GloryAiAssetImage(imagePath: AppImages.cloudIcon),
-                ),
-              ],
-            ),
+              ),
+
+              AddHeight(0.15),
+            ],
           ),
         ),
       ),
-      // Enhanced floating action button
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           GestureDetector(
-            onTap: () {
-              AppNavigation.navigateTo(
-                AppRoutesNames.introTraditionSelectScreen,
-              );
-            },
+            onTap:
+                _selectedOption != null
+                    ? () {
+                      AppNavigation.navigateTo(
+                        AppRoutesNames.introTraditionSelectScreen,
+                      );
+                    }
+                    : null,
             child: Container(
-                  height: 55,
-                  width: width * 0.85,
+                  width: double.maxFinite,
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(
                     horizontal: DataConstants.kScreenHorizontalPadding,
                   ),
+                  padding: EdgeInsets.symmetric(vertical: 12.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100.0),
-                    color: DesignConstants.kTextGreenColor,
+                    color:
+                        _selectedOption != null
+                            ? DesignConstants.kTextGreenColor
+                            : Colors.grey.withOpacity(0.7),
                     boxShadow: [
                       BoxShadow(
-                        color: DesignConstants.kTextGreenColor.withOpacity(0.3),
+                        color: (_selectedOption != null
+                                ? DesignConstants.kTextGreenColor
+                                : Colors.grey.withOpacity(0.3))
+                            .withOpacity(0.4),
                         blurRadius: 10,
+                        spreadRadius: 0,
                         offset: const Offset(0, 4),
                       ),
                     ],
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        DesignConstants.kTextGreenColor,
-                        DesignConstants.kTextGreenColor.withOpacity(0.9),
-                      ],
-                    ),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -130,7 +143,7 @@ class IntroGenderSelectScreen extends StatelessWidget {
                       Text(
                         'Next',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 22,
+                          fontSize: 21,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
                           letterSpacing: 0.5,
@@ -139,13 +152,21 @@ class IntroGenderSelectScreen extends StatelessWidget {
                     ],
                   ),
                 )
-                .animate(onPlay: (controller) => controller.repeat())
+                .animate(
+                  onPlay:
+                      (controller) =>
+                          _selectedOption != null ? controller.repeat() : null,
+                )
                 .shimmer(
                   delay: 1000.ms,
                   duration: 1800.ms,
                   color: Colors.white.withOpacity(0.3),
                 )
-                .animate(onPlay: (controller) => controller.repeat())
+                .animate(
+                  onPlay:
+                      (controller) =>
+                          _selectedOption != null ? controller.repeat() : null,
+                )
                 .scale(
                   begin: const Offset(1, 1),
                   end: const Offset(1.02, 1.02),
@@ -153,25 +174,42 @@ class IntroGenderSelectScreen extends StatelessWidget {
                   curve: Curves.easeInOut,
                 ),
           ),
-
-          AddHeight(0.015),
-          AddHeight(0.015),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
-  Widget _buildGenderOption(BuildContext context, String title) {
+  Widget _buildCircularOption(BuildContext context, String title) {
+    final isSelected = _selectedOption == title;
+
     return GestureDetector(
-      onTap: () {},
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.7,
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-        margin: const EdgeInsets.symmetric(horizontal: 20),
+      onTap: () {
+        setState(() {
+          _selectedOption = isSelected ? null : title;
+        });
+      },
+      child: AnimatedContainer(
+        duration: 300.ms,
+        curve: Curves.easeOutQuad,
+        margin: EdgeInsets.symmetric(
+          horizontal: DataConstants.kScreenHorizontalPadding,
+        ),
+        width: double.maxFinite,
+        padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
-          color: DesignConstants.kTextLightColor,
+          color:
+              isSelected
+                  ? DesignConstants.kTextLightColor.withOpacity(0.5)
+                  : DesignConstants.kTextLightColor,
           borderRadius: BorderRadius.circular(100),
+          border:
+              isSelected
+                  ? Border.all(
+                    width: 1.5,
+                    color: DesignConstants.kTextLightColor,
+                  )
+                  : null,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
@@ -180,15 +218,31 @@ class IntroGenderSelectScreen extends StatelessWidget {
             ),
           ],
         ),
-        child: Text(
-          title,
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            fontSize: 21,
-            fontWeight: FontWeight.w500,
-            color: Colors.white,
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedScale(
+              duration: 200.ms,
+              scale: isSelected ? 1.05 : 1.0,
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontSize: 21,
+                  fontWeight: FontWeight.w400,
+                  color:
+                      isSelected ? Colors.white : Colors.white.withOpacity(0.9),
+                ),
+              ),
+            ),
+          ],
         ),
+      ).animate(
+        onComplete: (controller) {
+          if (isSelected) {
+            controller.repeat();
+          }
+        },
       ),
     );
   }

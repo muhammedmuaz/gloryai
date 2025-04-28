@@ -10,9 +10,16 @@ import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
 import '../../generic_widgets/image/gloryai_asset_image.dart';
 
-class IntroRatingScreen extends StatelessWidget {
+class IntroRatingScreen extends StatefulWidget {
   const IntroRatingScreen({super.key});
 
+  @override
+  State<IntroRatingScreen> createState() => _IntroRatingScreenState();
+}
+
+class _IntroRatingScreenState extends State<IntroRatingScreen> {
+  final CarouselSliderController _carouselController =
+      CarouselSliderController();
   @override
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
@@ -59,7 +66,7 @@ class IntroRatingScreen extends StatelessWidget {
                 'Testimonials',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: 26,
+                  fontSize: 24,
                   fontWeight: FontWeight.w400,
                   color: DesignConstants.kTextLightColor,
                 ),
@@ -73,6 +80,7 @@ class IntroRatingScreen extends StatelessWidget {
                     // Carousel with refined animations
                     CarouselSlider(
                       disableGesture: true,
+                      controller: _carouselController,
                       options: CarouselOptions(
                         height: height * 0.335,
                         aspectRatio: 16 / 9,
@@ -116,7 +124,6 @@ class IntroRatingScreen extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            // Stars with refined animation
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -135,25 +142,26 @@ class IntroRatingScreen extends StatelessWidget {
                                                     color:
                                                         DesignConstants
                                                             .kTextLightColor,
-                                                    size: 30.0,
+                                                    size: 28.0,
                                                   ),
                                                 );
                                               }),
                                             ),
                                             // Optional: Add testimonial text with animation
-                                            if (i.isOdd)
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                  top: 12,
-                                                ),
-                                                child: Text(
-                                                  'Excellent service!',
-                                                  style:
-                                                      Theme.of(
-                                                        context,
-                                                      ).textTheme.bodySmall,
-                                                ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                top: 8,
                                               ),
+                                              child: Text(
+                                                'Excellent service!',
+                                                style:
+                                                    Theme.of(
+                                                      context,
+                                                    ).textTheme.bodySmall!.copyWith(
+                                                      fontSize: 12
+                                                    ),
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -164,7 +172,6 @@ class IntroRatingScreen extends StatelessWidget {
                             );
                           }).toList(),
                     ),
-                    // Navigation Arrows
                     Center(
                       child: Padding(
                         padding: EdgeInsets.symmetric(
@@ -179,12 +186,15 @@ class IntroRatingScreen extends StatelessWidget {
                               context,
                               icon: AppImages.leftArrowIcon,
                               isLeft: true,
+                              onPressed:
+                                  () => _carouselController.previousPage(),
                             ),
                             // Right Arrow with refined animation
                             _buildArrowButton(
                               context,
                               icon: AppImages.rightArrowIcon,
                               isLeft: false,
+                              onPressed: () => _carouselController.nextPage(),
                             ),
                           ],
                         ),
@@ -205,16 +215,16 @@ class IntroRatingScreen extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              
               AppNavigation.navigateTo(AppRoutesNames.introQuoteScreen);
             },
             child: Container(
-                  height: 55,
-                  width: width * 0.85,
+                  width: double.maxFinite,
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(
                     horizontal: DataConstants.kScreenHorizontalPadding,
                   ),
+                  padding: EdgeInsets.symmetric(vertical: 12.0),
+
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100.0),
                     color: DesignConstants.kTextGreenColor,
@@ -233,7 +243,7 @@ class IntroRatingScreen extends StatelessWidget {
                       Text(
                         'Next',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 22,
+                          fontSize: 21,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
                           letterSpacing: 0.5,
@@ -255,11 +265,8 @@ class IntroRatingScreen extends StatelessWidget {
                   duration: 2000.ms,
                   curve: Curves.easeInOut,
                 ),
-         
-         
           ),
-          AddHeight(0.015),
-          AddHeight(0.015),
+
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -270,6 +277,7 @@ class IntroRatingScreen extends StatelessWidget {
     BuildContext context, {
     required String icon,
     required bool isLeft,
+    required VoidCallback onPressed,
   }) {
     return Container(
       height: 45,
@@ -289,7 +297,7 @@ class IntroRatingScreen extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(12.0),
-          onTap: () {},
+          onTap: onPressed,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: GloryAiAssetImage(imagePath: icon),

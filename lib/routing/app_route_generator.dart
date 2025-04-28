@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/screens/devotional_screen.dart';
 import 'package:gloryai/screens/home_screen2.dart';
+import 'package:gloryai/screens/intro/intro_age_group_screen.dart';
 import 'package:gloryai/screens/intro/intro_always_together_screen.dart';
 import 'package:gloryai/screens/intro/intro_beginning_screen.dart';
 import 'package:gloryai/screens/intro/intro_daily_guided_screen.dart';
@@ -82,7 +83,9 @@ class RouteGenerator {
       case AppRoutesNames.homeScreen2:
         return _screenRoute(screen: const HomeScreen2());
       case AppRoutesNames.devotionalScreen:
-        return _screenRoute(screen: const DevotionalScreen());            
+        return _screenRoute(screen: const DevotionalScreen());
+      case AppRoutesNames.introAgeGroupScreen:
+        return _screenRoute(screen: const IntroAgeGroupScreen());              
       default:
         return _errorRoute();
     }

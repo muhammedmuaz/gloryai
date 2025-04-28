@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gloryai/const/data_const.dart';
@@ -6,12 +7,18 @@ import 'package:gloryai/routing/app_navigator.dart';
 import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/services/app_images.dart';
 import 'package:gloryai/services/helper_widgets/add_height.dart';
+import 'package:gloryai/utils/helper_functions.dart';
 import 'package:gloryai/utils/screen_helper.dart';
 import '../../generic_widgets/image/gloryai_asset_image.dart';
 
-class IntroBeginningScreen extends StatelessWidget {
+class IntroBeginningScreen extends StatefulWidget {
   const IntroBeginningScreen({super.key});
 
+  @override
+  State<IntroBeginningScreen> createState() => _IntroBeginningScreenState();
+}
+
+class _IntroBeginningScreenState extends State<IntroBeginningScreen> {
   @override
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
@@ -51,31 +58,28 @@ class IntroBeginningScreen extends StatelessWidget {
                 width: width * 0.6,
                 child: GloryAiAssetImage(imagePath: AppImages.applogo),
               ),
-              AddHeight(0.05),
+              AddHeight(0.03),
               Text(
-                'This is just the\nbeginning...',
+                'This is just the beginning...',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: 24,
                   fontWeight: FontWeight.w400,
                   color: DesignConstants.kTextPurpleColor,
-                  height: 1.3,
                 ),
               ),
-              AddHeight(0.03),
+              AddHeight(0.01),
               Text(
-                'Your moments with God,\ncaptured',
+                'Your moments with God, captured',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: 18,
                   fontWeight: FontWeight.w400,
                   color: DesignConstants.kTextPurpleColor,
-                  height: 1.4,
                 ),
               ),
               AddHeight(0.04),
-              SizedBox(
-                height: height * 0.4,
+              Expanded(
                 child: GloryAiAssetImage(imagePath: AppImages.introMockupGlory)
                     .animate(delay: mockupDelay)
                     .fadeIn(duration: mockupDuration)
@@ -96,8 +100,7 @@ class IntroBeginningScreen extends StatelessWidget {
                       curve: Curves.easeInOut,
                     ),
               ),
-                  AddHeight(0.2),
-
+              AddHeight(0.12),
             ],
           ),
         ),
@@ -109,36 +112,38 @@ class IntroBeginningScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          GestureDetector(
+
+             GestureDetector(
             onTap: () {
-              AppNavigation.navigateTo(AppRoutesNames.introRating2Screen);
-            },
+               BottomSheetsAndDialogs.shareDialogBox(
+                context,
+                onShare: () {
+                  AppNavigation.navigateTo(AppRoutesNames.introRating2Screen);
+                },
+                onCancel: () {
+                  AppNavigation.navigateTo(AppRoutesNames.introRating2Screen);
+                },
+              );
+           },
             child: Container(
-                  height: 55,
-                  width: width * 0.85,
+                  width: double.maxFinite,
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(
                     horizontal: DataConstants.kScreenHorizontalPadding,
                   ),
+                  padding: EdgeInsets.symmetric(vertical: 12.0),
+
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100.0),
                     color: DesignConstants.kTextGreenColor,
                     boxShadow: [
                       BoxShadow(
-                        color: DesignConstants.kTextGreenColor.withOpacity(0.3),
+                        color: DesignConstants.kTextGreenColor.withOpacity(0.4),
                         blurRadius: 10,
-                        spreadRadius: 2,
+                        spreadRadius: 0,
                         offset: const Offset(0, 4),
                       ),
                     ],
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        DesignConstants.kTextGreenColor.withOpacity(0.9),
-                        DesignConstants.kTextGreenColor,
-                      ],
-                    ),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -146,7 +151,7 @@ class IntroBeginningScreen extends StatelessWidget {
                       Text(
                         'Next',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 22,
+                          fontSize: 21,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
                           letterSpacing: 0.5,
@@ -155,24 +160,20 @@ class IntroBeginningScreen extends StatelessWidget {
                     ],
                   ),
                 )
-                .animate(
-                  delay: bottomElementsDelay,
-                  onPlay: (controller) => controller.repeat(reverse: true),
-                )
+                .animate(onPlay: (controller) => controller.repeat())
                 .shimmer(
-                  delay: 2000.ms,
-                  duration: 1000.ms,
-                  color: Colors.white.withOpacity(0.2),
+                  delay: 1000.ms,
+                  duration: 1800.ms,
+                  color: Colors.white.withOpacity(0.3),
                 )
-                .scaleXY(
-                  begin: 1,
-                  end: 1.02,
-                  duration: 1500.ms,
+                .animate(onPlay: (controller) => controller.repeat())
+                .scale(
+                  begin: const Offset(1, 1),
+                  end: const Offset(1.02, 1.02),
+                  duration: 2000.ms,
                   curve: Curves.easeInOut,
                 ),
           ),
-          AddHeight(0.015),
-          AddHeight(0.015),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
