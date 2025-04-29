@@ -5,15 +5,29 @@ import 'package:gloryai/const/design_const.dart';
 import 'package:gloryai/generic_widgets/screen_widgets/screen_padding.dart';
 import 'package:gloryai/routing/app_navigator.dart';
 import 'package:gloryai/routing/app_route_names.dart';
-import 'package:gloryai/screens/widgets/find_circular_container.dart';
 import 'package:gloryai/services/app_images.dart';
 import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
 import '../../generic_widgets/image/gloryai_asset_image.dart';
 
-class IntroHowBestGlorySupportScreen extends StatelessWidget {
+class IntroHowBestGlorySupportScreen extends StatefulWidget {
   const IntroHowBestGlorySupportScreen({super.key});
 
+  @override
+  State<IntroHowBestGlorySupportScreen> createState() =>
+      _IntroHowBestGlorySupportScreenState();
+}
+
+class _IntroHowBestGlorySupportScreenState
+    extends State<IntroHowBestGlorySupportScreen> {
+  String? _selectedOption;
+  final List<String> _options = [
+    'Daily prayer guidance',
+    'Scripture understanding',
+    'Faith-based problem solving',
+    'Community connection',
+    'Spiritual accountability',
+  ];
   @override
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
@@ -35,63 +49,62 @@ class IntroHowBestGlorySupportScreen extends StatelessWidget {
         ),
         child: SafeArea(
           child: ScreenPadding(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  AddHeight(0.05),
-                  SizedBox(
-                    width: width * 0.6,
-                    child: GloryAiAssetImage(imagePath: AppImages.applogo),
-                  ),
-                      AddHeight(0.05),
-                  // Tagline with attention-grabbing animation
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
+            child: Stack(
+              children: [
+                Positioned(
+                  bottom: height * 0.15,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    width: width,
+                    padding: EdgeInsets.symmetric(
                       horizontal: DataConstants.kScreenHorizontalPadding,
                     ),
-                    child: Text(
-                      'How can Glory\nbest support you?',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w400,
-                        color: DesignConstants.kTextPurpleColor,
-                      ),
+                    child: GloryAiAssetImage(imagePath: AppImages.cloudIcon),
+                  ),
+                ),
+                Column(
+                  children: [
+                    AddHeight(0.05),
+                    SizedBox(
+                      width: width * 0.6,
+                      child: GloryAiAssetImage(imagePath: AppImages.applogo),
                     ),
-                  ),
-                  AddHeight(0.05),
-                  Column(
-                    children: [
-                      CircularFindContainer(
-                        onTap: () {},
-                        title: 'Daily prayer guidance',
+                   Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'How can Glory best support you?',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w400,
+                              color: DesignConstants.kTextPurpleColor,
+                            ),
+                          ),
+                          AddHeight(0.07),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children:
+                                _options.map((option) {
+                                  return Column(
+                                    children: [
+                                      _buildCircularOption(context, option),
+                                      AddHeight(0.01),
+                                    ],
+                                  );
+                                }).toList(),
+                          ),
+                        ],
                       ),
-              
-                      AddHeight(0.01),
-                      CircularFindContainer(
-                        onTap: () {},
-                        title: 'Scripture understanding',
-                      ),
-                      AddHeight(0.01),
-                      CircularFindContainer(
-                        onTap: () {},
-                        title: 'Faith-based problem solving',
-                      ),
-                      AddHeight(0.01),
-                      CircularFindContainer(
-                        onTap: () {},
-                        title: 'Community connection',
-                      ),
-                      AddHeight(0.01),
-                      CircularFindContainer(
-                        onTap: () {},
-                        title: 'Spiritual accountability',
-                      ),
-                    ],
-                  ),
-                  AddHeight(0.2)
-                ],
-              ),
+                    ),   
+                    AddHeight(0.12),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
@@ -102,37 +115,39 @@ class IntroHowBestGlorySupportScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           GestureDetector(
-            onTap: () {
-              AppNavigation.navigateTo(
-                AppRoutesNames.introNeverMissDailyScreen
-              );
-            },
+            onTap:
+                _selectedOption != null
+                    ? () {
+                      AppNavigation.navigateTo(
+                        AppRoutesNames.introNeverMissDailyScreen,
+                      );
+                    }
+                    : null,
             child: Container(
-                  height: 55,
-                  width: width * 0.85,
+                  width: double.maxFinite,
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(
                     horizontal: DataConstants.kScreenHorizontalPadding,
                   ),
+                  padding: EdgeInsets.symmetric(vertical: 12.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100.0),
-                    color: DesignConstants.kTextGreenColor,
+                    color:
+                        _selectedOption != null
+                            ? DesignConstants.kTextGreenColor
+                            : Colors.grey.withOpacity(0.7),
                     boxShadow: [
                       BoxShadow(
-                        color: DesignConstants.kTextGreenColor.withOpacity(0.3),
+                        color: (_selectedOption != null
+                                ? DesignConstants.kTextGreenColor
+                                // ignore: deprecated_member_use
+                                : Colors.grey.withOpacity(0.3))
+                            .withOpacity(0.4),
                         blurRadius: 10,
-                        spreadRadius: 2,
+                        spreadRadius: 0,
                         offset: const Offset(0, 4),
                       ),
                     ],
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        DesignConstants.kTextGreenColor.withOpacity(0.9),
-                        DesignConstants.kTextGreenColor,
-                      ],
-                    ),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -140,7 +155,7 @@ class IntroHowBestGlorySupportScreen extends StatelessWidget {
                       Text(
                         'Next',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 22,
+                          fontSize: 21,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
                           letterSpacing: 0.5,
@@ -149,13 +164,21 @@ class IntroHowBestGlorySupportScreen extends StatelessWidget {
                     ],
                   ),
                 )
-                .animate(onPlay: (controller) => controller.repeat())
+                .animate(
+                  onPlay:
+                      (controller) =>
+                          _selectedOption != null ? controller.repeat() : null,
+                )
                 .shimmer(
                   delay: 1000.ms,
                   duration: 1800.ms,
                   color: Colors.white.withOpacity(0.3),
                 )
-                .animate(onPlay: (controller) => controller.repeat())
+                .animate(
+                  onPlay:
+                      (controller) =>
+                          _selectedOption != null ? controller.repeat() : null,
+                )
                 .scale(
                   begin: const Offset(1, 1),
                   end: const Offset(1.02, 1.02),
@@ -163,11 +186,76 @@ class IntroHowBestGlorySupportScreen extends StatelessWidget {
                   curve: Curves.easeInOut,
                 ),
           ),
-          AddHeight(0.015),
-          AddHeight(0.015),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+
+  Widget _buildCircularOption(BuildContext context, String title) {
+    final isSelected = _selectedOption == title;
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedOption = isSelected ? null : title;
+        });
+      },
+      child: AnimatedContainer(
+        duration: 300.ms,
+        curve: Curves.easeOutQuad,
+        width: double.maxFinite,
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          color:
+              isSelected
+                  // ignore: deprecated_member_use
+                  ? DesignConstants.kTextLightColor.withOpacity(0.5)
+                  : DesignConstants.kTextLightColor,
+          borderRadius: BorderRadius.circular(100),
+          border:
+              isSelected
+                  ? Border.all(
+                    width: 1.5,
+                    color: DesignConstants.kTextLightColor,
+                  )
+                  : null,
+          boxShadow: [
+            BoxShadow(
+              // ignore: deprecated_member_use
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedScale(
+              duration: 200.ms,
+              scale: isSelected ? 1.05 : 1.0,
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontSize: 21,
+                  fontWeight: FontWeight.w400,
+                  color:
+                      // ignore: deprecated_member_use
+                      isSelected ? Colors.white : Colors.white.withOpacity(0.9),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ).animate(
+        onComplete: (controller) {
+          if (isSelected) {
+            controller.repeat();
+          }
+        },
+      ),
     );
   }
 }

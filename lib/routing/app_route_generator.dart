@@ -12,6 +12,7 @@ import 'package:gloryai/screens/intro/intro_devotional_screen.dart';
 import 'package:gloryai/screens/intro/intro_embark_sacred_screen.dart';
 import 'package:gloryai/screens/intro/intro_gender_select_screen.dart';
 import 'package:gloryai/screens/intro/intro_how_best_glory_support_screen.dart';
+import 'package:gloryai/screens/intro/intro_how_long_list_screen.dart';
 import 'package:gloryai/screens/intro/intro_illuminate_sprit_screen.dart';
 import 'package:gloryai/screens/intro/intro_login_screen.dart';
 import 'package:gloryai/screens/intro/intro_loving_god_screen.dart';
@@ -85,7 +86,9 @@ class RouteGenerator {
       case AppRoutesNames.devotionalScreen:
         return _screenRoute(screen: const DevotionalScreen());
       case AppRoutesNames.introAgeGroupScreen:
-        return _screenRoute(screen: const IntroAgeGroupScreen());              
+        return _screenRoute(screen: const IntroAgeGroupScreen());    
+      case AppRoutesNames.introHowLongistScreen:
+        return _screenRoute(screen: const IntroHowLongistScreen());                
       default:
         return _errorRoute();
     }

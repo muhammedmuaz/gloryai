@@ -10,9 +10,16 @@ import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
 import '../../generic_widgets/image/gloryai_asset_image.dart';
 
-class IntroIlluminateSpiritScreen extends StatelessWidget {
+class IntroIlluminateSpiritScreen extends StatefulWidget {
   const IntroIlluminateSpiritScreen({super.key});
 
+  @override
+  State<IntroIlluminateSpiritScreen> createState() => _IntroIlluminateSpiritScreenState();
+}
+
+class _IntroIlluminateSpiritScreenState extends State<IntroIlluminateSpiritScreen> {
+  final CarouselSliderController _carouselController =
+      CarouselSliderController();
   @override
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
@@ -43,18 +50,17 @@ class IntroIlluminateSpiritScreen extends StatelessWidget {
                 width: width * 0.6,
                 child: GloryAiAssetImage(imagePath: AppImages.applogo),
               ),
-              AddHeight(0.05),
+              AddHeight(0.03),
               Text(
-                'Illuminate Your Spirit,\nShare Your Journey',
+                'Illuminate Your Spirit, Share Your Journey',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: 24,
                   fontWeight: FontWeight.w400,
                   color: DesignConstants.kTextPurpleColor,
-                  height: 1.3,
                 ),
               ),
-              AddHeight(0.03),
+              AddHeight(0.02),
               Text(
                 'A nurturing space\nfor reflection and support',
                 textAlign: TextAlign.center,
@@ -75,19 +81,19 @@ class IntroIlluminateSpiritScreen extends StatelessWidget {
                 ),
               ),
 
-              AddHeight(0.02),
+              AddHeight(0.01),
 
               // Counter with fade and slide
-              SizedBox(
-                height: height * 0.4,
+              Expanded(
                 child: Stack(
                   children: [
                     CarouselSlider(
                       disableGesture: true,
+                      controller: _carouselController,
                       options: CarouselOptions(
-                        height: height * 0.35,
+                        height: height * 0.4,
                         aspectRatio: 16 / 9,
-                        viewportFraction: 0.67,
+                        viewportFraction: 0.79,
                         initialPage: 0,
                         enableInfiniteScroll: true,
                         reverse: false,
@@ -326,42 +332,52 @@ class IntroIlluminateSpiritScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             // Left arrow with bounce effect
-                            Container(
-                              height: 45,
-                              width: 45,
-                              decoration: BoxDecoration(
-                                color: DesignConstants.kTextLightColor,
-                                borderRadius: BorderRadius.circular(12.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    blurRadius: 4,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              padding: EdgeInsets.all(8.0),
-                              child: GloryAiAssetImage(
-                                imagePath: AppImages.leftArrowIcon,
+                            GestureDetector(
+                              onTap: (){
+                                _carouselController.previousPage();
+                              },
+                              child: Container(
+                                height: 45,
+                                width: 45,
+                                decoration: BoxDecoration(
+                                  color: DesignConstants.kTextLightColor,
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.1),
+                                      blurRadius: 4,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                padding: EdgeInsets.all(8.0),
+                                child: GloryAiAssetImage(
+                                  imagePath: AppImages.leftArrowIcon,
+                                ),
                               ),
                             ),
-                            Container(
-                              height: 45,
-                              width: 45,
-                              decoration: BoxDecoration(
-                                color: DesignConstants.kTextLightColor,
-                                borderRadius: BorderRadius.circular(12.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    blurRadius: 4,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              padding: EdgeInsets.all(8.0),
-                              child: GloryAiAssetImage(
-                                imagePath: AppImages.rightArrowIcon,
+                            GestureDetector(
+                              onTap: (){
+                                _carouselController.nextPage();
+                              },
+                              child: Container(
+                                height: 45,
+                                width: 45,
+                                decoration: BoxDecoration(
+                                  color: DesignConstants.kTextLightColor,
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.1),
+                                      blurRadius: 4,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                padding: EdgeInsets.all(8.0),
+                                child: GloryAiAssetImage(
+                                  imagePath: AppImages.rightArrowIcon,
+                                ),
                               ),
                             ),
                           ],
@@ -371,7 +387,7 @@ class IntroIlluminateSpiritScreen extends StatelessWidget {
                   ],
                 ),
               ),
-                  AddHeight(0.2),
+                  AddHeight(0.12),
 
             ],
           ),
@@ -384,36 +400,32 @@ class IntroIlluminateSpiritScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          GestureDetector(
+
+                      GestureDetector(
             onTap: () {
-              AppNavigation.navigateTo(AppRoutesNames.introMultipleChoiceScreen);
-            },
+                                             AppNavigation.navigateTo(AppRoutesNames.introAlwaysTogetherScreen);
+
+
+           },
             child: Container(
-                  height: 55,
-                  width: width * 0.85,
+                  width: double.maxFinite,
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(
                     horizontal: DataConstants.kScreenHorizontalPadding,
                   ),
+                  padding: EdgeInsets.symmetric(vertical: 12.0),
+
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100.0),
                     color: DesignConstants.kTextGreenColor,
                     boxShadow: [
                       BoxShadow(
-                        color: DesignConstants.kTextGreenColor.withOpacity(0.3),
+                        color: DesignConstants.kTextGreenColor.withOpacity(0.4),
                         blurRadius: 10,
-                        spreadRadius: 2,
+                        spreadRadius: 0,
                         offset: const Offset(0, 4),
                       ),
                     ],
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        DesignConstants.kTextGreenColor.withOpacity(0.9),
-                        DesignConstants.kTextGreenColor,
-                      ],
-                    ),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -421,7 +433,7 @@ class IntroIlluminateSpiritScreen extends StatelessWidget {
                       Text(
                         'Receive my prayer',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 22,
+                          fontSize: 21,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
                           letterSpacing: 0.5,
@@ -444,9 +456,8 @@ class IntroIlluminateSpiritScreen extends StatelessWidget {
                   curve: Curves.easeInOut,
                 ),
           ),
-          AddHeight(0.015),
-          AddHeight(0.015),
-        ],
+   
+     ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

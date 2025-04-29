@@ -47,7 +47,7 @@ class IntroDevotionalScreen extends StatelessWidget {
 
                 AddHeight(0.03),
                 Text(
-                  'Today\'s Devotional\nJourney',
+                  'Today\'s Devotional Journey',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontSize: 24,

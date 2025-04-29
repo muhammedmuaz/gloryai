@@ -35,6 +35,15 @@ class AppImages {
   static final chatIconGlory = _concatPathAndImage("chat_icon.svg");
   static final heartFilledIconGlory = _concatPathAndImage("heart_fill_icon.svg");
   static final googleIconGlory = _concatPathAndImage("google_icon.svg");
+  static final mobBlankScreenGlory = _concatPathAndImage("mob_screen.png");
+  static final calendarIconGlory = _concatPathAndImage("calendar_icon.svg");
+  static final bibleIconGlory = _concatPathAndImage("bible_icon.svg");
+  static final settingsIconGlory = _concatPathAndImage("settings_icon.svg");
+  static final shareIconGlory = _concatPathAndImage("share_icon.svg");
+
+
+
+
   // Lotties
   static final loadingLottie = _concatPathAndLottie("loading.json");
   static final bibleLottie = _concatPathAndLottie("bible.json");

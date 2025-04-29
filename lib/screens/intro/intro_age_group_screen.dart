@@ -26,7 +26,6 @@ class _IntroAgeGroupScreenState extends State<IntroAgeGroupScreen> {
     '46-55',
     '56 and above',
   ];
-
   @override
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
@@ -275,4 +274,6 @@ class _IntroAgeGroupScreenState extends State<IntroAgeGroupScreen> {
       ),
     );
   }
+
+
 }

@@ -7,6 +7,7 @@ import 'package:gloryai/routing/app_navigator.dart';
 import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/services/app_images.dart';
 import 'package:gloryai/services/helper_widgets/add_height.dart';
+import 'package:gloryai/utils/helper_functions.dart';
 import 'package:gloryai/utils/screen_helper.dart';
 import '../../generic_widgets/image/gloryai_asset_image.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -91,25 +92,38 @@ class IntroLovingGodScreen extends StatelessWidget {
                     ),
                   ),
                   AddHeight(0.05),
-                  Container(
-                    height: 40,
-                    width: 40,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: DesignConstants.kBlossom,
-                      borderRadius: BorderRadius.circular(8.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: DesignConstants.kBlossom.withOpacity(0.3),
-                          blurRadius: 8,
-                          spreadRadius: 1,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
+                  GestureDetector(
+                    onTap: (){
+                      BottomSheetsAndDialogs.shareDialogBox(
+                context,
+                onShare: () {
+                  AppNavigation.goBack();
+                },
+                onCancel: () {
+                  AppNavigation.goBack();
+                },
+              );
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: DesignConstants.kBlossom,
+                        borderRadius: BorderRadius.circular(8.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: DesignConstants.kBlossom.withOpacity(0.3),
+                            blurRadius: 8,
+                            spreadRadius: 1,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: Icon(Icons.share, color: Colors.white),
                     ),
-                    child: Icon(Icons.share, color: Colors.white),
                   ),
-                  AddHeight(0.2),
+                  AddHeight(0.12),
                 ],
               ),
             ),
@@ -125,50 +139,57 @@ class IntroLovingGodScreen extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              AppNavigation.navigateTo(AppRoutesNames.introBeginningScreen);
+              BottomSheetsAndDialogs.shareDialogBox(
+                context,
+                onShare: () {
+                  AppNavigation.navigateTo(AppRoutesNames.introBeginningScreen);
+                },
+                onCancel: () {
+                  AppNavigation.navigateTo(AppRoutesNames.introBeginningScreen);
+                },
+              );
             },
             child: Container(
-                  height: 55,
-                  width: width * 0.85,
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(
-                    horizontal: DataConstants.kScreenHorizontalPadding,
+              width: width,
+              alignment: Alignment.center,
+              margin: EdgeInsets.symmetric(
+                horizontal: DataConstants.kScreenHorizontalPadding,
+              ),
+              padding: EdgeInsets.symmetric(vertical: 12.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100.0),
+                color: DesignConstants.kTextGreenColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: DesignConstants.kTextGreenColor.withOpacity(0.3),
+                    blurRadius: 10,
+                    spreadRadius: 0,
+                    offset: const Offset(0, 4),
                   ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100.0),
-                    color: DesignConstants.kTextGreenColor,
-                    boxShadow: [
-                      BoxShadow(
-                        color: DesignConstants.kTextGreenColor.withOpacity(0.3),
-                        blurRadius: 10,
-                        spreadRadius: 2,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        DesignConstants.kTextGreenColor.withOpacity(0.9),
-                        DesignConstants.kTextGreenColor,
-                      ],
+                ],
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    DesignConstants.kTextGreenColor,
+                    DesignConstants.kTextGreenColor.withOpacity(0.9),
+                  ],
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Amen',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Amen',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          letterSpacing: 0.5,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
+                ],
+              ),
+            )
                 .animate(onPlay: (controller) => controller.repeat())
                 .shimmer(
                   delay: 1000.ms,
@@ -183,8 +204,6 @@ class IntroLovingGodScreen extends StatelessWidget {
                   curve: Curves.easeInOut,
                 ),
           ),
-          AddHeight(0.015),
-          AddHeight(0.015),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

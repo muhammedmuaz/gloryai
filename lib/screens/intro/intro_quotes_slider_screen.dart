@@ -358,8 +358,6 @@ class _IntroQuotesSliderScreenState extends State<IntroQuotesSliderScreen>{
                   curve: Curves.easeInOut,
                 ),
           ),
-          AddHeight(0.015),
-          AddHeight(0.015),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

@@ -217,6 +217,8 @@ class _IntroRating2ScreenState extends State<IntroRating2Screen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
+   
+   
                       GestureDetector(
             onTap: () {
                                AppNavigation.navigateTo(AppRoutesNames.introIlluminateSpiritScreen);
@@ -271,6 +273,8 @@ class _IntroRating2ScreenState extends State<IntroRating2Screen> {
                   curve: Curves.easeInOut,
                 ),
           ),
+   
+   
       ],
           ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

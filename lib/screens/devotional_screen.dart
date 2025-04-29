@@ -114,7 +114,7 @@ class DevotionalScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Container(
-                              height: 145,
+                              height: 130,
                               padding: EdgeInsets.only(
                                 top: 2.5,
                                 left: 2.5,
@@ -154,7 +154,7 @@ class DevotionalScreen extends StatelessWidget {
                                           style: Theme.of(
                                             context,
                                           ).textTheme.bodyMedium!.copyWith(
-                                            fontSize: 40,
+                                            fontSize: 32,
                                             fontWeight: FontWeight.bold,
                                             color:
                                                 DesignConstants
@@ -171,7 +171,7 @@ class DevotionalScreen extends StatelessWidget {
                           SizedBox(width: 8),
                           Expanded(
                             child: Container(
-                              height: 145,
+                              height: 130,
                               padding: EdgeInsets.only(
                                 top: 2.5,
                                 left: 2.5,
@@ -260,7 +260,7 @@ class DevotionalScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Container(
-                              height: 150,
+                              height: 130,
                               padding: EdgeInsets.only(
                                 top: 2.5,
                                 left: 2.5,
@@ -309,7 +309,7 @@ class DevotionalScreen extends StatelessWidget {
                                             style: Theme.of(
                                               context,
                                             ).textTheme.bodyMedium!.copyWith(
-                                              fontSize: 40,
+                                              fontSize: 32,
                                               fontWeight: FontWeight.bold,
                                               color:
                                                   DesignConstants
@@ -341,7 +341,7 @@ class DevotionalScreen extends StatelessWidget {
                           SizedBox(width: 8),
                           Expanded(
                             child: Container(
-                              height: 145,
+                              height: 130,
                               padding: EdgeInsets.only(
                                 top: 2.5,
                                 left: 2.5,
@@ -386,7 +386,7 @@ class DevotionalScreen extends StatelessWidget {
                                             style: Theme.of(
                                               context,
                                             ).textTheme.bodyMedium!.copyWith(
-                                              fontSize: 40,
+                                              fontSize: 32,
                                               fontWeight: FontWeight.bold,
                                               color:
                                                   DesignConstants
@@ -492,7 +492,7 @@ class DevotionalScreen extends StatelessWidget {
                                             style: Theme.of(
                                               context,
                                             ).textTheme.bodyMedium!.copyWith(
-                                              fontSize: 32,
+                                              fontSize: 28,
                                               fontWeight: FontWeight.w400,
                                               color: DesignConstants.kTextPurpleColor,
                                             ),
@@ -519,7 +519,7 @@ class DevotionalScreen extends StatelessWidget {
                                             style: Theme.of(
                                               context,
                                             ).textTheme.bodyMedium!.copyWith(
-                                              fontSize: 32,
+                                              fontSize: 28,
                                               fontWeight: FontWeight.w400,
                                               color: DesignConstants.kTextPurpleColor,
                                             ),
@@ -546,7 +546,7 @@ class DevotionalScreen extends StatelessWidget {
                                             style: Theme.of(
                                               context,
                                             ).textTheme.bodyMedium!.copyWith(
-                                              fontSize: 32,
+                                              fontSize: 28,
                                               fontWeight: FontWeight.w400,
                                               color: DesignConstants.kTextPurpleColor,
                                             ),
@@ -574,7 +574,7 @@ class DevotionalScreen extends StatelessWidget {
                                             style: Theme.of(
                                               context,
                                             ).textTheme.bodyMedium!.copyWith(
-                                              fontSize: 32,
+                                              fontSize: 28,
                                               fontWeight: FontWeight.w400,
                                               color: DesignConstants.kTextPurpleColor,
                                             ),
@@ -602,7 +602,7 @@ class DevotionalScreen extends StatelessWidget {
                                             style: Theme.of(
                                               context,
                                             ).textTheme.bodyMedium!.copyWith(
-                                              fontSize: 32,
+                                              fontSize: 28,
                                               fontWeight: FontWeight.w400,
                                               color: DesignConstants.kTextPurpleColor,
                                             ),
@@ -629,7 +629,7 @@ class DevotionalScreen extends StatelessWidget {
                                             style: Theme.of(
                                               context,
                                             ).textTheme.bodyMedium!.copyWith(
-                                              fontSize: 32,
+                                              fontSize: 28,
                                               fontWeight: FontWeight.bold,
                                               color: DesignConstants.kTextGreenColor,
                                             ),
@@ -656,7 +656,7 @@ class DevotionalScreen extends StatelessWidget {
                                             style: Theme.of(
                                               context,
                                             ).textTheme.bodyMedium!.copyWith(
-                                              fontSize: 32,
+                                              fontSize: 28,
                                               fontWeight: FontWeight.w400,
                                               color: DesignConstants.kTextPurpleColor,
                                             ),
@@ -673,7 +673,6 @@ class DevotionalScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                
             ),
           ),
         ),

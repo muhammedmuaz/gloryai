@@ -10,22 +10,20 @@ import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
 import '../../generic_widgets/image/gloryai_asset_image.dart';
 
-class IntroMultipleChoiceScreen extends StatefulWidget {
-  const IntroMultipleChoiceScreen({super.key});
+class IntroHowLongistScreen extends StatefulWidget {
+  const IntroHowLongistScreen({super.key});
 
   @override
-  State<IntroMultipleChoiceScreen> createState() =>
-      _IntroMultipleChoiceScreenState();
+  State<IntroHowLongistScreen> createState() => _IntroHowLongistScreenState();
 }
 
-class _IntroMultipleChoiceScreenState extends State<IntroMultipleChoiceScreen> {
+class _IntroHowLongistScreenState extends State<IntroHowLongistScreen> {
   String? _selectedOption;
   final List<String> _options = [
-    'Multiple times daily',
-    'Once daily',
-    'A few times a week',
-    'Occasionally',
-    'Looking to start',
+    'Just Starting',
+    'A few months',
+    'Several years',
+    'Lifelong journey',
   ];
   @override
   Widget build(BuildContext context) {
@@ -50,7 +48,7 @@ class _IntroMultipleChoiceScreenState extends State<IntroMultipleChoiceScreen> {
           child: ScreenPadding(
             child: Stack(
               children: [
-                 Positioned(
+                Positioned(
                   bottom: height * 0.15,
                   left: 0,
                   right: 0,
@@ -75,9 +73,11 @@ class _IntroMultipleChoiceScreenState extends State<IntroMultipleChoiceScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'How often do you currently pray or engage in spiritual practices?',
+                            'How long have you been actively practicing your faith?',
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.copyWith(
                               fontSize: 24,
                               fontWeight: FontWeight.w400,
                               color: DesignConstants.kTextPurpleColor,
@@ -118,7 +118,7 @@ class _IntroMultipleChoiceScreenState extends State<IntroMultipleChoiceScreen> {
                 _selectedOption != null
                     ? () {
                       AppNavigation.navigateTo(
-                        AppRoutesNames.introHowBestGlorySupportScreen,
+                        AppRoutesNames.introMultipleChoiceScreen,
                       );
                     }
                     : null,

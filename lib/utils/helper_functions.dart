@@ -80,4 +80,55 @@ class BottomSheetsAndDialogs {
           ),
     );
   }
+
+  static void notificationDialogBox(
+    BuildContext context, {
+    required VoidCallback onAccept,
+    VoidCallback? onCancel,
+  }) {
+    showCupertinoDialog(
+      context: context,
+      builder:
+          (BuildContext context) => CupertinoAlertDialog(
+            title: Text(
+              'The "Glory" app wants to send you notifications. Notifications may include alerts, sounds, and badges on icons. You can configurethem in Settings.',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                fontSize: 18,
+                fontWeight: FontWeight.w400,
+                color: DesignConstants.kTextPurpleColor,
+              ),
+            ),
+            actions: [
+              CupertinoDialogAction(
+                onPressed:
+                    onCancel ??
+                    () {
+                      Navigator.pop(context);
+                    },
+                isDefaultAction: true,
+                child: Text(
+                  'Deny',
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
+              CupertinoDialogAction(
+                onPressed: onAccept,
+                child: Text(
+                  'Allow',
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.blue,
+                    height: 1.4,
+                  ),
+                ),
+              ),
+            ],
+          ),
+    );
+  }
 }

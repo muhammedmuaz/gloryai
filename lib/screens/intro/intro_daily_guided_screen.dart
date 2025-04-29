@@ -26,24 +26,29 @@ class IntroDailyGuidedScreen extends StatelessWidget {
         ),
         child: SafeArea(
           child: ScreenPadding(
-            child: SingleChildScrollView(
-              child: Column(
+            child:  Column(
                 children: [
                   AddHeight(0.05),
                   SizedBox(
                     width: width * 0.6,
                     child: GloryAiAssetImage(imagePath: AppImages.applogo),
                   ),
-                  AddHeight(0.05),
-                  Column(
+                  AddHeight(0.03),
+                  Expanded(child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center ,
+                    children: [
+   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      Icon(Icons.done, color: Colors.white,),
+                      AddHeight(0.005),
                       Text(
                         'Daily Guided Devotionals',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 24,
+                          fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: DesignConstants.kTextGreenColor,
                         ),
@@ -53,7 +58,7 @@ class IntroDailyGuidedScreen extends StatelessWidget {
                         'Experience inspirational messages each day',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 18,
+                          fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: DesignConstants.kTextPurpleColor,
                         ),
@@ -65,11 +70,13 @@ class IntroDailyGuidedScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      Icon(Icons.done, color: Colors.white,),
+                      AddHeight(0.005),
                       Text(
                         'Limitless Prayer Resource',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 24,
+                          fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: DesignConstants.kTextGreenColor,
                         ),
@@ -79,7 +86,7 @@ class IntroDailyGuidedScreen extends StatelessWidget {
                         'Access abundant prayer materials at no cost.',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 18,
+                          fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: DesignConstants.kTextPurpleColor,
                         ),
@@ -91,11 +98,13 @@ class IntroDailyGuidedScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      Icon(Icons.done, color: Colors.white,),
+                      AddHeight(0.005),
                       Text(
                         'Personalized Guidance Conversations',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 24,
+                          fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: DesignConstants.kTextGreenColor,
                         ),
@@ -105,7 +114,7 @@ class IntroDailyGuidedScreen extends StatelessWidget {
                         'Engage in spiritual discussions and receive tailored advice.',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 18,
+                          fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: DesignConstants.kTextPurpleColor,
                         ),
@@ -117,11 +126,13 @@ class IntroDailyGuidedScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      Icon(Icons.done, color: Colors.white,),
+                      AddHeight(0.005),
                       Text(
                         'I want to explore the app for free',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 24,
+                          fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: DesignConstants.kTextGreenColor,
                         ),
@@ -131,7 +142,7 @@ class IntroDailyGuidedScreen extends StatelessWidget {
                         'Absolutely free-no hidden fees.',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 18,
+                          fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: DesignConstants.kTextPurpleColor,
                         ),
@@ -139,10 +150,12 @@ class IntroDailyGuidedScreen extends StatelessWidget {
                     ],
                   ),
 
+                    ],
+                  )),
+               
                   AddHeight(0.2),
                 ],
               ),
-            ),
           ),
         ),
       ),
@@ -152,63 +165,62 @@ class IntroDailyGuidedScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'No risks, no charges.',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: DesignConstants.kTextPurpleColor,
-                          letterSpacing: -0.2
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                'No risks, no charges.',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: DesignConstants.kTextPurpleColor,
+                  letterSpacing: -0.2,
+                ),
+              ),
+              Text(
+                'Join anytime without obligations.',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: DesignConstants.kTextPurpleColor,
+                  letterSpacing: -0.2,
+                ),
+              ),
+            ],
+          ),
+          AddHeight(0.01),
 
-                        ),
-                      ),
-                      Text(
-                        'Join anytime without obligations.',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: DesignConstants.kTextPurpleColor,
-                          letterSpacing: -0.2
-                        ),
-                      ),
-                    ],
-                  ),
-                  AddHeight(0.01),
           GestureDetector(
             onTap: () {
-              AppNavigation.navigateTo(
-                AppRoutesNames.homeScreen2,
-              );
+              AppNavigation.navigateTo(AppRoutesNames.homeScreen2);
             },
             child: Container(
-                  height: 75,
-                  
+                  width: width,
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(
                     horizontal: DataConstants.kScreenHorizontalPadding,
                   ),
+                  padding: EdgeInsets.symmetric(vertical: 14.0),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16.0),
+                    borderRadius: BorderRadius.circular(20.0),
+                    border: Border.all(width: 4, color: Colors.white),
                     color: DesignConstants.kTextGreenColor,
                     boxShadow: [
                       BoxShadow(
                         color: DesignConstants.kTextGreenColor.withOpacity(0.3),
                         blurRadius: 10,
-                        spreadRadius: 2,
+                        spreadRadius: 0,
                         offset: const Offset(0, 4),
                       ),
                     ],
                     gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
                       colors: [
-                        DesignConstants.kTextGreenColor.withOpacity(0.9),
                         DesignConstants.kTextGreenColor,
+                        DesignConstants.kTextGreenColor.withOpacity(0.9),
                       ],
                     ),
                   ),
@@ -218,10 +230,9 @@ class IntroDailyGuidedScreen extends StatelessWidget {
                       Text(
                         'Start for Free',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 24,
+                          fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
-                          letterSpacing: 0.5,
                         ),
                       ),
                     ],
@@ -232,17 +243,8 @@ class IntroDailyGuidedScreen extends StatelessWidget {
                   delay: 1000.ms,
                   duration: 1800.ms,
                   color: Colors.white.withOpacity(0.3),
-                )
-                .animate(onPlay: (controller) => controller.repeat())
-                .scale(
-                  begin: const Offset(1, 1),
-                  end: const Offset(1.02, 1.02),
-                  duration: 2000.ms,
-                  curve: Curves.easeInOut,
                 ),
           ),
-          AddHeight(0.015),
-          AddHeight(0.015),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

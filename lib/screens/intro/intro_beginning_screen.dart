@@ -31,7 +31,6 @@ class _IntroBeginningScreenState extends State<IntroBeginningScreen> {
     final subtitleDuration = 500.ms;
     final mockupDelay = subtitleDelay + subtitleDuration;
     final mockupDuration = 800.ms;
-    final bottomElementsDelay = mockupDelay + mockupDuration * 0.5;
     return Scaffold(
       body: Container(
         height: height,
@@ -96,7 +95,7 @@ class _IntroBeginningScreenState extends State<IntroBeginningScreen> {
                     .moveY(
                       begin: -10,
                       end: 10,
-                      duration: 2500.ms,
+                      duration: 1000.ms,
                       curve: Curves.easeInOut,
                     ),
               ),
@@ -115,15 +114,8 @@ class _IntroBeginningScreenState extends State<IntroBeginningScreen> {
 
              GestureDetector(
             onTap: () {
-               BottomSheetsAndDialogs.shareDialogBox(
-                context,
-                onShare: () {
                   AppNavigation.navigateTo(AppRoutesNames.introRating2Screen);
-                },
-                onCancel: () {
-                  AppNavigation.navigateTo(AppRoutesNames.introRating2Screen);
-                },
-              );
+
            },
             child: Container(
                   width: double.maxFinite,

@@ -9,7 +9,6 @@ import 'package:gloryai/services/app_images.dart';
 import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
 import '../../generic_widgets/image/gloryai_asset_image.dart';
-
 class IntroDailySacredScreen extends StatelessWidget {
   const IntroDailySacredScreen({super.key});
 
@@ -17,6 +16,159 @@ class IntroDailySacredScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
     final width = ScreenHelper.getScreenWidth(context);
+    const initialDelay = 300;
+    const itemDelay = 200; // Delay between each item animation
+
+    // Helper function to build animated feature rows
+    Widget _buildAnimatedFeatureRow({
+      required int index,
+      required IconData icon,
+      required String title,
+      required String description,
+    }) {
+      final delay = (initialDelay + (itemDelay * index)).ms;
+      
+      return Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              // Icon card with pop-in effect
+              SizedBox(
+                height: 55,
+                width: 55,
+                child: Card(
+                  elevation: 5,
+                  color: DesignConstants.kBackgroundStartColor,
+                  shadowColor: DesignConstants.kShilo,
+                  child: Icon(
+                    icon,
+                    color: DesignConstants.kShilo,
+                    size: 30,
+                  ),
+                )
+                .animate(delay: delay)
+                .scale(
+                  begin: const Offset(0.8, 0.8),
+                  end: const Offset(1, 1),
+                  curve: Curves.elasticOut,
+                )
+                .fadeIn(),
+              ),
+              
+              SizedBox(width: width * 0.04),
+              
+              // Content with slide-in animation
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: DesignConstants.kTextPurpleColor,
+                      ),
+                    )
+                    .animate(delay: delay + 100.ms)
+                    .fadeIn()
+                    .slideX(begin: 0.2, end: 0, curve: Curves.easeOutCubic),
+                    
+                    Text(
+                      description,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: DesignConstants.kTextPurpleColor,
+                      ),
+                    )
+                    .animate(delay: delay + 200.ms)
+                    .fadeIn()
+                    .slideX(begin: 0.1, end: 0, curve: Curves.easeOutCubic),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          AddHeight(0.02),
+        ],
+      );
+    }
+
+    // Special case for the prayer icon (custom image)
+    Widget _buildPrayerFeatureRow() {
+      final delay = (initialDelay + (itemDelay * 2)).ms;
+      
+      return Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 55,
+                width: 55,
+                child: Card(
+                  elevation: 5,
+                  color: DesignConstants.kBackgroundStartColor,
+                  shadowColor: DesignConstants.kShilo,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: GloryAiAssetImage(
+                      imagePath: AppImages.prayIconGlory,
+                    ),
+                  ),
+                )
+                .animate(delay: delay)
+                .scale(
+                  begin: const Offset(0.8, 0.8),
+                  end: const Offset(1, 1),
+                  curve: Curves.elasticOut,
+                )
+                .fadeIn(),
+              ),
+              
+              SizedBox(width: width * 0.04),
+              
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Prayer Assistance',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: DesignConstants.kTextPurpleColor,
+                      ),
+                    )
+                    .animate(delay: delay + 100.ms)
+                    .fadeIn()
+                    .slideX(begin: 0.2, end: 0, curve: Curves.easeOutCubic),
+                    
+                    Text(
+                      'Discover the appropriate words for any moment in your spiritual journey',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: DesignConstants.kTextPurpleColor,
+                      ),
+                    )
+                    .animate(delay: delay + 200.ms)
+                    .fadeIn()
+                    .slideX(begin: 0.1, end: 0, curve: Curves.easeOutCubic),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          AddHeight(0.02),
+        ],
+      );
+    }
+
     return Scaffold(
       body: Container(
         height: height,
@@ -33,8 +185,11 @@ class IntroDailySacredScreen extends StatelessWidget {
                   SizedBox(
                     width: width * 0.6,
                     child: GloryAiAssetImage(imagePath: AppImages.applogo),
-                  ),
+                  )
+                  ,
+                  
                   AddHeight(0.05),
+                  
                   Text(
                     'Your Daily Journey with God',
                     textAlign: TextAlign.center,
@@ -44,7 +199,9 @@ class IntroDailySacredScreen extends StatelessWidget {
                       color: DesignConstants.kTextPurpleColor,
                     ),
                   ),
+                  
                   AddHeight(0.01),
+                  
                   Text(
                     'Discover what lies ahead\non your path:',
                     textAlign: TextAlign.center,
@@ -54,208 +211,33 @@ class IntroDailySacredScreen extends StatelessWidget {
                       color: DesignConstants.kTextPurpleColor,
                     ),
                   ),
+                  
                   AddHeight(0.02),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 55,
-                        width: 55,
-                        child: Card(
-                          elevation: 5,
-                          color: DesignConstants.kBackgroundStartColor,
-                          shadowColor: DesignConstants.kShilo,
-                          child: Icon(
-                            Icons.book,
-                            color: DesignConstants.kShilo,
-                            size: 30,
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: width * 0.04),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Daily Al-Enhanced Devotionals',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.bodyMedium!.copyWith(
-                                fontSize: 21,
-                                fontWeight: FontWeight.bold,
-                                color: DesignConstants.kTextPurpleColor,
-                              ),
-                            ),
-                            Text(
-                              'Begin each day with personalized insights and reaections from scripture.',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.bodyMedium!.copyWith(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: DesignConstants.kTextPurpleColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                  
+                  // Animated feature rows
+                  _buildAnimatedFeatureRow(
+                    index: 0,
+                    icon: Icons.book,
+                    title: 'Daily AI-Enhanced Devotionals',
+                    description: 'Begin each day with personalized insights and reflections from scripture.',
                   ),
-                  AddHeight(0.02),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 55,
-                        width: 55,
-                        child: Card(
-                          elevation: 5,
-                          color: DesignConstants.kBackgroundStartColor,
-                          shadowColor: DesignConstants.kShilo,
-                          child: Icon(
-                            Icons.calendar_month,
-                            color: DesignConstants.kShilo,
-                            size: 30,
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: width * 0.04),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Spiritual Guidance Tailored to You',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.bodyMedium!.copyWith(
-                                fontSize: 21,
-                                fontWeight: FontWeight.bold,
-                                color: DesignConstants.kTextPurpleColor,
-                              ),
-                            ),
-                            Text(
-                              'Receive faith-based advice for life\'s questions and challenges.',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.bodyMedium!.copyWith(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: DesignConstants.kTextPurpleColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                  
+                  _buildAnimatedFeatureRow(
+                    index: 1,
+                    icon: Icons.calendar_month,
+                    title: 'Spiritual Guidance Tailored to You',
+                    description: 'Receive faith-based advice for life\'s questions and challenges.',
                   ),
-                  AddHeight(0.02),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 55,
-                        width: 55,
-                        child: Card(
-                          elevation: 5,
-                          color: DesignConstants.kBackgroundStartColor,
-                          shadowColor: DesignConstants.kShilo,
-                          child: Padding(
-                            padding: EdgeInsets.all(8),
-                            child: GloryAiAssetImage(
-                              imagePath: AppImages.prayIconGlory,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: width * 0.04),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Prayer Assistance',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.bodyMedium!.copyWith(
-                                fontSize: 21,
-                                fontWeight: FontWeight.bold,
-                                color: DesignConstants.kTextPurpleColor,
-                              ),
-                            ),
-                            Text(
-                              'Discover the appropriate words for any moment in your spiritual journey',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.bodyMedium!.copyWith(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: DesignConstants.kTextPurpleColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                  
+                  _buildPrayerFeatureRow(),
+                  
+                  _buildAnimatedFeatureRow(
+                    index: 3,
+                    icon: Icons.share,
+                    title: 'Faith Community Wall',
+                    description: 'Connect with thousands sharing their faith together',
                   ),
-                  AddHeight(0.02),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 55,
-                        width: 55,
-                        child: Card(
-                          elevation: 5,
-                          color: DesignConstants.kBackgroundStartColor,
-                          shadowColor: DesignConstants.kShilo,
-                          child: Icon(
-                            Icons.share,
-                            color: DesignConstants.kShilo,
-                            size: 30,
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: width * 0.04),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Faith Community Wall',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.bodyMedium!.copyWith(
-                                fontSize: 21,
-                                fontWeight: FontWeight.bold,
-                                color: DesignConstants.kTextPurpleColor,
-                              ),
-                            ),
-                            Text(
-                              'Connect with thousands sharing their faith together',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.bodyMedium!.copyWith(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: DesignConstants.kTextPurpleColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-
+                  
                   AddHeight(0.2),
                 ],
               ),
@@ -268,17 +250,18 @@ class IntroDailySacredScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          GestureDetector(
+
+              GestureDetector(
             onTap: () {
               AppNavigation.navigateTo(AppRoutesNames.introDailyGuidedScreen);
             },
             child: Container(
-                  height: 55,
-                  width: width * 0.85,
+                  width: width,
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(
                     horizontal: DataConstants.kScreenHorizontalPadding,
                   ),
+                  padding: EdgeInsets.symmetric(vertical: 12.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100.0),
                     color: DesignConstants.kTextGreenColor,
@@ -286,16 +269,16 @@ class IntroDailySacredScreen extends StatelessWidget {
                       BoxShadow(
                         color: DesignConstants.kTextGreenColor.withOpacity(0.3),
                         blurRadius: 10,
-                        spreadRadius: 2,
+                        spreadRadius: 0,
                         offset: const Offset(0, 4),
                       ),
                     ],
                     gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
                       colors: [
-                        DesignConstants.kTextGreenColor.withOpacity(0.9),
                         DesignConstants.kTextGreenColor,
+                        DesignConstants.kTextGreenColor.withOpacity(0.9),
                       ],
                     ),
                   ),
@@ -305,10 +288,9 @@ class IntroDailySacredScreen extends StatelessWidget {
                       Text(
                         'Complete Setup',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w700,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                           color: Colors.white,
-                          letterSpacing: 0.5,
                         ),
                       ),
                     ],
@@ -328,9 +310,7 @@ class IntroDailySacredScreen extends StatelessWidget {
                   curve: Curves.easeInOut,
                 ),
           ),
-          AddHeight(0.015),
-          AddHeight(0.015),
-        ],
+       ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
