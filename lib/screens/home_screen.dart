@@ -13,8 +13,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
-    final width = ScreenHelper.getScreenWidth(context);
-
     // Animation Timings
     final Duration initialDelay = 150.ms; // Base delay before animations start
     final Duration stagger = 100.ms; // Time between each staggered element

@@ -196,7 +196,14 @@ class IntroLoginScreen extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
+              if(isClickedInLogin == true) {
+              AppNavigation.navigateTo(AppRoutesNames.homeScreen2);
+
+              }
+              else {
+
               AppNavigation.navigateTo(AppRoutesNames.introEmbarkSacredScreen);
+              }
             },
             child: Container(
               width: width,

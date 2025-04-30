@@ -4,3 +4,5 @@ class DataConstants {
   static const double kScreenHorizontalPadding = 24;
   static const double kScreenVerticalPadding = 10;
 }
+
+  bool isClickedInLogin = false;

@@ -40,8 +40,19 @@ class AppImages {
   static final bibleIconGlory = _concatPathAndImage("bible_icon.svg");
   static final settingsIconGlory = _concatPathAndImage("settings_icon.svg");
   static final shareIconGlory = _concatPathAndImage("share_icon.svg");
-
-
+  static final homeTIconGlory = _concatPathAndImage("home_t_icon.svg");
+  
+  
+  // Settings Page Icons
+  static final starIconGlory = _concatPathAndImage("star_icon.svg");
+  static final phoneIconSettingPageGlory = _concatPathAndImage("phone_icon.svg");
+  static final branchIconGlory = _concatPathAndImage("branch_icon.svg");
+  static final genderIconGlory = _concatPathAndImage("gender_icon.svg");
+  static final contactSupportIconGlory = _concatPathAndImage("contact_support_icon.svg");
+  static final logOutIconGlory = _concatPathAndImage("logout_icon.svg");
+  static final notificationIconGlory = _concatPathAndImage("notification_icon.svg");
+  static final chatImgBackgroundIconGlory = _concatPathAndImage("chat_img_background.png");
+  static final cancelIconGlory = _concatPathAndImage("cancel_icon.svg");
 
 
   // Lotties

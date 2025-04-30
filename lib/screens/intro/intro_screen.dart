@@ -80,6 +80,7 @@ class IntroScreen extends StatelessWidget {
             onTap: () {
               BottomSheetsAndDialogs.showLoadingDialog(context);
               Future.delayed(Duration(seconds: 2), () {
+                isClickedInLogin = false;
                 AppNavigation.goBack();
                 AppNavigation.navigateTo(AppRoutesNames.introRatingScreen);
               });
@@ -130,6 +131,7 @@ class IntroScreen extends StatelessWidget {
           GestureDetector(
             onTap: () {
               // BottomSheetsAndDialogs.showLoadingDialog(context);
+              isClickedInLogin = true;
               AppNavigation.navigateTo(AppRoutesNames.introLoginScreen);
             },
             child: RichText(

@@ -28,5 +28,11 @@ class AppRoutesNames {
   static const devotionalScreen = "/devotionalScreen";
   static const introAgeGroupScreen = "/introAgeGroupScreen";
   static const introHowLongistScreen = "/introHowLongistScreen";
+  static const settingsScreen = "/settingsScreen";
+  static const chatScreen = "/chatScreen";
+
+
+
+  
   }
 

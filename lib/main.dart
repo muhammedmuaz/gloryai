@@ -8,10 +8,9 @@ import 'package:gloryai/routing/app_navigator.dart';
 import 'package:gloryai/routing/app_route_generator.dart';
 import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/screens/home_screen2.dart';
-import 'package:gloryai/screens/intro/intro_never_miss_daily_screen.dart';
-import 'package:gloryai/screens/intro/intro_quotes_slider_screen.dart';
 import 'package:gloryai/services/api_links.dart';
 import 'package:gloryai/theme/gloryai_theme.dart';
+import 'package:gloryai/utils/image_preloader.dart';
 
 
 class MyHttpOverrides extends HttpOverrides {
@@ -31,7 +30,13 @@ void main() async {
   );
   ApiLinks.init(environment: currentEnvironment);
   HttpOverrides.global = MyHttpOverrides();
-  runApp(const GloryApp());
+   // Preload images before running app
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+    .then((_) async {
+      await ImagePreloader.preloadImages();
+      runApp(const GloryApp());
+    });
+  
 }
 
 class GloryApp extends StatefulWidget {
@@ -60,7 +65,7 @@ class _GloryAppState extends State<GloryApp> {
        initialRoute: AppRoutesNames.initial,
         navigatorKey: AppNavigation.navigatorKey,
         onGenerateRoute: RouteGenerator.generateRoute,
-      home: HomeScreen2(),
+      // home: HomeScreen2(),
     );
   }
 }

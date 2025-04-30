@@ -114,7 +114,7 @@ class DevotionalScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Container(
-                              height: 130,
+                              height: 100,
                               padding: EdgeInsets.only(
                                 top: 2.5,
                                 left: 2.5,
@@ -171,7 +171,7 @@ class DevotionalScreen extends StatelessWidget {
                           SizedBox(width: 8),
                           Expanded(
                             child: Container(
-                              height: 130,
+                              height: 100,
                               padding: EdgeInsets.only(
                                 top: 2.5,
                                 left: 2.5,
@@ -260,7 +260,7 @@ class DevotionalScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Container(
-                              height: 130,
+                              height: 100,
                               padding: EdgeInsets.only(
                                 top: 2.5,
                                 left: 2.5,
@@ -729,8 +729,6 @@ class DevotionalScreen extends StatelessWidget {
               ),
             ),
           ),
-          AddHeight(0.015),
-          AddHeight(0.015),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
