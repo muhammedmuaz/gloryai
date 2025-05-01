@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:get/get.dart';
 import 'package:gloryai/const/data_const.dart';
 import 'package:gloryai/const/design_const.dart';
+import 'package:gloryai/providers/auth_provider.dart';
 import 'package:gloryai/routing/app_navigator.dart';
 import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/services/app_images.dart';
@@ -26,6 +29,8 @@ class _IntroAgeGroupScreenState extends State<IntroAgeGroupScreen> {
     '46-55',
     '56 and above',
   ];
+  final AuthenticationProvider authProvider = Get.find();
+
   @override
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
@@ -134,6 +139,7 @@ class _IntroAgeGroupScreenState extends State<IntroAgeGroupScreen> {
             onTap:
                 _selectedOption != null
                     ? () {
+                      authProvider.saveFormAnswer('ageCategory', _selectedOption);
                       AppNavigation.navigateTo(
                         AppRoutesNames.introGenderSelectScreen,
                       );

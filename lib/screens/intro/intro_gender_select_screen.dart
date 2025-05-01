@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:get/get.dart';
 import 'package:gloryai/const/data_const.dart';
 import 'package:gloryai/const/design_const.dart';
+import 'package:gloryai/providers/auth_provider.dart';
 import 'package:gloryai/routing/app_navigator.dart';
 import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/services/app_images.dart';
@@ -18,6 +20,7 @@ class IntroGenderSelectScreen extends StatefulWidget {
 }
 
 class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
+  final AuthenticationProvider authProvider = Get.find();
   String? _selectedOption;
   final List<String> _options = ['Male', 'Female'];
 
@@ -107,6 +110,7 @@ class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
             onTap:
                 _selectedOption != null
                     ? () {
+                      authProvider.saveFormAnswer('gender', _selectedOption);
                       AppNavigation.navigateTo(
                         AppRoutesNames.introTraditionSelectScreen,
                       );

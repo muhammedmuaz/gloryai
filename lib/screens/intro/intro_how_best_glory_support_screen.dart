@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:get/get.dart';
 import 'package:gloryai/const/data_const.dart';
 import 'package:gloryai/const/design_const.dart';
 import 'package:gloryai/generic_widgets/screen_widgets/screen_padding.dart';
+import 'package:gloryai/providers/auth_provider.dart';
 import 'package:gloryai/routing/app_navigator.dart';
 import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/services/app_images.dart';
@@ -20,6 +22,8 @@ class IntroHowBestGlorySupportScreen extends StatefulWidget {
 
 class _IntroHowBestGlorySupportScreenState
     extends State<IntroHowBestGlorySupportScreen> {
+  final AuthenticationProvider authProvider = Get.find();
+
   String? _selectedOption;
   final List<String> _options = [
     'Daily prayer guidance',
@@ -118,6 +122,7 @@ class _IntroHowBestGlorySupportScreenState
             onTap:
                 _selectedOption != null
                     ? () {
+                      authProvider.saveFormAnswer('prayerFrequency', _selectedOption);
                       AppNavigation.navigateTo(
                         AppRoutesNames.introNeverMissDailyScreen,
                       );

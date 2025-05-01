@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gloryai/const/data_const.dart';
 import 'package:gloryai/const/design_const.dart';
+import 'package:gloryai/providers/auth_provider.dart';
+import 'package:gloryai/providers/user_provider.dart';
 import 'package:gloryai/routing/app_navigator.dart';
 import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/services/app_images.dart';
@@ -9,8 +13,20 @@ import 'package:gloryai/utils/helper_functions.dart';
 import 'package:gloryai/utils/screen_helper.dart';
 import '../../generic_widgets/image/gloryai_asset_image.dart';
 
-class IntroScreen extends StatelessWidget {
+class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
+
+  @override
+  State<IntroScreen> createState() => _IntroScreenState();
+}
+
+class _IntroScreenState extends State<IntroScreen> {
+  @override
+  void initState() {
+    Get.put(AuthenticationProvider());
+    Get.put(UserProvider());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

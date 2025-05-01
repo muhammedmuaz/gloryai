@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:get/get.dart';
 import 'package:gloryai/const/data_const.dart';
 import 'package:gloryai/const/design_const.dart';
+import 'package:gloryai/providers/auth_provider.dart';
 import 'package:gloryai/routing/app_navigator.dart';
 import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/services/app_images.dart';
@@ -28,6 +30,9 @@ class _IntroWhereFindScreenState extends State<IntroWhereFindScreen> {
     'Church',
     'Other',
   ];
+
+  final AuthenticationProvider authProvider = Get.find();
+
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +113,7 @@ class _IntroWhereFindScreenState extends State<IntroWhereFindScreen> {
             onTap:
                 _selectedOption != null
                     ? () {
+                      authProvider.saveFormAnswer('foundGlory', _selectedOption);
                       AppNavigation.navigateTo(
                         AppRoutesNames.introAgeGroupScreen,
                       );

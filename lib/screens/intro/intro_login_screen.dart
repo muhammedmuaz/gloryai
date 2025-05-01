@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gloryai/const/data_const.dart';
 import 'package:gloryai/const/design_const.dart';
 import 'package:gloryai/generic_widgets/screen_widgets/screen_padding.dart';
+import 'package:gloryai/providers/auth_provider.dart';
+import 'package:gloryai/providers/user_provider.dart';
 import 'package:gloryai/routing/app_navigator.dart';
 import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/services/app_images.dart';
@@ -9,9 +12,17 @@ import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
 import '../../generic_widgets/image/gloryai_asset_image.dart';
 
-class IntroLoginScreen extends StatelessWidget {
+class IntroLoginScreen extends StatefulWidget {
   const IntroLoginScreen({super.key});
 
+  @override
+  State<IntroLoginScreen> createState() => _IntroLoginScreenState();
+}
+
+class _IntroLoginScreenState extends State<IntroLoginScreen> {
+
+  final AuthenticationProvider authenticationProvider = Get.find();
+  final UserProvider userProvider = Get.find();
   @override
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
@@ -139,7 +150,26 @@ class IntroLoginScreen extends StatelessWidget {
                       AddHeight(0.01),
                       // For Google Sign In
                       GestureDetector(
-                        onTap: () {},
+                        onTap: 
+                        authenticationProvider.isSigningIn
+                      ? null
+                      : 
+                         () async {
+                          
+                          Get.dialog(
+                            Center(child: CircularProgressIndicator()),
+                            barrierDismissible: false,
+                          );
+                          
+                          try {
+                            await authenticationProvider.signInWithGoogle();
+                            // Get.offAllNamed('/home');
+                            AppNavigation.removeAllRoutes(AppRoutesNames.homeScreen2);
+                          } catch (e) {
+                            Get.back();
+                            Get.snackbar('Error', 'Sign in failed');
+                          }
+                        },
                         child: Container(
                           height: 55,
                           width: double.maxFinite,

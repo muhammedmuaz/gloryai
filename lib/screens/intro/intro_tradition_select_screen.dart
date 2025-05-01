@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:get/get.dart';
 import 'package:gloryai/const/data_const.dart';
 import 'package:gloryai/const/design_const.dart';
+import 'package:gloryai/providers/auth_provider.dart';
 import 'package:gloryai/routing/app_navigator.dart';
 import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/services/app_images.dart';
@@ -19,6 +21,7 @@ class IntroTraditionSelectScreen extends StatefulWidget {
 
 class _IntroTraditionSelectScreenState
     extends State<IntroTraditionSelectScreen> {
+  final AuthenticationProvider authProvider = Get.find();
   String? _selectedOption;
   final List<String> _options = [
     'Orthodox',
@@ -111,6 +114,7 @@ class _IntroTraditionSelectScreenState
             onTap:
                 _selectedOption != null
                     ? () {
+                      authProvider.saveFormAnswer('christianTradition', _selectedOption);
                       AppNavigation.navigateTo(
                         AppRoutesNames.introScriptureScreen,
                       );
