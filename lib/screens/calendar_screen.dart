@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gloryai/const/design_const.dart';
 import 'package:gloryai/generic_widgets/image/gloryai_asset_image.dart';
 import 'package:gloryai/generic_widgets/screen_widgets/screen_padding.dart';
+import 'package:gloryai/providers/notification_provider.dart';
 import 'package:gloryai/services/app_images.dart';
 import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
@@ -15,9 +17,15 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
+  TimeOfDay _selectedTime = TimeOfDay.now();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _bodyController = TextEditingController();
   final DateTime _currentDate = DateTime.now();
   DateTime _displayedMonth = DateTime.now();
   int? _selectedDay;
+  final NotificationProvider _notificationProvider = Get.put(
+    NotificationProvider(),
+  );
 
   @override
   void initState() {
@@ -51,6 +59,147 @@ class _CalendarPageState extends State<CalendarPage> {
     });
   }
 
+  Future<void> _addNotification() async {
+    if (_selectedDay == null) {
+      Get.snackbar('Error', 'Please select a day');
+      return;
+    }
+
+    final scheduledDate = DateTime(
+      _displayedMonth.year,
+      _displayedMonth.month,
+      _selectedDay!,
+      _selectedTime.hour,
+      _selectedTime.minute,
+    );
+
+    if (scheduledDate.isBefore(DateTime.now())) {
+      Get.snackbar('Error', 'Cannot schedule notification in the past');
+      return;
+    }
+
+    await _notificationProvider.scheduleNotification(
+      title:
+          _titleController.text.isEmpty
+              ? 'Prayer Reminder'
+              : _titleController.text,
+      body:
+          _bodyController.text.isEmpty
+              ? 'Time for your prayer session'
+              : _bodyController.text,
+      scheduledTime: scheduledDate,
+    );
+
+    _titleController.clear();
+    _bodyController.clear();
+  }
+
+  void _showNotificationDialog() {
+    Get.defaultDialog(
+      title: 'Schedule Prayer Reminder',
+      content: Column(
+        children: [
+          TextField(
+            controller: _titleController,
+            decoration: InputDecoration(
+              labelText: 'Title',
+              hintText: 'e.g. Morning Prayer',
+            ),
+          ),
+          TextField(
+            controller: _bodyController,
+            decoration: InputDecoration(
+              labelText: 'Message',
+              hintText: 'e.g. Time to connect with God',
+            ),
+          ),
+          SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Time: ${_selectedTime.format(context)}'),
+              TextButton(
+                onPressed: () => _selectTime(context),
+                child: Text('Change Time'),
+              ),
+            ],
+          ),
+        ],
+      ),
+      confirm: ElevatedButton(
+        onPressed: () {
+          _addNotification();
+          Get.back();
+        },
+        child: Text('Schedule'),
+      ),
+      cancel: TextButton(onPressed: Get.back, child: Text('Cancel')),
+    );
+  }
+
+  void _showNotificationsForSelectedDay() {
+    if (_selectedDay == null) return;
+
+    final selectedDate = DateTime(
+      _displayedMonth.year,
+      _displayedMonth.month,
+      _selectedDay!,
+    );
+
+    final notifications = _notificationProvider.getNotificationsForDate(
+      selectedDate,
+    );
+
+    if (notifications.isEmpty) {
+      _showNotificationDialog();
+    } else {
+      Get.bottomSheet(
+        Container(
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Scheduled Prayers for ${DateFormat.yMMMd().format(selectedDate)}',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 16),
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: notifications.length,
+                  itemBuilder: (context, index) {
+                    final notification = notifications[index];
+                    return ListTile(
+                      leading: Icon(Icons.notifications),
+                      title: Text(notification.title),
+                      subtitle: Text(notification.formattedTime),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed:
+                            () => _notificationProvider.cancelNotification(
+                              notification.id,
+                            ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              ElevatedButton(
+                onPressed: _showNotificationDialog,
+                child: Text('Add New Reminder'),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+  }
+
   List<Widget> _buildWeekRows() {
     List<Widget> rows = [];
     final firstDayOfMonth = DateTime(
@@ -69,7 +218,7 @@ class _CalendarPageState extends State<CalendarPage> {
     int startingOffset = firstDayOfMonth.weekday % 7; // Makes Sunday=0
 
     // Previous month's days
-    
+
     final previousMonthLastDay =
         DateTime(_displayedMonth.year, _displayedMonth.month, 0).day;
 
@@ -124,6 +273,18 @@ class _CalendarPageState extends State<CalendarPage> {
     return rows;
   }
 
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: _selectedTime,
+    );
+    if (picked != null && picked != _selectedTime) {
+      setState(() {
+        _selectedTime = picked;
+      });
+    }
+  }
+
   Widget _buildDate(
     String day, {
     bool isCurrentDay = false,
@@ -137,7 +298,6 @@ class _CalendarPageState extends State<CalendarPage> {
         onTap: onTap,
         child: Center(
           child: Container(
-            
             padding: EdgeInsets.all(5.0),
             margin: const EdgeInsets.all(2),
             decoration:
@@ -188,182 +348,189 @@ class _CalendarPageState extends State<CalendarPage> {
             : DateFormat('MMMM').format(_displayedMonth);
 
     return SafeArea(
-        child: ScreenPadding(
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
+      child: ScreenPadding(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: width * 0.35,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 45,
+                        width: 45,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          color: DesignConstants.kHomeBoxColor2,
+                        ),
+                        child: Icon(Icons.menu, color: Colors.white, size: 30),
+                      ),
+                      SizedBox(width: 10.0),
+
+                      Container(
+                        height: 45,
+                        width: 45,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          color: DesignConstants.kHomeBoxColor2,
+                        ),
+                        child: Icon(
+                          Icons.notifications,
+                          color: DesignConstants.kTextLightColor,
+                          size: 30,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.1,
+                  child: GloryAiAssetImage(
+                    imagePath: AppImages.appLogoHomePage,
+                  ),
+                ),
+                Expanded(child: SizedBox()),
+                Container(
+                  height: 55,
+                  width: 55,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.0),
+                    color: DesignConstants.kTextLightColor,
+                  ),
+                  child: Icon(
+                    Icons.tag_faces_outlined,
+                    color: Colors.white,
+                    size: 32,
+                  ),
+                ),
+              ],
+            ),
+            AddHeight(0.1),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "$monthName ${_displayedMonth.year.toString()}",
+                  style: const TextStyle(
+                    color: DesignConstants.kTextPurpleColor,
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: _previousMonth,
+                      child: Icon(
+                        Icons.arrow_back_ios_new_outlined,
+                        color: DesignConstants.kTextLightColor,
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    GestureDetector(
+                      onTap: _nextMonth,
+                      child: Icon(
+                        Icons.arrow_forward_ios_outlined,
+                        color: DesignConstants.kTextLightColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            AddHeight(0.02),
+            SizedBox(
+              height: height * 0.32,
+              child: Column(
                 children: [
-                  SizedBox(
-                    width: width * 0.35,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 45,
-                          width: 45,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12.0),
-                            color: DesignConstants.kHomeBoxColor2,
-                          ),
-                          child: Icon(
-                            Icons.menu,
-                            color: Colors.white,
-                            size: 30,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: const [
+                        Text(
+                          "S",
+                          style: TextStyle(
+                            color: Color(0xFF3E1C67),
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(width: 10.0),
-
-                        Container(
-                          height: 45,
-                          width: 45,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12.0),
-                            color: DesignConstants.kHomeBoxColor2,
+                        Text(
+                          "M",
+                          style: TextStyle(
+                            color: Color(0xFF3E1C67),
+                            fontWeight: FontWeight.bold,
                           ),
-                          child: Icon(
-                            Icons.notifications,
-                            color: DesignConstants.kTextLightColor,
-                            size: 30,
+                        ),
+                        Text(
+                          "T",
+                          style: TextStyle(
+                            color: Color(0xFF3E1C67),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "W",
+                          style: TextStyle(
+                            color: Color(0xFF3E1C67),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "T",
+                          style: TextStyle(
+                            color: Color(0xFF3E1C67),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "F",
+                          style: TextStyle(
+                            color: Color(0xFF3E1C67),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "S",
+                          style: TextStyle(
+                            color: Color(0xFF3E1C67),
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: height * 0.1,
-                    child: GloryAiAssetImage(
-                      imagePath: AppImages.appLogoHomePage,
-                    ),
-                  ),
-                  Expanded(child: SizedBox()),
-                  Container(
-                    height: 55,
-                    width: 55,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      color: DesignConstants.kTextLightColor,
-                    ),
-                    child: Icon(
-                      Icons.tag_faces_outlined,
-                      color: Colors.white,
-                      size: 32,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Column(children: _buildWeekRows()),
                     ),
                   ),
                 ],
               ),
-              AddHeight(0.1),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "$monthName ${_displayedMonth.year.toString()}",
-                    style: const TextStyle(
-                      color: DesignConstants.kTextPurpleColor,
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: _previousMonth,
-                        child: Icon(
-                          Icons.arrow_back_ios_new_outlined,
-                          color: DesignConstants.kTextLightColor,
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      GestureDetector(
-                        onTap: _nextMonth,
-                        child: Icon(
-                          Icons.arrow_forward_ios_outlined,
-                          color: DesignConstants.kTextLightColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              AddHeight(0.02),
-              SizedBox(
-                height: height * 0.32,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: const [
-                          Text(
-                            "S",
-                            style: TextStyle(
-                              color: Color(0xFF3E1C67),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            "M",
-                            style: TextStyle(
-                              color: Color(0xFF3E1C67),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            "T",
-                            style: TextStyle(
-                              color: Color(0xFF3E1C67),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            "W",
-                            style: TextStyle(
-                              color: Color(0xFF3E1C67),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            "T",
-                            style: TextStyle(
-                              color: Color(0xFF3E1C67),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            "F",
-                            style: TextStyle(
-                              color: Color(0xFF3E1C67),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            "S",
-                            style: TextStyle(
-                              color: Color(0xFF3E1C67),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Column(children: _buildWeekRows()),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+          
+          if (_selectedDay != null) ...[
+
+        ElevatedButton(
+          onPressed: _showNotificationsForSelectedDay,
+          child: Text('View/Add Reminders'),
         ),
-      );
+          ]
+      
+      
+    
+          ],
+        ),
+      ),
+    );
   }
 
   String _getCurrentMonthName() {

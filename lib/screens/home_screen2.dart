@@ -227,16 +227,15 @@ class _HomeScreen2State extends State<HomeScreen2> {
           ),
         ],
       ),
-Stack(
-  children: [
-    Positioned(
+      Stack(
+        children: [
+          Positioned(
             bottom: height * 0.06,
             left: 0,
             right: 0,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                
                 SizedBox(
                   width: double.maxFinite,
                   height: height * 0.35,
@@ -249,9 +248,9 @@ Stack(
             ),
           ),
 
-    CalendarPage(),
-  ],
-),
+          CalendarPage(),
+        ],
+      ),
       Stack(
         children: [
           Positioned(
@@ -1080,8 +1079,6 @@ Stack(
           ),
         ],
       ),
-
-      
     ];
     return Scaffold(
       body: Container(
@@ -1102,7 +1099,7 @@ Stack(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (activeWidget != 1 &&activeWidget != 3) ...[
+          if (activeWidget != 1 && activeWidget != 3) ...[
             GestureDetector(
               onTap: () {
                 AppNavigation.navigateTo(AppRoutesNames.chatScreen);
@@ -1194,7 +1191,7 @@ Stack(
               ),
               SizedBox(width: 18),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   activeWidget = 2;
                   print(activeWidget);
                   setState(() {});
@@ -1204,7 +1201,8 @@ Stack(
                   width: 40,
                   padding: EdgeInsets.all(5.0),
                   decoration: BoxDecoration(
-                    color: activeWidget == 2
+                    color:
+                        activeWidget == 2
                             ? DesignConstants.kTextPurpleColor
                             : Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
