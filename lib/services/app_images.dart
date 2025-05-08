@@ -41,6 +41,7 @@ class AppImages {
   static final settingsIconGlory = _concatPathAndImage("settings_icon.svg");
   static final shareIconGlory = _concatPathAndImage("share_icon.svg");
   static final homeTIconGlory = _concatPathAndImage("home_t_icon.svg");
+  static final menuIconGlory = _concatPathAndImage("menu_icon.svg");
   
   
   // Settings Page Icons

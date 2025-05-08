@@ -11,9 +11,13 @@ class DesignConstants {
   static const Color kAccentColor = Color(0xFFF4D8C8);
   static const Color kTextPurpleColor = Color(0xFF391563);
   static const Color kTextLightColor = Color(0xFFE4A3A0);
+  static const Color kTextLightCalendarPageColor = Color(0xFFE5A29F);
   static const Color kTextGreenColor = Color(0xFF00C478);
   static const Color kHomeBoxColor = Color(0xFFf2d3c4);
   static const Color kHomeBoxColor2 = Color(0xFFf6ded0);
+
+  static const Color kHomeBoxDark = Color(0xFF22AB68);
+
 
   
 

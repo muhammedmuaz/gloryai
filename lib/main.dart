@@ -8,6 +8,7 @@ import 'package:gloryai/routing/app_navigator.dart';
 import 'package:gloryai/routing/app_route_generator.dart';
 import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/screens/home_screen2.dart';
+import 'package:gloryai/screens/notification_screen.dart';
 import 'package:gloryai/services/api_links.dart';
 import 'package:gloryai/services/notification_service.dart';
 import 'package:gloryai/theme/gloryai_theme.dart';

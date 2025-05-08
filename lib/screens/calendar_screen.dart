@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:gloryai/const/design_const.dart';
 import 'package:gloryai/generic_widgets/image/gloryai_asset_image.dart';
 import 'package:gloryai/generic_widgets/screen_widgets/screen_padding.dart';
-import 'package:gloryai/providers/notification_provider.dart';
+import 'package:gloryai/screens/calendar_schedule_alarm_screen.dart';
 import 'package:gloryai/services/app_images.dart';
 import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
@@ -17,15 +16,9 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
-  TimeOfDay _selectedTime = TimeOfDay.now();
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _bodyController = TextEditingController();
   final DateTime _currentDate = DateTime.now();
   DateTime _displayedMonth = DateTime.now();
   int? _selectedDay;
-  final NotificationProvider _notificationProvider = Get.put(
-    NotificationProvider(),
-  );
 
   @override
   void initState() {
@@ -57,147 +50,21 @@ class _CalendarPageState extends State<CalendarPage> {
     setState(() {
       _selectedDay = day;
     });
-  }
 
-  Future<void> _addNotification() async {
-    if (_selectedDay == null) {
-      Get.snackbar('Error', 'Please select a day');
-      return;
-    }
+     // Create the selected date
+  final selectedDate = DateTime(
+    _displayedMonth.year,
+    _displayedMonth.month,
+    day,
+  );
 
-    final scheduledDate = DateTime(
-      _displayedMonth.year,
-      _displayedMonth.month,
-      _selectedDay!,
-      _selectedTime.hour,
-      _selectedTime.minute,
-    );
-
-    if (scheduledDate.isBefore(DateTime.now())) {
-      Get.snackbar('Error', 'Cannot schedule notification in the past');
-      return;
-    }
-
-    await _notificationProvider.scheduleNotification(
-      title:
-          _titleController.text.isEmpty
-              ? 'Prayer Reminder'
-              : _titleController.text,
-      body:
-          _bodyController.text.isEmpty
-              ? 'Time for your prayer session'
-              : _bodyController.text,
-      scheduledTime: scheduledDate,
-    );
-
-    _titleController.clear();
-    _bodyController.clear();
-  }
-
-  void _showNotificationDialog() {
-    Get.defaultDialog(
-      title: 'Schedule Prayer Reminder',
-      content: Column(
-        children: [
-          TextField(
-            controller: _titleController,
-            decoration: InputDecoration(
-              labelText: 'Title',
-              hintText: 'e.g. Morning Prayer',
-            ),
-          ),
-          TextField(
-            controller: _bodyController,
-            decoration: InputDecoration(
-              labelText: 'Message',
-              hintText: 'e.g. Time to connect with God',
-            ),
-          ),
-          SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Time: ${_selectedTime.format(context)}'),
-              TextButton(
-                onPressed: () => _selectTime(context),
-                child: Text('Change Time'),
-              ),
-            ],
-          ),
-        ],
-      ),
-      confirm: ElevatedButton(
-        onPressed: () {
-          _addNotification();
-          Get.back();
-        },
-        child: Text('Schedule'),
-      ),
-      cancel: TextButton(onPressed: Get.back, child: Text('Cancel')),
-    );
-  }
-
-  void _showNotificationsForSelectedDay() {
-    if (_selectedDay == null) return;
-
-    final selectedDate = DateTime(
-      _displayedMonth.year,
-      _displayedMonth.month,
-      _selectedDay!,
-    );
-
-    final notifications = _notificationProvider.getNotificationsForDate(
-      selectedDate,
-    );
-
-    if (notifications.isEmpty) {
-      _showNotificationDialog();
-    } else {
-      Get.bottomSheet(
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'Scheduled Prayers for ${DateFormat.yMMMd().format(selectedDate)}',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 16),
-              Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: notifications.length,
-                  itemBuilder: (context, index) {
-                    final notification = notifications[index];
-                    return ListTile(
-                      leading: Icon(Icons.notifications),
-                      title: Text(notification.title),
-                      subtitle: Text(notification.formattedTime),
-                      trailing: IconButton(
-                        icon: Icon(Icons.delete),
-                        onPressed:
-                            () => _notificationProvider.cancelNotification(
-                              notification.id,
-                            ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              ElevatedButton(
-                onPressed: _showNotificationDialog,
-                child: Text('Add New Reminder'),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
+  // Navigate to the schedule screen with the selected date
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => CalendarScheduleAlarmScreen(selectedDate: selectedDate),
+    ),
+  );
   }
 
   List<Widget> _buildWeekRows() {
@@ -271,18 +138,6 @@ class _CalendarPageState extends State<CalendarPage> {
     }
 
     return rows;
-  }
-
-  Future<void> _selectTime(BuildContext context) async {
-    final TimeOfDay? picked = await showTimePicker(
-      context: context,
-      initialTime: _selectedTime,
-    );
-    if (picked != null && picked != _selectedTime) {
-      setState(() {
-        _selectedTime = picked;
-      });
-    }
   }
 
   Widget _buildDate(
@@ -516,17 +371,6 @@ class _CalendarPageState extends State<CalendarPage> {
                 ],
               ),
             ),
-          
-          if (_selectedDay != null) ...[
-
-        ElevatedButton(
-          onPressed: _showNotificationsForSelectedDay,
-          child: Text('View/Add Reminders'),
-        ),
-          ]
-      
-      
-    
           ],
         ),
       ),

@@ -106,8 +106,6 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
     final width = ScreenHelper.getScreenWidth(context);
-    final logoDuration = 800.ms;
-    final conversationDelay = logoDuration + 300.ms;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(

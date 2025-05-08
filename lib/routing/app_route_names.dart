@@ -30,8 +30,9 @@ class AppRoutesNames {
   static const introHowLongistScreen = "/introHowLongistScreen";
   static const settingsScreen = "/settingsScreen";
   static const chatScreen = "/chatScreen";
-
-
+  static const calendarScheduleAlarmScreen = "/calendarScheduleAlarmScreen";
+  static const notificationListScreen = "/notificationListScreen";
+  
 
   
   }

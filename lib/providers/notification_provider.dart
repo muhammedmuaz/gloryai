@@ -1,9 +1,10 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:gloryai/models/appNotification_model.dart';
 import 'package:gloryai/services/notification_service.dart';
-import 'package:intl/intl.dart';
 
 class NotificationProvider extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -32,7 +33,7 @@ class NotificationProvider extends GetxController {
       if (user == null) throw Exception('User not authenticated');
 
       // Generate a unique ID for the notification
-      final notificationId = DateTime.now().millisecondsSinceEpoch;
+      final notificationId = Random().nextInt(100);
 
       // Schedule the local notification
       await _notificationService.scheduleNotification(
@@ -82,6 +83,7 @@ class NotificationProvider extends GetxController {
   Future<void> fetchScheduledNotifications() async {
     try {
       _isLoading.value = true;
+    _scheduledNotifications.clear(); // Clear existing notifications
 
       final user = FirebaseAuth.instance.currentUser;
       if (user == null) return;
@@ -97,6 +99,10 @@ class NotificationProvider extends GetxController {
       _scheduledNotifications.assignAll(
         snapshot.docs.map((doc) => AppNotification.fromMap(doc.data())),
       );
+      for (var i = 0; i < snapshot.docs.length; i++) {
+        print(snapshot.docs[i].id);
+        print(snapshot.docs[i].data());
+      }
     } catch (e) {
       Get.snackbar('Error', 'Failed to fetch notifications: ${e.toString()}');
     } finally {
@@ -139,6 +145,14 @@ class NotificationProvider extends GetxController {
 
   // Get notifications for a specific date
   List<AppNotification> getNotificationsForDate(DateTime date) {
+    print("print(_scheduledNotifications.where((notification) {notification.scheduledTime.year == date.year && notification.scheduledTime.month == date.month && notification.scheduledTime.day == date.day;}).toList().length);");
+    print(_scheduledNotifications.where((notification) {
+
+      print("year ${notification.scheduledTime.year} month ${notification.scheduledTime.month} date ${notification.scheduledTime.day}");
+      return notification.scheduledTime.year == date.year &&
+          notification.scheduledTime.month == date.month &&
+          notification.scheduledTime.day == date.day;
+    }).toList().length);
     return _scheduledNotifications.where((notification) {
       return notification.scheduledTime.year == date.year &&
           notification.scheduledTime.month == date.month &&
