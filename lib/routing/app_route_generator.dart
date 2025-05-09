@@ -5,6 +5,8 @@ import 'package:gloryai/screens/chat_screen.dart';
 import 'package:gloryai/screens/devotional_screen.dart';
 import 'package:gloryai/screens/edit_gender_screen.dart';
 import 'package:gloryai/screens/edit_tradition_select_screen.dart';
+import 'package:gloryai/screens/glory_bible_lines_explanation_screen.dart';
+import 'package:gloryai/screens/glory_bible_lines_screen.dart';
 import 'package:gloryai/screens/home_screen2.dart';
 import 'package:gloryai/screens/intro/intro_age_group_screen.dart';
 import 'package:gloryai/screens/intro/intro_always_together_screen.dart';
@@ -205,14 +207,22 @@ class RouteGenerator {
           screen: const EditGenderSelectScreen(),
           direction: AxisDirection.left,
         );
-        case AppRoutesNames.editTraditionSelectScreen:
+      case AppRoutesNames.editTraditionSelectScreen:
         return _slideRoute(
           screen: const EditTraditionSelectScreen(),
           direction: AxisDirection.left,
-        );  
+        );
+      case AppRoutesNames.gloryBibleLinesScreen:
+        return _screenRoute(screen: const GloryBibleLinesScreen());
+      case AppRoutesNames.gloryBibleLinesExplanationScreen:
+        return _screenRoute(screen: const GloryBibleLinesExplanationScreen());  
       default:
         return _errorRoute();
     }
+  }
+
+  static Route<dynamic> _screenRoute({Widget? screen}) {
+    return MaterialPageRoute(builder: (context) => screen!);
   }
 
   // Slide transition only (no fade)

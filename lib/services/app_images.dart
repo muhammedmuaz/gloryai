@@ -56,6 +56,20 @@ class AppImages {
   static final cancelIconGlory = _concatPathAndImage("cancel_icon.svg");
 
 
+  // Bible Images
+  static final bibleIcon1Glory = _concatPathAndImage("bible1.png");
+  static final bibleIcon2Glory = _concatPathAndImage("bible2.png");
+  static final bibleIcon3Glory = _concatPathAndImage("bible3.png");
+  static final bibleIcon4Glory = _concatPathAndImage("bible4.png");
+  static final bibleIcon5Glory = _concatPathAndImage("bible5.png");
+  static final bibleIcon6Glory = _concatPathAndImage("bible6.png");
+  static final bibleIcon7Glory = _concatPathAndImage("bible7.png");
+  static final bibleIcon8Glory = _concatPathAndImage("bible8.png");
+  static final bibleIcon9Glory = _concatPathAndImage("bible9.png");
+
+
+
+
   // Lotties
   static final loadingLottie = _concatPathAndLottie("loading.json");
   static final bibleLottie = _concatPathAndLottie("bible.json");

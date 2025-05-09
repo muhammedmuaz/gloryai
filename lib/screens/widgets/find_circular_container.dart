@@ -13,7 +13,6 @@ class CircularFindContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = ScreenHelper.getScreenCompleteHeight(context);
     final width = ScreenHelper.getScreenWidth(context);
     return GestureDetector(
       onTap: onTap,

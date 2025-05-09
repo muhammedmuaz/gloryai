@@ -207,29 +207,36 @@ class _HomeScreen2State extends State<HomeScreen2> {
                   ],
                 ),
                 AddHeight(0.01),
-                Container(
-                  height: 50,
-                  width: double.maxFinite,
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(
-                    horizontal: DataConstants.kScreenHorizontalPadding,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24.0),
-                    color: Colors.white,
-                    border: Border.all(
-                      width: 1,
-                      color: DesignConstants.kCaribbeanGreen,
+                GestureDetector(
+                  onTap: () {
+                    AppNavigation.navigateTo(
+                      AppRoutesNames.gloryBibleLinesScreen,
+                    );
+                  },
+                  child: Container(
+                    height: 50,
+                    width: double.maxFinite,
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.symmetric(
+                      horizontal: DataConstants.kScreenHorizontalPadding,
                     ),
-                  ),
-                  child: Text(
-                    'Help me understand',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontSize: 21,
-                      fontWeight: FontWeight.w400,
-                      color: DesignConstants.kTextGreenColor,
-                      letterSpacing: -0.1,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24.0),
+                      color: Colors.white,
+                      border: Border.all(
+                        width: 1,
+                        color: DesignConstants.kCaribbeanGreen,
+                      ),
+                    ),
+                    child: Text(
+                      'Help me understand',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: 21,
+                        fontWeight: FontWeight.w400,
+                        color: DesignConstants.kTextGreenColor,
+                        letterSpacing: -0.1,
+                      ),
                     ),
                   ),
                 ),
@@ -493,7 +500,9 @@ class _HomeScreen2State extends State<HomeScreen2> {
           if (activeWidget != 1 && activeWidget != 3) ...[
             GestureDetector(
               onTap: () {
-                AppNavigation.navigateTo(AppRoutesNames.chatScreen);
+                AppNavigation.navigateTo(
+                      AppRoutesNames.gloryBibleLinesScreen,
+                    );
               },
               child: Container(
                 width: double.maxFinite,

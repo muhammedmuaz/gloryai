@@ -62,7 +62,7 @@ class IntroQuote2Screen extends StatelessWidget {
                             horizontal: DataConstants.kScreenHorizontalPadding,
                           ),
                           child: Text(
-                            '„Your word\nis a lamp\nto my feet\nand a light\nto my path."',
+                            '„Your word is a lamp to my feet and a light to my path."',
                             textAlign: TextAlign.center,
                             style: Theme.of(
                               context,
@@ -199,4 +199,6 @@ class IntroQuote2Screen extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
+
+
 }
