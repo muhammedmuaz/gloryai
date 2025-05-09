@@ -11,17 +11,29 @@ import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
 import '../../generic_widgets/image/gloryai_asset_image.dart';
 
-class IntroGenderSelectScreen extends StatefulWidget {
-  const IntroGenderSelectScreen({super.key});
+class EditTraditionSelectScreen extends StatefulWidget {
+  const EditTraditionSelectScreen({super.key});
 
   @override
-  State<IntroGenderSelectScreen> createState() =>
-      _IntroGenderSelectScreenState();
+  State<EditTraditionSelectScreen> createState() =>
+      _EditTraditionSelectScreenState();
 }
 
-class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
+class _EditTraditionSelectScreenState
+    extends State<EditTraditionSelectScreen> {
+  
   String? _selectedOption;
-  final List<String> _options = ['Male', 'Female'];
+  final List<String> _options = [
+    'Orthodox',
+    'Anglican',
+    'Pentecostal',
+    'Evangelicals',
+    'Baptist',
+    'Lutheran',
+    'Methodist',
+    'Adventist',
+    'Catholic',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +41,35 @@ class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
     final width = ScreenHelper.getScreenWidth(context);
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        foregroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        centerTitle: true,
+        leading: GestureDetector(
+          onTap: () {
+            AppNavigation.goBack();
+          },
+          child: Hero(
+            tag: 'heading',
+            child: Icon(
+              Icons.arrow_back_ios_new_outlined,
+              color: DesignConstants.kTextPurpleColor,
+            ),
+          ),
+        ),
+        title: Text(
+          "Branch",
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontSize: 18,
+            fontWeight: FontWeight.w400,
+            color: DesignConstants.kTextPurpleColor,
+          ),
+        ),
+      ),
       body: Container(
         height: height,
         width: width,
@@ -45,37 +86,30 @@ class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
         ),
         child: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              AddHeight(0.05),
-              SizedBox(
-                width: width * 0.6,
-                child: GloryAiAssetImage(imagePath: AppImages.applogo),
+         AddHeight(0.05),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: DataConstants.kScreenHorizontalPadding,
+                ),
+                child: Text(
+                  'What\'s your Branch?',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w400,
+                    color: DesignConstants.kTextPurpleColor,
+                    height: 1.3,
+                  ),
+                ),
               ),
-              
               Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: DataConstants.kScreenHorizontalPadding,
-                      ),
-                      child: Text(
-                        'Where should Glory address you?',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w400,
-                          color: DesignConstants.kTextPurpleColor,
-                          height: 1.3,
-                        ),
-                      ),
-                    ),
-                    AddHeight(0.03),
-                    Column(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: height * 0.03),
+                    child: Column(
                       children:
                           _options.map((option) {
                             return Column(
@@ -86,16 +120,11 @@ class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
                             );
                           }).toList(),
                     ),
-
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: DataConstants.kScreenHorizontalPadding),
-                      child: GloryAiAssetImage(imagePath: AppImages.cloudIcon),
-                    ),
-                  ],
+                  ),
                 ),
               ),
 
-              AddHeight(0.15),
+              AddHeight(0.1),
             ],
           ),
         ),
@@ -109,12 +138,11 @@ class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
             onTap:
                 _selectedOption != null
                     ? () {
-  final AuthenticationProvider authProvider = Get.find();
-
-                      authProvider.saveFormAnswer('gender', _selectedOption);
-                      AppNavigation.navigateTo(
-                        AppRoutesNames.introTraditionSelectScreen,
-                      );
+                      // final AuthenticationProvider authProvider = Get.find();
+                      // authProvider.saveFormAnswer('christianTradition', _selectedOption);
+                      // AppNavigation.navigateTo(
+                      //   AppRoutesNames.introScriptureScreen,
+                      // );
                     }
                     : null,
             child: Container(

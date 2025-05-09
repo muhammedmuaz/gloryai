@@ -32,8 +32,7 @@ class AppRoutesNames {
   static const chatScreen = "/chatScreen";
   static const calendarScheduleAlarmScreen = "/calendarScheduleAlarmScreen";
   static const notificationListScreen = "/notificationListScreen";
-  
-
-  
+  static const editGenderSelectScreen = "/editGenderSelectScreen";
+  static const editTraditionSelectScreen = "/editTraditionSelectScreen";
   }
 

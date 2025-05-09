@@ -357,12 +357,15 @@ class _HomeScreen2State extends State<HomeScreen2> {
                     ),
                   ],
                 ),
-                Text(
-                  'Settings',
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w400,
-                    color: DesignConstants.kTextPurpleColor,
+                Hero(
+                  tag: 'heading',
+                  child: Text(
+                    'Settings',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w400,
+                      color: DesignConstants.kTextPurpleColor,
+                    ),
                   ),
                 ),
                 AddHeight(0.015),
@@ -385,11 +388,21 @@ class _HomeScreen2State extends State<HomeScreen2> {
                         SettingsTile(
                           title: 'Branch',
                           iconPath: AppImages.branchIconGlory,
+                          onTap: () {
+                            AppNavigation.navigateTo(
+                              AppRoutesNames.editTraditionSelectScreen,
+                            );
+                          },
                         ),
                         AddHeight(0.008),
                         SettingsTile(
                           title: 'Gender',
                           iconPath: AppImages.genderIconGlory,
+                          onTap: () {
+                            AppNavigation.navigateTo(
+                              AppRoutesNames.editGenderSelectScreen,
+                            );
+                          },
                         ),
                         AddHeight(0.008),
                         SettingsTile(

@@ -11,15 +11,14 @@ import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
 import '../../generic_widgets/image/gloryai_asset_image.dart';
 
-class IntroGenderSelectScreen extends StatefulWidget {
-  const IntroGenderSelectScreen({super.key});
+class EditGenderSelectScreen extends StatefulWidget {
+  const EditGenderSelectScreen({super.key});
 
   @override
-  State<IntroGenderSelectScreen> createState() =>
-      _IntroGenderSelectScreenState();
+  State<EditGenderSelectScreen> createState() => _EditGenderSelectScreenState();
 }
 
-class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
+class _EditGenderSelectScreenState extends State<EditGenderSelectScreen> {
   String? _selectedOption;
   final List<String> _options = ['Male', 'Female'];
 
@@ -29,6 +28,35 @@ class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
     final width = ScreenHelper.getScreenWidth(context);
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        foregroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        centerTitle: true,
+        leading: GestureDetector(
+          onTap: () {
+            AppNavigation.goBack();
+          },
+          child: Hero(
+            tag: 'heading',
+            child: Icon(
+              Icons.arrow_back_ios_new_outlined,
+              color: DesignConstants.kTextPurpleColor,
+            ),
+          ),
+        ),
+        title: Text(
+          "Gender Screen",
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontSize: 18,
+            fontWeight: FontWeight.w400,
+            color: DesignConstants.kTextPurpleColor,
+          ),
+        ),
+      ),
       body: Container(
         height: height,
         width: width,
@@ -48,12 +76,6 @@ class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              AddHeight(0.05),
-              SizedBox(
-                width: width * 0.6,
-                child: GloryAiAssetImage(imagePath: AppImages.applogo),
-              ),
-              
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -88,7 +110,9 @@ class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: DataConstants.kScreenHorizontalPadding),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: DataConstants.kScreenHorizontalPadding,
+                      ),
                       child: GloryAiAssetImage(imagePath: AppImages.cloudIcon),
                     ),
                   ],
@@ -109,7 +133,7 @@ class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
             onTap:
                 _selectedOption != null
                     ? () {
-  final AuthenticationProvider authProvider = Get.find();
+                      final AuthenticationProvider authProvider = Get.find();
 
                       authProvider.saveFormAnswer('gender', _selectedOption);
                       AppNavigation.navigateTo(
@@ -146,7 +170,7 @@ class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Next',
+                        'Update',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontSize: 21,
                           fontWeight: FontWeight.w700,

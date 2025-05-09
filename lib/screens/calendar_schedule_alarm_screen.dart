@@ -522,9 +522,6 @@ class _CalendarScheduleAlarmScreenState
 
   @override
   Widget build(BuildContext context) {
-    final height = ScreenHelper.getScreenCompleteHeight(context);
-    final width = ScreenHelper.getScreenWidth(context);
-
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(

@@ -3,6 +3,8 @@ import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/screens/calendar_schedule_alarm_screen.dart';
 import 'package:gloryai/screens/chat_screen.dart';
 import 'package:gloryai/screens/devotional_screen.dart';
+import 'package:gloryai/screens/edit_gender_screen.dart';
+import 'package:gloryai/screens/edit_tradition_select_screen.dart';
 import 'package:gloryai/screens/home_screen2.dart';
 import 'package:gloryai/screens/intro/intro_age_group_screen.dart';
 import 'package:gloryai/screens/intro/intro_always_together_screen.dart';
@@ -198,6 +200,16 @@ class RouteGenerator {
           screen: const NotificationListScreen(),
           direction: AxisDirection.left,
         );
+      case AppRoutesNames.editGenderSelectScreen:
+        return _slideRoute(
+          screen: const EditGenderSelectScreen(),
+          direction: AxisDirection.left,
+        );
+        case AppRoutesNames.editTraditionSelectScreen:
+        return _slideRoute(
+          screen: const EditTraditionSelectScreen(),
+          direction: AxisDirection.left,
+        );  
       default:
         return _errorRoute();
     }
