@@ -1,11 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:gloryai/const/data_const.dart';
 import 'package:gloryai/const/design_const.dart';
-import 'package:gloryai/providers/auth_provider.dart';
+import 'package:gloryai/providers/user_provider.dart';
 import 'package:gloryai/routing/app_navigator.dart';
-import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/services/app_images.dart';
 import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
@@ -21,6 +22,25 @@ class EditGenderSelectScreen extends StatefulWidget {
 class _EditGenderSelectScreenState extends State<EditGenderSelectScreen> {
   String? _selectedOption;
   final List<String> _options = ['Male', 'Female'];
+
+  @override
+  void initState() {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      final UserProvider userProvider = Get.find();
+
+      if (userProvider.userProfile != null) {
+        for (var i = 0; i < _options.length; i++) {
+          if (_options[i].toLowerCase() ==
+              userProvider.userProfile!.gender!.toLowerCase()) {
+            print("Matched");
+            _selectedOption = _options[i];
+            setState(() {});
+          }
+        }
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,79 +149,82 @@ class _EditGenderSelectScreenState extends State<EditGenderSelectScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          GestureDetector(
-            onTap:
-                _selectedOption != null
-                    ? () {
-                      final AuthenticationProvider authProvider = Get.find();
-
-                      authProvider.saveFormAnswer('gender', _selectedOption);
-                      AppNavigation.navigateTo(
-                        AppRoutesNames.introTraditionSelectScreen,
-                      );
-                    }
-                    : null,
-            child: Container(
-                  width: double.maxFinite,
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(
-                    horizontal: DataConstants.kScreenHorizontalPadding,
-                  ),
-                  padding: EdgeInsets.symmetric(vertical: 12.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100.0),
-                    color:
-                        _selectedOption != null
-                            ? DesignConstants.kTextGreenColor
-                            : Colors.grey.withOpacity(0.7),
-                    boxShadow: [
-                      BoxShadow(
-                        color: (_selectedOption != null
+           GetBuilder<UserProvider>(
+            builder: (value) {
+               if (value.isUpdateingGender) {
+                return Center(child: CupertinoActivityIndicator());
+              }
+              return GestureDetector(
+                onTap:
+                    _selectedOption != null
+                        ? () {
+                          final UserProvider userProvider = Get.find();
+                          userProvider.updateGender(_selectedOption!);
+                        }
+                        : null,
+                child: Container(
+                      width: double.maxFinite,
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.symmetric(
+                        horizontal: DataConstants.kScreenHorizontalPadding,
+                      ),
+                      padding: EdgeInsets.symmetric(vertical: 12.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100.0),
+                        color:
+                            _selectedOption != null
                                 ? DesignConstants.kTextGreenColor
-                                : Colors.grey.withOpacity(0.3))
-                            .withOpacity(0.4),
-                        blurRadius: 10,
-                        spreadRadius: 0,
-                        offset: const Offset(0, 4),
+                                : Colors.grey.withOpacity(0.7),
+                        boxShadow: [
+                          BoxShadow(
+                            color: (_selectedOption != null
+                                    ? DesignConstants.kTextGreenColor
+                                    : Colors.grey.withOpacity(0.3))
+                                .withOpacity(0.4),
+                            blurRadius: 10,
+                            spreadRadius: 0,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Update',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 21,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          letterSpacing: 0.5,
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Update',
+                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontSize: 21,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                )
-                .animate(
-                  onPlay:
-                      (controller) =>
-                          _selectedOption != null ? controller.repeat() : null,
-                )
-                .shimmer(
-                  delay: 1000.ms,
-                  duration: 1800.ms,
-                  color: Colors.white.withOpacity(0.3),
-                )
-                .animate(
-                  onPlay:
-                      (controller) =>
-                          _selectedOption != null ? controller.repeat() : null,
-                )
-                .scale(
-                  begin: const Offset(1, 1),
-                  end: const Offset(1.02, 1.02),
-                  duration: 2000.ms,
-                  curve: Curves.easeInOut,
-                ),
+                    )
+                    .animate(
+                      onPlay:
+                          (controller) =>
+                              _selectedOption != null ? controller.repeat() : null,
+                    )
+                    .shimmer(
+                      delay: 1000.ms,
+                      duration: 1800.ms,
+                      color: Colors.white.withOpacity(0.3),
+                    )
+                    .animate(
+                      onPlay:
+                          (controller) =>
+                              _selectedOption != null ? controller.repeat() : null,
+                    )
+                    .scale(
+                      begin: const Offset(1, 1),
+                      end: const Offset(1.02, 1.02),
+                      duration: 2000.ms,
+                      curve: Curves.easeInOut,
+                    ),
+              );
+            }
           ),
         ],
       ),

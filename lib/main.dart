@@ -12,6 +12,7 @@ import 'package:gloryai/services/api_links.dart';
 import 'package:gloryai/services/notification_service.dart';
 import 'package:gloryai/theme/gloryai_theme.dart';
 import 'package:gloryai/utils/image_preloader.dart';
+import 'package:toastification/toastification.dart';
 
 
 class MyHttpOverrides extends HttpOverrides {
@@ -60,14 +61,16 @@ class _GloryAppState extends State<GloryApp> {
   }
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Glory.ai',
-      debugShowCheckedModeBanner: false,
-      theme: GloyAiTheme.lightTheme,
-       initialRoute: AppRoutesNames.initial,
-        navigatorKey: AppNavigation.navigatorKey,
-        onGenerateRoute: RouteGenerator.generateRoute,
-      home: HomeScreen2(),
+    return ToastificationWrapper(
+      child: GetMaterialApp(
+        title: 'Glory.ai',
+        debugShowCheckedModeBanner: false,
+        theme: GloyAiTheme.lightTheme,
+         initialRoute: AppRoutesNames.initial,
+          navigatorKey: AppNavigation.navigatorKey,
+          onGenerateRoute: RouteGenerator.generateRoute,
+        // home: HomeScreen2(),
+      ),
     );
   }
 }

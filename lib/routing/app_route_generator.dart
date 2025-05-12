@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/screens/calendar_schedule_alarm_screen.dart';
 import 'package:gloryai/screens/chat_screen.dart';
+import 'package:gloryai/screens/contact_support_screen.dart';
 import 'package:gloryai/screens/devotional_screen.dart';
 import 'package:gloryai/screens/edit_gender_screen.dart';
 import 'package:gloryai/screens/edit_tradition_select_screen.dart';
@@ -34,6 +35,7 @@ import 'package:gloryai/screens/intro/intro_scripture2_screen.dart';
 import 'package:gloryai/screens/intro/intro_scripture_screen.dart';
 import 'package:gloryai/screens/intro/intro_tradition_select_screen.dart';
 import 'package:gloryai/screens/intro/intro_where_find_screen.dart';
+import 'package:gloryai/screens/intro/splash_screen.dart';
 import 'package:gloryai/screens/notification_screen.dart';
 import 'package:gloryai/screens/settings_screen.dart';
 
@@ -42,6 +44,12 @@ class RouteGenerator {
     switch (settings.name) {
       // Default slide direction is left (override per route if needed)
       case AppRoutesNames.initial:
+        return _slideRoute(
+          screen: const SplashScreen(),
+          direction: AxisDirection.left,
+        );
+
+        case AppRoutesNames.introScreen:
         return _slideRoute(
           screen: const IntroScreen(),
           direction: AxisDirection.left,
@@ -216,6 +224,8 @@ class RouteGenerator {
         return _screenRoute(screen: const GloryBibleLinesScreen());
       case AppRoutesNames.gloryBibleLinesExplanationScreen:
         return _screenRoute(screen: const GloryBibleLinesExplanationScreen());  
+      case AppRoutesNames.contactSupportScreen:
+        return _screenRoute(screen: const ContactSupportScreen());    
       default:
         return _errorRoute();
     }

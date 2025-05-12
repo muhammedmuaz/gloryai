@@ -336,7 +336,7 @@ class _CalendarScheduleAlarmScreenState
                     // Title Input Field
                     TextFormField(
                       controller: _titleController,
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(color: DesignConstants.kTextPurpleColor),
                       decoration: InputDecoration(
                         labelText: 'Title',
                         labelStyle: Theme.of(context).textTheme.bodyMedium!
@@ -364,7 +364,7 @@ class _CalendarScheduleAlarmScreenState
                     // Description Input Field
                     TextFormField(
                       controller: _bodyController,
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(color: DesignConstants.kTextPurpleColor),
                       decoration: InputDecoration(
                         labelText: 'Description',
                         labelStyle: Theme.of(context).textTheme.bodyMedium!
@@ -534,7 +534,9 @@ class _CalendarScheduleAlarmScreenState
               children: [
                 
               
-                          IconButton(onPressed: (){
+                          IconButton(
+                            padding: EdgeInsets.zero,
+                            onPressed: (){
                             AppNavigation.goBack();
                           }, icon: Icon(
                             Icons.arrow_back_ios_new_outlined,

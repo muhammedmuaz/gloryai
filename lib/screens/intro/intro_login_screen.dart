@@ -5,8 +5,6 @@ import 'package:gloryai/const/design_const.dart';
 import 'package:gloryai/generic_widgets/screen_widgets/screen_padding.dart';
 import 'package:gloryai/providers/auth_provider.dart';
 import 'package:gloryai/providers/user_provider.dart';
-import 'package:gloryai/routing/app_navigator.dart';
-import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/services/app_images.dart';
 import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
@@ -20,7 +18,6 @@ class IntroLoginScreen extends StatefulWidget {
 }
 
 class _IntroLoginScreenState extends State<IntroLoginScreen> {
-
   final AuthenticationProvider authenticationProvider = Get.find();
   final UserProvider userProvider = Get.find();
   @override
@@ -68,108 +65,108 @@ class _IntroLoginScreenState extends State<IntroLoginScreen> {
                       ),
                       AddHeight(0.1),
                       // For Apple Sign In
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          height: 55,
-                          width: double.maxFinite,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100.0),
-                            color: Colors.black,
-                          ),
-                          child: Stack(
-                            children: [
-                              // Icon aligned to the left
-                              Positioned(
-                                left: 14.0,
-                                top: 10,
-                                child: Icon(
-                                  Icons.apple,
-                                  color: Colors.white,
-                                  size: 36,
-                                ),
-                              ),
-                              // Centered text
-                              Center(
-                                child: Text(
-                                  'Sign in with Apple',
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.bodyMedium!.copyWith(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
-                                    letterSpacing: 0.5,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      AddHeight(0.01),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          height: 55,
-                          width: double.maxFinite,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100.0),
-                            color: DesignConstants.kFbBtnColor,
-                          ),
-                          child: Stack(
-                            children: [
-                              // Icon aligned to the left
-                              Positioned(
-                                left: 14.0,
-                                top: 10,
-                                child: Icon(
-                                  Icons.facebook,
-                                  color: Colors.white,
-                                  size: 36,
-                                ),
-                              ),
-                              // Centered text
-                              Center(
-                                child: Text(
-                                  'Sign in with Facebook',
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.bodyMedium!.copyWith(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
-                                    letterSpacing: 0.5,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      AddHeight(0.01),
+
+                      // GestureDetector(
+                      //   onTap: () {},
+                      //   child: Container(
+                      //     height: 55,
+                      //     width: double.maxFinite,
+                      //     decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(100.0),
+                      //       color: Colors.black,
+                      //     ),
+                      //     child: Stack(
+                      //       children: [
+                      //         // Icon aligned to the left
+                      //         Positioned(
+                      //           left: 14.0,
+                      //           top: 10,
+                      //           child: Icon(
+                      //             Icons.apple,
+                      //             color: Colors.white,
+                      //             size: 36,
+                      //           ),
+                      //         ),
+                      //         // Centered text
+                      //         Center(
+                      //           child: Text(
+                      //             'Sign in with Apple',
+                      //             style: Theme.of(
+                      //               context,
+                      //             ).textTheme.bodyMedium!.copyWith(
+                      //               fontSize: 20,
+                      //               fontWeight: FontWeight.w700,
+                      //               color: Colors.white,
+                      //               letterSpacing: 0.5,
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+
+                      // AddHeight(0.01),
+                      // GestureDetector(
+                      //   onTap: () {},
+                      //   child: Container(
+                      //     height: 55,
+                      //     width: double.maxFinite,
+                      //     decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(100.0),
+                      //       color: DesignConstants.kFbBtnColor,
+                      //     ),
+                      //     child: Stack(
+                      //       children: [
+                      //         // Icon aligned to the left
+                      //         Positioned(
+                      //           left: 14.0,
+                      //           top: 10,
+                      //           child: Icon(
+                      //             Icons.facebook,
+                      //             color: Colors.white,
+                      //             size: 36,
+                      //           ),
+                      //         ),
+                      //         // Centered text
+                      //         Center(
+                      //           child: Text(
+                      //             'Sign in with Facebook',
+                      //             style: Theme.of(
+                      //               context,
+                      //             ).textTheme.bodyMedium!.copyWith(
+                      //               fontSize: 20,
+                      //               fontWeight: FontWeight.w700,
+                      //               color: Colors.white,
+                      //               letterSpacing: 0.5,
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      // AddHeight(0.01),
+
                       // For Google Sign In
                       GestureDetector(
-                        onTap: 
-                        authenticationProvider.isSigningIn
-                      ? null
-                      : 
-                         () async {
-                          
-                          Get.dialog(
-                            Center(child: CircularProgressIndicator()),
-                            barrierDismissible: false,
-                          );
-                          
-                          try {
-                            await authenticationProvider.signInWithGoogle();
-                            // Get.offAllNamed('/home');
-                            AppNavigation.removeAllRoutes(AppRoutesNames.homeScreen2);
-                          } catch (e) {
-                            Get.back();
-                            Get.snackbar('Error', 'Sign in failed');
-                          }
-                        },
+                        onTap:
+                            authenticationProvider.isSigningIn
+                                ? null
+                                : () async {
+                                  Get.dialog(
+                                    Center(child: CircularProgressIndicator()),
+                                    barrierDismissible: false,
+                                  );
+
+                                  try {
+                                    await authenticationProvider
+                                        .signInWithGoogle();
+                                  } catch (e) {
+                                    Get.back();
+                                    Get.snackbar('Error', 'Sign in failed');
+                                  }
+                                },
                         child: Container(
                           height: 55,
                           width: double.maxFinite,
@@ -219,67 +216,67 @@ class _IntroLoginScreenState extends State<IntroLoginScreen> {
           ),
         ),
       ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          GestureDetector(
-            onTap: () {
-              if(isClickedInLogin == true) {
-              AppNavigation.navigateTo(AppRoutesNames.homeScreen2);
+      // floatingActionButton: Column(
+      //   mainAxisAlignment: MainAxisAlignment.end,
+      //   crossAxisAlignment: CrossAxisAlignment.center,
+      //   mainAxisSize: MainAxisSize.min,
+      //   children: [
+      //     GestureDetector(
+      //       onTap: () {
+      //         if (isClickedInLogin == true) {
+      //           AppNavigation.navigateTo(AppRoutesNames.homeScreen2);
+      //         } else {
+      //           AppNavigation.navigateTo(
+      //             AppRoutesNames.introEmbarkSacredScreen,
+      //           );
+      //         }
+      //       },
+      //       child: Container(
+      //         width: width,
+      //         alignment: Alignment.center,
+      //         margin: EdgeInsets.symmetric(
+      //           horizontal: DataConstants.kScreenHorizontalPadding,
+      //         ),
+      //         padding: EdgeInsets.symmetric(vertical: 12.0),
+      //         decoration: BoxDecoration(
+      //           borderRadius: BorderRadius.circular(100.0),
+      //           color: DesignConstants.kTextGreenColor,
+      //           boxShadow: [
+      //             BoxShadow(
+      //               color: DesignConstants.kTextGreenColor.withOpacity(0.3),
+      //               blurRadius: 10,
+      //               spreadRadius: 0,
+      //               offset: const Offset(0, 4),
+      //             ),
+      //           ],
+      //           gradient: LinearGradient(
+      //             begin: Alignment.topLeft,
+      //             end: Alignment.bottomRight,
+      //             colors: [
+      //               DesignConstants.kTextGreenColor,
+      //               DesignConstants.kTextGreenColor.withOpacity(0.9),
+      //             ],
+      //           ),
+      //         ),
+      //         child: Row(
+      //           mainAxisAlignment: MainAxisAlignment.center,
+      //           children: [
+      //             Text(
+      //               'Next',
+      //               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+      //                 fontSize: 18,
+      //                 fontWeight: FontWeight.bold,
+      //                 color: Colors.white,
+      //               ),
+      //             ),
+      //           ],
+      //         ),
+      //       ),
+      //     ),
 
-              }
-              else {
-
-              AppNavigation.navigateTo(AppRoutesNames.introEmbarkSacredScreen);
-              }
-            },
-            child: Container(
-              width: width,
-              alignment: Alignment.center,
-              margin: EdgeInsets.symmetric(
-                horizontal: DataConstants.kScreenHorizontalPadding,
-              ),
-              padding: EdgeInsets.symmetric(vertical: 12.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100.0),
-                color: DesignConstants.kTextGreenColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: DesignConstants.kTextGreenColor.withOpacity(0.3),
-                    blurRadius: 10,
-                    spreadRadius: 0,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    DesignConstants.kTextGreenColor,
-                    DesignConstants.kTextGreenColor.withOpacity(0.9),
-                  ],
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Next',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      //   ],
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

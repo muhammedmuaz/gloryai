@@ -36,5 +36,6 @@ class AppRoutesNames {
   static const editTraditionSelectScreen = "/editTraditionSelectScreen";
   static const gloryBibleLinesScreen = "/gloryBibleLinesScreen";
   static const gloryBibleLinesExplanationScreen = "/gloryBibleLinesExplanationScreen";
+  static const contactSupportScreen = "/contactSupportScreen";
   }
 

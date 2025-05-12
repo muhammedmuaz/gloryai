@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gloryai/const/design_const.dart';
 import 'package:gloryai/generic_widgets/image/gloryai_asset_image.dart';
 import 'package:gloryai/generic_widgets/screen_widgets/screen_padding.dart';
+import 'package:gloryai/routing/app_navigator.dart';
+import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/screens/calendar_schedule_alarm_screen.dart';
 import 'package:gloryai/services/app_images.dart';
 import 'package:gloryai/services/helper_widgets/add_height.dart';
@@ -51,20 +53,22 @@ class _CalendarPageState extends State<CalendarPage> {
       _selectedDay = day;
     });
 
-     // Create the selected date
-  final selectedDate = DateTime(
-    _displayedMonth.year,
-    _displayedMonth.month,
-    day,
-  );
+    // Create the selected date
+    final selectedDate = DateTime(
+      _displayedMonth.year,
+      _displayedMonth.month,
+      day,
+    );
 
-  // Navigate to the schedule screen with the selected date
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => CalendarScheduleAlarmScreen(selectedDate: selectedDate),
-    ),
-  );
+    // Navigate to the schedule screen with the selected date
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder:
+            (context) =>
+                CalendarScheduleAlarmScreen(selectedDate: selectedDate),
+      ),
+    );
   }
 
   List<Widget> _buildWeekRows() {
@@ -227,17 +231,24 @@ class _CalendarPageState extends State<CalendarPage> {
                       ),
                       SizedBox(width: 10.0),
 
-                      Container(
-                        height: 45,
-                        width: 45,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12.0),
-                          color: DesignConstants.kHomeBoxColor2,
-                        ),
-                        child: Icon(
-                          Icons.notifications,
-                          color: DesignConstants.kTextLightColor,
-                          size: 30,
+                      GestureDetector(
+                        onTap: () {
+                          AppNavigation.navigateTo(
+                            AppRoutesNames.notificationListScreen,
+                          );
+                        },
+                        child: Container(
+                          height: 45,
+                          width: 45,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12.0),
+                            color: DesignConstants.kHomeBoxColor2,
+                          ),
+                          child: Icon(
+                            Icons.notifications,
+                            color: DesignConstants.kTextLightColor,
+                            size: 30,
+                          ),
                         ),
                       ),
                     ],

@@ -20,10 +20,13 @@ class NotificationListScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
-          color: DesignConstants.kScarletGum,
-          onPressed: () => Navigator.of(context).pop(),
+        leading: Hero(
+          tag: 'heading',
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
+            color: DesignConstants.kScarletGum,
+            onPressed: () => Navigator.of(context).pop(),
+          ),
         ),
       ),
       body: Container(

@@ -79,99 +79,141 @@ class _IntroRatingScreenState extends State<IntroRatingScreen> {
                   children: [
                     // Carousel with refined animations
                     CarouselSlider(
-                      disableGesture: true,
-                      controller: _carouselController,
-                      options: CarouselOptions(
-                        height: height * 0.335,
-                        aspectRatio: 16 / 9,
-                        viewportFraction: 0.67,
-                        initialPage: 0,
-                        enableInfiniteScroll: true,
-                        reverse: false,
-                        autoPlay: true,
-                        autoPlayInterval: 3.seconds,
-                        autoPlayAnimationDuration: 800.ms,
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enlargeCenterPage: true,
-                        enlargeFactor: 0.1,
-                        scrollDirection: Axis.horizontal,
-                      ),
-                      items:
-                          [1, 2, 3, 4, 5].map((i) {
-                            return Builder(
-                              builder: (BuildContext context) {
-                                return SizedBox(
-                                  width: double.maxFinite,
-                                  child: Card(
-                                    color: Colors.white,
-                                    shadowColor:
-                                        DesignConstants.kTextLightColor,
-                                    elevation: 5.0,
-                                    margin: const EdgeInsets.symmetric(
-                                      horizontal: 12.0,
-                                      vertical: 8.0,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(16),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(12.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: List.generate(5, (
-                                                index,
-                                              ) {
-                                                return Padding(
-                                                  padding:
-                                                      const EdgeInsets.symmetric(
-                                                        horizontal: 3,
-                                                      ),
-                                                  child: Icon(
-                                                    Icons.star,
-                                                    color:
-                                                        DesignConstants
-                                                            .kTextLightColor,
-                                                    size: 28.0,
-                                                  ),
-                                                );
-                                              }),
-                                            ),
-                                            // Optional: Add testimonial text with animation
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                top: 8,
-                                              ),
-                                              child: Text(
-                                                'Excellent service!',
-                                                style:
-                                                    Theme.of(
-                                                      context,
-                                                    ).textTheme.bodySmall!.copyWith(
-                                                      fontSize: 12
-                                                    ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+  disableGesture: true,
+  controller: _carouselController,
+  options: CarouselOptions(
+    height: height * 0.335,
+    aspectRatio: 16 / 9,
+    viewportFraction: 0.67,
+    initialPage: 0,
+    enableInfiniteScroll: true,
+    reverse: false,
+    autoPlay: true,
+    autoPlayInterval: 3.seconds,
+    autoPlayAnimationDuration: 800.ms,
+    autoPlayCurve: Curves.fastOutSlowIn,
+    enlargeCenterPage: true,
+    enlargeFactor: 0.1,
+    scrollDirection: Axis.horizontal,
+  ),
+  items: testimonials.map((testimonial) {
+    return Builder(
+      builder: (BuildContext context) {
+        return AnimatedContainer(
+          duration: 500.ms,
+          curve: Curves.easeInOut,
+          child: Card(
+            color: Colors.white,
+            shadowColor: DesignConstants.kTextLightColor.withOpacity(0.3),
+            elevation: 8.0,
+            margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Stack(
+                children: [
+                  
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Quote icon
+                        Icon(
+                          Icons.format_quote,
+                          color: DesignConstants.kTextLightColor.withOpacity(0.3),
+                          size: 40,
+                        ),
+                        
+                        // Testimonial text
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Text(
+                              testimonial['text'],
+                              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                fontSize: 14,
+                                color: DesignConstants.kScarletGum,
+                                fontStyle: FontStyle.italic,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                        
+                        // Divider
+                        Divider(
+                          color: DesignConstants.kTextLightColor.withOpacity(0.2),
+                          thickness: 1,
+                          height: 20,
+                        ),
+                        
+                        // User info and rating
+                        Row(
+                          children: [
+                            // Avatar placeholder (replace with actual avatar)
+                            CircleAvatar(
+                              radius: 20,
+                              backgroundColor: DesignConstants.kTextLightColor,
+                              child: Icon(
+                                Icons.person,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    testimonial['name'],
+                                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: DesignConstants.kScarletGum,
                                     ),
                                   ),
+                                  Text(
+                                    testimonial['role'],
+                                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontSize: 12,
+                                      color: DesignConstants.kTrendyPink,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            // Rating stars
+                            Row(
+                              children: List.generate(5, (index) {
+                                return Icon(
+                                  index < testimonial['rating'] 
+                                    ? Icons.star 
+                                    : Icons.star_border,
+                                  color: index < testimonial['rating']
+                                    ? DesignConstants.kTextGreenColor
+                                    : DesignConstants.kAmethystSmoke,
+                                  size: 16,
                                 );
-                              },
-                            );
-                          }).toList(),
+                              }),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }).toList(),
+),
+                    
                     Center(
                       child: Padding(
                         padding: EdgeInsets.symmetric(
@@ -307,3 +349,44 @@ class _IntroRatingScreenState extends State<IntroRatingScreen> {
     );
   }
 }
+
+
+
+// Add this list of testimonials at the top of your file
+const List<Map<String, dynamic>> testimonials = [
+  {
+    'name': 'Sarah J.',
+    'role': 'Devotional Leader',
+    'avatar': 'assets/images/avatar1.png', // Replace with your actual avatar paths
+    'text': 'GloryAI has transformed my daily Bible study. The insights are profound yet accessible, helping me connect with Scripture on a deeper level.',
+    'rating': 5,
+  },
+  {
+    'name': 'Michael T.',
+    'role': 'Youth Pastor',
+    'avatar': 'assets/images/avatar2.png',
+    'text': 'Our youth group loves using GloryAI! The interactive features keep them engaged while learning important biblical truths.',
+    'rating': 5,
+  },
+  {
+    'name': 'Grace L.',
+    'role': 'Small Group Leader',
+    'avatar': 'assets/images/avatar3.png',
+    'text': 'The discussion prompts from GloryAI have sparked the most meaningful conversations in our small group meetings.',
+    'rating': 4,
+  },
+  {
+    'name': 'David K.',
+    'role': 'Theology Student',
+    'avatar': 'assets/images/avatar4.png',
+    'text': 'As a theology student, I appreciate how GloryAI balances scholarly insights with practical application. A perfect study companion!',
+    'rating': 5,
+  },
+  {
+    'name': 'Emma R.',
+    'role': 'Sunday School Teacher',
+    'avatar': 'assets/images/avatar5.png',
+    'text': 'Preparing lessons has never been easier. GloryAI provides creative ways to present biblical stories to children.',
+    'rating': 4,
+  },
+];
