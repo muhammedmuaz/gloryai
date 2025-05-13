@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class DesignConstants {
   // --- Existing Theme Colors ---
   static const Color kPrimaryColor = Color(0xFF3E8D93); // Note: Added FF for opacity consistency
+  static const Color kPrimaryLightColor = Color(0xFF06c47c); // Note: Added FF for opacity consistency
   static const Color kSecondaryColor = Color(0xFFFBB75D);
 
   // --- Existing Extracted from SVGs ---
