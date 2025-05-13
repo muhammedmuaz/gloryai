@@ -46,6 +46,7 @@ class _EditGenderSelectScreenState extends State<EditGenderSelectScreen> {
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
     final width = ScreenHelper.getScreenWidth(context);
+    
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -248,7 +249,7 @@ class _EditGenderSelectScreenState extends State<EditGenderSelectScreen> {
           horizontal: DataConstants.kScreenHorizontalPadding,
         ),
         width: double.maxFinite,
-        padding: const EdgeInsets.symmetric(vertical: 12),
+        padding: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           color:
               isSelected

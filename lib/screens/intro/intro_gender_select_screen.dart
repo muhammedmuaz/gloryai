@@ -27,6 +27,10 @@ class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
     final width = ScreenHelper.getScreenWidth(context);
+        final screenWidth = MediaQuery.of(context).size.width;
+    final isSmallScreen =
+        screenWidth < 600; // Example breakpoint for small screens
+
 
     return Scaffold(
       body: Container(
@@ -201,7 +205,7 @@ class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
           horizontal: DataConstants.kScreenHorizontalPadding,
         ),
         width: double.maxFinite,
-        padding: const EdgeInsets.symmetric(vertical: 12),
+        padding: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           color:
               isSelected

@@ -46,6 +46,9 @@ class _GloryInsightsScreenState extends State<GloryInsightsScreen> {
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
     final width = ScreenHelper.getScreenWidth(context);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isSmallScreen =
+        screenWidth < 600; // Example breakpoint for small screens
 
     return Scaffold(
       body: Container(
@@ -136,7 +139,60 @@ class _GloryInsightsScreenState extends State<GloryInsightsScreen> {
                 ),
                 SizedBox(height: 4),
                 Container(
-                  height: 120,
+                  width: double.maxFinite,
+                  padding: const EdgeInsets.only(
+                    top: 2.5,
+                    left: 2.5,
+                    right: 2.5,
+                    bottom: 10.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color: DesignConstants.kTextLightColor,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Container(
+                    width: double.maxFinite,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12.0,
+                      horizontal: 18.0,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start, // Align text to the start
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            GloryAiAssetImage(imagePath: AppImages.smileIcon),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Text(
+                                'You are a devoted student of the Holy Scriptures, and the measure of your devotion is moderate advanced.',
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.bodyMedium!.copyWith(
+                                  fontSize:
+                                      isSmallScreen
+                                          ? 14
+                                          : 16, // Adjust font size
+                                  fontWeight: FontWeight.w500,
+                                  color: DesignConstants.kTextPurpleColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                AddHeight(0.012),
+                Container(
                   width: double.maxFinite,
                   padding: EdgeInsets.only(
                     top: 2.5,
@@ -149,7 +205,6 @@ class _GloryInsightsScreenState extends State<GloryInsightsScreen> {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Container(
-                    height: double.maxFinite,
                     width: double.maxFinite,
                     padding: EdgeInsets.symmetric(
                       vertical: 12.0,
@@ -160,29 +215,86 @@ class _GloryInsightsScreenState extends State<GloryInsightsScreen> {
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Column(
-                      mainAxisSize: MainAxisSize.min,
+                      mainAxisSize:
+                          MainAxisSize.min, // Make sure this is still here
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Expanded(
+                        Flexible(
+                          // Changed from Expanded to Flexible
+                          fit: FlexFit.loose, // Added FlexFit.loose
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
-
                             mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              GloryAiAssetImage(imagePath: AppImages.smileIcon),
+                              GloryAiAssetImage(
+                                imagePath: AppImages.smileIconWithStar,
+                              ),
                               SizedBox(width: 10),
                               Expanded(
+                                // Keep Expanded for the text column to take remaining width
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'How to Advance in Journeyer?',
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyMedium!.copyWith(
+                                        fontSize: isSmallScreen ? 16 : 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: DesignConstants.kTextPurpleColor,
+                                      ),
+                                    ),
+                                    SizedBox(height: 3),
+                                    Text(
+                                      'Advancing in Glory can mean achieving greater spiritual depth, closeness to God, or better understanding of faith.',
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyMedium!.copyWith(
+                                        fontSize: isSmallScreen ? 14 : 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: DesignConstants.kTextPurpleColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Container(
+                          width: double.maxFinite,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 16.0,
+                            vertical: 8.0,
+                          ),
+                          decoration: BoxDecoration(
+                            color: DesignConstants.kLightColor,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(width: 5),
+                              Expanded(
                                 child: Text(
-                                  'You are a devoted student of the Holy Scriptures, and the measure of your devotion is moderate advanced.',
+                                  'Here are some steps that can help on this journey:',
                                   style: Theme.of(
                                     context,
                                   ).textTheme.bodyMedium!.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
+                                    fontSize: isSmallScreen ? 14 : 16,
+                                    fontWeight: FontWeight.bold,
                                     color: DesignConstants.kTextPurpleColor,
                                   ),
                                 ),
+                              ),
+                              SizedBox(width: 10),
+                              Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                color: DesignConstants.kTextLightColor,
                               ),
                             ],
                           ),
@@ -191,260 +303,65 @@ class _GloryInsightsScreenState extends State<GloryInsightsScreen> {
                     ),
                   ),
                 ),
-                AddHeight(0.012),
-Container(
-  width: double.maxFinite,
-  padding: EdgeInsets.only(
-    top: 2.5,
-    left: 2.5,
-    right: 2.5,
-    bottom: 10.0,
-  ),
-  decoration: BoxDecoration(
-    color: DesignConstants.kTextLightColor,
-    borderRadius: BorderRadius.circular(6),
-  ),
-  child: Container(
-    width: double.maxFinite,
-    padding: EdgeInsets.symmetric(
-      vertical: 12.0,
-      horizontal: 18.0,
-    ),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(6),
-    ),
-    child: Column(
-      mainAxisSize: MainAxisSize.min, // Make sure this is still here
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Flexible( // Changed from Expanded to Flexible
-          fit: FlexFit.loose, // Added FlexFit.loose
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              GloryAiAssetImage(
-                imagePath: AppImages.smileIconWithStar,
-              ),
-              SizedBox(width: 10),
-              Expanded( // Keep Expanded for the text column to take remaining width
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'How to Advance in Journeyer?.',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodyMedium!.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: DesignConstants.kTextPurpleColor,
+                AddHeight(0.015),
+                Container(
+                  width: double.maxFinite,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color: DesignConstants.kLightDarkColor,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(width: 5),
+                      Expanded(
+                        child: Text(
+                          'Your mental state at the given level',
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium!.copyWith(
+                            fontSize: isSmallScreen ? 14 : 16,
+                            fontWeight: FontWeight.bold,
+                            color: DesignConstants.kTextPurpleColor,
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 3),
-                    Text(
-                      'Advancing in Glory can mean achieving greater spiritual depth, closeness to God, or better understanding of faith.',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodyMedium!.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: DesignConstants.kTextPurpleColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 8),
-        Container(
-          width: double.maxFinite,
-          padding: EdgeInsets.symmetric(
-            horizontal: 16.0,
-            vertical: 8.0,
-          ),
-          decoration: BoxDecoration(
-            color: DesignConstants.kLightColor,
-            borderRadius: BorderRadius.circular(50),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(width: 5),
-              Expanded(
-                child: Text(
-                  'Here are some steps that can help on this journey:',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium!.copyWith(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: DesignConstants.kTextPurpleColor,
+                    ],
                   ),
                 ),
-              ),
-              SizedBox(width: 10),
-              Icon(
-                Icons.arrow_forward_ios_rounded,
-                color: DesignConstants.kTextLightColor,
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  ),
-),         Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        GridView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                mainAxisSpacing: 8,
-                                crossAxisSpacing: 0,
-                                childAspectRatio: 0.65,
+                AddHeight(0.015),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: List.generate(mentalStates.length, (i) {
+                      final mentalState = mentalStates[i];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            GloryAiAssetImage(imagePath: mentalState.imgUrl),
+                            SizedBox(height: 8),
+                            Text(
+                              mentalState.name,
+                              style: Theme.of(
+                                context,
+                              ).textTheme.bodyMedium!.copyWith(
+                                fontSize: isSmallScreen ? 14 : 16,
+                                fontWeight: FontWeight.w500,
+                                color: DesignConstants.kTextPurpleColor,
                               ),
-                          itemCount: bibleBooks.length,
-                          itemBuilder: (context, index) {
-                            final isSelected = _selectedIndex == index;
-
-                            return GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _selectedIndex = index;
-                                });
-                              },
-                              child: Column(
-                                children: [
-                                  // Animated Bible Cover
-                                  Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Container(
-                                        height: 110,
-                                        width: 110,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: AssetImage(
-                                              bibleBooks[index].imgUrl,
-                                            ),
-                                            fit: BoxFit.fill,
-                                          ),
-                                          borderRadius: BorderRadius.circular(
-                                            12,
-                                          ),
-                                        ),
-                                      ),
-                                      if (isSelected)
-                                        Positioned(
-                                          top: 8,
-                                          right: 8,
-                                          child: Container(
-                                                padding: EdgeInsets.all(4),
-                                                decoration: BoxDecoration(
-                                                  color:
-                                                      DesignConstants
-                                                          .kTextPurpleColor,
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Icon(
-                                                  Icons.check,
-                                                  color: Colors.white,
-                                                  size: 16,
-                                                ),
-                                              )
-                                              .animate()
-                                              .fadeIn(
-                                                duration: _animationDuration,
-                                              )
-                                              .scale(begin: Offset(0, 0.5)),
-                                        ),
-                                    ],
-                                  ),
-
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 4,
-                                    ),
-                                    child: Text(
-                                      bibleBooks[index].name,
-                                      style: Theme.of(
-                                        context,
-                                      ).textTheme.bodyMedium!.copyWith(
-                                        fontSize: 16,
-                                        fontWeight:
-                                            isSelected
-                                                ? FontWeight.bold
-                                                : FontWeight.w500,
-                                        color:
-                                            isSelected
-                                                ? DesignConstants
-                                                    .kTextPurpleColor
-                                                : DesignConstants
-                                                    .kTextPurpleColor
-                                                    .withOpacity(0.7),
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
+                            ),
+                          ],
                         ),
-
-                        // Animated Confirm Button
-                        // if (_selectedIndex != null) ...[
-                        //   AddHeight(0.05),
-                        //   SizedBox(
-                        //     width: width * 0.6,
-                        //     child: ElevatedButton(
-                        //       style: ElevatedButton.styleFrom(
-                        //         backgroundColor: DesignConstants.kTextPurpleColor,
-                        //         shape: RoundedRectangleBorder(
-                        //           borderRadius: BorderRadius.circular(12),
-                        //         ),
-                        //         padding: EdgeInsets.symmetric(vertical: 16),
-                        //         elevation: 4,
-                        //         shadowColor: DesignConstants.kTextPurpleColor.withOpacity(0.3),
-                        //       ),
-                        //       onPressed: () {
-                        //         Navigator.pop(context, bibleBooks[_selectedIndex!]);
-                        //       },
-                        //       child: Row(
-                        //         mainAxisAlignment: MainAxisAlignment.center,
-                        //         children: [
-                        //           Text(
-                        //             'Confirm Selection',
-                        //             style: TextStyle(
-                        //               color: Colors.white,
-                        //               fontSize: 18,
-                        //               fontWeight: FontWeight.bold,
-                        //             ),
-                        //           ),
-                        //           SizedBox(width: 8),
-                        //           Icon(Icons.arrow_forward, size: 20),
-                        //         ],
-                        //       ),
-                        //     )
-                        //     .animate()
-                        //     .fadeIn(duration: 300.ms)
-                        //     .slideY(begin: 0.5, end: 0),
-                        //   ),
-                        // ],
-                        AddHeight(0.2),
-                      ],
-                    ),
+                      );
+                    }),
                   ),
                 ),
               ],

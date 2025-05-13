@@ -22,6 +22,9 @@ class _IntroRatingScreenState extends State<IntroRatingScreen> {
       CarouselSliderController();
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isSmallScreen =
+        screenWidth < 600; // Example breakpoint for small screens
     final height = ScreenHelper.getScreenCompleteHeight(context);
     final width = ScreenHelper.getScreenWidth(context);
     return Scaffold(
@@ -155,7 +158,7 @@ class _IntroRatingScreenState extends State<IntroRatingScreen> {
                           children: [
                             // Avatar placeholder (replace with actual avatar)
                             CircleAvatar(
-                              radius: 20,
+                              radius: isSmallScreen ? 15 :20,
                               backgroundColor: DesignConstants.kTextLightColor,
                               child: Icon(
                                 Icons.person,
@@ -170,7 +173,7 @@ class _IntroRatingScreenState extends State<IntroRatingScreen> {
                                   Text(
                                     testimonial['name'],
                                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      fontSize: 14,
+                                      fontSize: isSmallScreen ? 12:14,
                                       fontWeight: FontWeight.bold,
                                       color: DesignConstants.kScarletGum,
                                     ),
@@ -178,7 +181,7 @@ class _IntroRatingScreenState extends State<IntroRatingScreen> {
                                   Text(
                                     testimonial['role'],
                                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      fontSize: 12,
+                                      fontSize: isSmallScreen ? 10 :12,
                                       color: DesignConstants.kTrendyPink,
                                     ),
                                   ),

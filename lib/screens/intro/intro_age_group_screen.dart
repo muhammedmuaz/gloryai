@@ -20,6 +20,7 @@ class IntroAgeGroupScreen extends StatefulWidget {
 }
 
 class _IntroAgeGroupScreenState extends State<IntroAgeGroupScreen> {
+  
   String? _selectedOption;
   final List<String> _options = [
     '10-17',
@@ -33,8 +34,12 @@ class _IntroAgeGroupScreenState extends State<IntroAgeGroupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isSmallScreen =
+        screenWidth < 600; // Example breakpoint for small screens
     final height = ScreenHelper.getScreenCompleteHeight(context);
     final width = ScreenHelper.getScreenWidth(context);
+    
 
     return Scaffold(
       body: Container(
@@ -67,10 +72,10 @@ class _IntroAgeGroupScreenState extends State<IntroAgeGroupScreen> {
                   horizontal: DataConstants.kScreenHorizontalPadding,
                 ),
                 child: Text(
-                  'Faith journeys evolve based on life experiences.\nThis allows us to offer scripture and guidance that aligns with your life stage.',
+                  'Faith journeys evolve based on life experiences. This allows us to offer scripture and guidance that aligns with your life stage.',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 18,
+                    fontSize: isSmallScreen ? 16 :18,
                     fontWeight: FontWeight.w400,
                     color: DesignConstants.kTextPurpleColor,
                   ),
@@ -85,7 +90,7 @@ class _IntroAgeGroupScreenState extends State<IntroAgeGroupScreen> {
                   'Which age category do you belong to?',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 24,
+                    fontSize: isSmallScreen ? 22 :24,
                     fontWeight: FontWeight.w500,
                     color: DesignConstants.kTextPurpleColor,
                   ),
@@ -230,7 +235,7 @@ class _IntroAgeGroupScreenState extends State<IntroAgeGroupScreen> {
           horizontal: DataConstants.kScreenHorizontalPadding,
         ),
         width: double.maxFinite,
-        padding: const EdgeInsets.symmetric(vertical: 12),
+        padding: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           color:
               isSelected

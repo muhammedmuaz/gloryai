@@ -73,10 +73,18 @@ class AppImages {
 
   static final smileIcon = _concatPathAndImage("smile_icon.svg");
   static final smileIconWithStar = _concatPathAndImage("smile_icon_with_star.svg");
+  static final regularFaceIcon = _concatPathAndImage("regular_face_icon.svg");
+  static final unconvincedFaceIcon = _concatPathAndImage("unconvinced_face_icon.svg");
+  static final excitedFaceIcon = _concatPathAndImage("excited_face_icon.svg");
+  static final dissapointedFaceIcon = _concatPathAndImage("dissapointed_face_icon.svg");
+  static final amazedFaceIcon = _concatPathAndImage("amazed_face_icon.svg");
+  static final inactiveFaceIcon = _concatPathAndImage("inactive_face_icon.svg");
+  static final dissatisfiedFaceIcon = _concatPathAndImage("dissatisfied_face_icon.svg");
+  static final angryFaceIcon = _concatPathAndImage("angry_face_icon.svg");
 
+  
 
-
-
+  
   // Lotties
   static final loadingLottie = _concatPathAndLottie("loading.json");
   static final bibleLottie = _concatPathAndLottie("bible.json");

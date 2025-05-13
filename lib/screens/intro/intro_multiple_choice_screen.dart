@@ -208,7 +208,7 @@ class _IntroMultipleChoiceScreenState extends State<IntroMultipleChoiceScreen> {
         duration: 300.ms,
         curve: Curves.easeOutQuad,
         width: double.maxFinite,
-        padding: const EdgeInsets.symmetric(vertical: 12),
+        padding: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           color:
               isSelected

@@ -31,6 +31,7 @@ class _EditTraditionSelectScreenState extends State<EditTraditionSelectScreen> {
     'Methodist',
     'Adventist',
     'Catholic',
+    'Presbyterian'
   ];
   @override
   void initState() {
@@ -257,7 +258,7 @@ class _EditTraditionSelectScreenState extends State<EditTraditionSelectScreen> {
           horizontal: DataConstants.kScreenHorizontalPadding,
         ),
         width: double.maxFinite,
-        padding: const EdgeInsets.symmetric(vertical: 12),
+        padding: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           color:
               isSelected
