@@ -81,8 +81,7 @@ class AppImages {
   static final inactiveFaceIcon = _concatPathAndImage("inactive_face_icon.svg");
   static final dissatisfiedFaceIcon = _concatPathAndImage("dissatisfied_face_icon.svg");
   static final angryFaceIcon = _concatPathAndImage("angry_face_icon.svg");
-
-  
+  static final homeIcon = _concatPathAndImage("home_icon.svg");
 
   
   // Lotties

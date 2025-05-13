@@ -14,13 +14,7 @@ class DevotionalScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
     final width = ScreenHelper.getScreenWidth(context);
-    return Scaffold(
-      body: Container(
-        // Existing decoration
-        decoration: const BoxDecoration(
-          color: DesignConstants.kBackgroundStartColor,
-        ),
-        child: SafeArea(
+    return SafeArea(
           child: ScreenPadding(
             child: Container(
               height: height,
@@ -114,7 +108,7 @@ class DevotionalScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Container(
-                              height: 100,
+                              height: 130,
                               padding: EdgeInsets.only(
                                 top: 2.5,
                                 left: 2.5,
@@ -171,7 +165,7 @@ class DevotionalScreen extends StatelessWidget {
                           SizedBox(width: 8),
                           Expanded(
                             child: Container(
-                              height: 100,
+                              height: 130,
                               padding: EdgeInsets.only(
                                 top: 2.5,
                                 left: 2.5,
@@ -260,7 +254,7 @@ class DevotionalScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Container(
-                              height: 100,
+                              height: 130,
                               padding: EdgeInsets.only(
                                 top: 2.5,
                                 left: 2.5,
@@ -675,64 +669,8 @@ class DevotionalScreen extends StatelessWidget {
                   ),
             ),
           ),
-        ),
-      ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          GestureDetector(
-            onTap: () {
-              // AppNavigation.navigateTo(
-              //   AppRoutesNames.homeScreen2,
-              // );
-            },
-            child: Container(
-              height: 55,
-              alignment: Alignment.center,
-              margin: EdgeInsets.symmetric(
-                horizontal: DataConstants.kScreenHorizontalPadding,
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100.0),
-                color: DesignConstants.kTextGreenColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: DesignConstants.kTextGreenColor.withOpacity(0.3),
-                    blurRadius: 10,
-                    spreadRadius: 2,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    DesignConstants.kTextGreenColor.withOpacity(0.9),
-                    DesignConstants.kTextGreenColor,
-                  ],
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Start Devotional',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
+        );
+    
   }
 }
 

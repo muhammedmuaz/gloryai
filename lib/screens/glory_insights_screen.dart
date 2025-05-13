@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:gloryai/const/design_const.dart';
 import 'package:gloryai/generic_widgets/image/gloryai_asset_image.dart';
@@ -8,6 +10,8 @@ import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/services/app_images.dart';
 import 'package:gloryai/services/helper_widgets/add_height.dart';
 import 'package:gloryai/utils/screen_helper.dart';
+import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class GloryInsightsScreen extends StatefulWidget {
   const GloryInsightsScreen({super.key});
@@ -24,6 +28,7 @@ class _GloryInsightsScreenState extends State<GloryInsightsScreen> {
   @override
   void initState() {
     super.initState();
+    _generateData();
     _selectedDay = _currentDate.day;
   }
 
@@ -185,6 +190,23 @@ class _GloryInsightsScreenState extends State<GloryInsightsScreen> {
     );
   }
 
+
+  late List<ChartData> _chartData;
+  final Random _random = Random();
+  final List<String> _months = ['September', 'October', 'November'];
+
+   void _generateData() {
+    _chartData = List.generate(30, (index) {
+      final date = DateTime(2023, 9, 1).add(Duration(days: index));
+      final monthIndex = date.month - 9; // Get index for our months list
+      final monthName = _months[monthIndex];
+      return ChartData(
+        date,
+        _random.nextDouble() * 100,
+        monthName,
+      );
+    });
+  }
   @override
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
@@ -562,6 +584,76 @@ class _GloryInsightsScreenState extends State<GloryInsightsScreen> {
                             ),
                           ],
                         ),
+                        AddHeight(0.005),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Your level depend on your activities',
+                              style: Theme.of(
+                                context,
+                              ).textTheme.bodyMedium!.copyWith(
+                                fontSize: isSmallScreen ? 16 : 18,
+                                fontWeight: FontWeight.bold,
+                                color: DesignConstants.kTextLightColor,
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                          ],
+                        ),
+                        AddHeight(0.015),
+                        Row(
+                          children: [
+                            Expanded(child: SizedBox()),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Advancing in Glory.ai is a personal and individual journey,and everyone has their own way of navigating it.',
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodyMedium!.copyWith(
+                                      fontSize: isSmallScreen ? 14 : 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: DesignConstants.kTextPurpleColor,
+                                    ),
+                                  ),
+                                  AddHeight(0.01),
+                                  Text(
+                                    'The important thing is to be persistent, open, and sincere in your search.',
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodyMedium!.copyWith(
+                                      fontSize: isSmallScreen ? 14 : 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: DesignConstants.kTextPurpleColor,
+                                    ),
+                                  ),
+                                  AddHeight(0.01),
+                                  Text(
+                                    'If you have specific questions about any of these steps, feel free to ask Glory.ai',
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodyMedium!.copyWith(
+                                      fontSize: isSmallScreen ? 12 : 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: DesignConstants.kTextGreenColor,
+                                      decoration: TextDecoration.underline,
+
+                                      decorationColor:
+                                          DesignConstants.kTextGreenColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        // Your level depend on your activities
                         AddHeight(0.015),
 
                         Row(
@@ -657,7 +749,9 @@ class _GloryInsightsScreenState extends State<GloryInsightsScreen> {
                                           padding: const EdgeInsets.symmetric(
                                             horizontal: 2,
                                           ),
-                                          child: Column(children: _buildWeekRows()),
+                                          child: Column(
+                                            children: _buildWeekRows(),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -665,9 +759,237 @@ class _GloryInsightsScreenState extends State<GloryInsightsScreen> {
                                 ),
                               ),
                             ),
-                            Expanded(child: SizedBox())
+                            SizedBox(width: 12.0),
+                        
+                        
+                            Expanded(
+                              child: Container(
+                                width: double.maxFinite,
+                                padding: const EdgeInsets.only(
+                                  top: 2.5,
+                                  left: 2.5,
+                                  right: 2.5,
+                                  bottom: 10.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: DesignConstants.kTextLightColor,
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: Container(
+                                  width: double.maxFinite,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 12.0,
+                                    horizontal: 18.0,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment
+                                            .start, // Align text to the start
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Apprentice:',
+                                            style: Theme.of(
+                                              context,
+                                            ).textTheme.bodyMedium!.copyWith(
+                                              fontSize:
+                                                  isSmallScreen
+                                                      ? 16
+                                                      : 18, // Adjust font size
+                                              fontWeight: FontWeight.w600,
+                                              color:
+                                                  DesignConstants
+                                                      .kTextPurpleColor,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 10.0),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            height: 30,
+                                            width: 30,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                width: 1.2,
+                                                color: DesignConstants.kShilo,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 30,
+                                            width: 30,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                width: 1.2,
+                                                color: DesignConstants.kShilo,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 30,
+                                            width: 30,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                width: 1.2,
+                                                color: DesignConstants.kShilo,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 30,
+                                            width: 30,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                width: 1.2,
+                                                color: DesignConstants.kShilo,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 15),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          GloryAiAssetImage(
+                                            imagePath: AppImages.smileIcon,
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 5),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'devoted',
+                                            style: Theme.of(
+                                              context,
+                                            ).textTheme.bodyMedium!.copyWith(
+                                              fontSize:
+                                                  isSmallScreen
+                                                      ? 14
+                                                      : 16, // Adjust font size
+                                              fontWeight: FontWeight.w600,
+                                              color:
+                                                  DesignConstants
+                                                      .kTextPurpleColor,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                        
+                        
                           ],
                         ),
+    
+    
+    
+            //             AddHeight(0.015),
+            //             Container(
+            //               height: height*0.3,
+            //               width: double.maxFinite,
+            //               child: Column(
+            //                 mainAxisAlignment: MainAxisAlignment.start,
+            //                 crossAxisAlignment: CrossAxisAlignment.start,
+            //                 children: [
+            //                     Expanded(
+            //   child: Container(
+            //     padding: EdgeInsets.all(12.0),
+            //     decoration: BoxDecoration(
+            //       color: DesignConstants.kGraphBackgroundColor,
+            //       borderRadius: BorderRadius.circular(12),
+            //       boxShadow: [
+            //         BoxShadow(
+            //           color: Colors.grey.withOpacity(0.2),
+            //           spreadRadius: 2,
+            //           blurRadius: 8,
+            //           offset: const Offset(0, 4),
+            //         ),
+            //       ],
+            //     ),
+            //     child: Column(
+            //       children: [
+            //        Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: _months.map((month) {
+            //     return Text(month);
+            //   }).toList(),
+            // ),
+            //         SfCartesianChart(
+            //           // Remove all borders and backgrounds
+            //           plotAreaBorderWidth: 0,
+            //           margin: EdgeInsets.zero,
+                      
+            //           // X Axis - completely hidden
+            //           primaryXAxis: DateTimeAxis(
+            //             isVisible: false,  // Hide entire x-axis
+            //             majorGridLines: const MajorGridLines(width: 0),
+            //           ),
+                      
+            //           // Y Axis - completely hidden
+            //           primaryYAxis: NumericAxis(
+            //             isVisible: false,  // Hide entire y-axis
+            //             majorGridLines: const MajorGridLines(width: 0),
+            //           ),
+                      
+            //           // Series configuration
+            //           series: <CartesianSeries<ChartData, DateTime>>[
+            //             LineSeries<ChartData, DateTime>(
+            //               dataSource: _chartData,
+            //               xValueMapper: (ChartData data, _) => data.date,
+            //               yValueMapper: (ChartData data, _) => data.value,
+            //               color: Colors.blue,
+            //               width: 7,
+            //               // Remove all markers
+            //               markerSettings: const MarkerSettings(isVisible: false),
+            //             ),
+            //           ],
+                      
+            //           // Disable tooltip
+            //           tooltipBehavior: TooltipBehavior(enable: false),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+          
+            //                 ],
+            //               ),
+            //             ),
+    
+
+                        AddHeight(0.15)
                       ],
                     ),
                   ),
@@ -744,4 +1066,15 @@ class _GloryInsightsScreenState extends State<GloryInsightsScreen> {
         return '';
     }
   }
+
+
+  
+}
+
+class ChartData {
+  final DateTime date;
+  final double value;
+  final String month;
+
+  ChartData(this.date, this.value, this.month);
 }

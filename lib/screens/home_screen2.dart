@@ -12,6 +12,7 @@ import 'package:gloryai/providers/user_provider.dart';
 import 'package:gloryai/routing/app_navigator.dart';
 import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/screens/calendar_screen.dart';
+import 'package:gloryai/screens/devotional_screen.dart';
 import 'package:gloryai/screens/select_bible_version.dart';
 import 'package:gloryai/screens/widgets/settings_tile.dart';
 import 'package:gloryai/services/app_images.dart';
@@ -814,6 +815,9 @@ class _HomeScreen2State extends State<HomeScreen2> {
           ],
         ),
       ),
+   
+   
+   DevotionalScreen()
     ];
     return Scaffold(
       body: Container(
@@ -941,7 +945,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              GestureDetector(
+               GestureDetector(
                 onTap: () {
                   activeWidget = 0;
                   print(activeWidget);
@@ -956,6 +960,29 @@ class _HomeScreen2State extends State<HomeScreen2> {
                         activeWidget == 0
                             ? DesignConstants.kTextPurpleColor
                             : Colors.white,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: GloryAiAssetImage(imagePath: AppImages.homeIcon),
+                ),
+              ),
+              SizedBox(width: 18),
+             
+              GestureDetector(
+                onTap: () {
+                  activeWidget = 4;
+                  print(activeWidget);
+                  setState(() {});
+                },
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  padding: EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    color:
+                        activeWidget == 4
+                            ? DesignConstants.kTextPurpleColor
+                            :
+                             Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: GloryAiAssetImage(imagePath: AppImages.prayIconGlory),
@@ -1036,9 +1063,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
                   padding: EdgeInsets.all(5.0),
                   decoration: BoxDecoration(
                     color:
-                        activeWidget == 4
-                            ? DesignConstants.kTextPurpleColor
-                            : Colors.white,
+                        Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: GloryAiAssetImage(imagePath: AppImages.shareIconGlory),

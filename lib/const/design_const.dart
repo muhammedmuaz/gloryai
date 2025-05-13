@@ -18,6 +18,7 @@ class DesignConstants {
   static const Color kHomeBoxColor2 = Color(0xFFf6ded0);
   static const Color kLightColor = Color(0xFFf9ece2);
   static const Color kLightDarkColor = Color(0xFFf3d3c4);
+  static const Color kGraphBackgroundColor = Color(0xFF00c478);
 
 
 
