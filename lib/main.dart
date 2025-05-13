@@ -7,6 +7,7 @@ import 'package:gloryai/firebase_options.dart';
 import 'package:gloryai/routing/app_navigator.dart';
 import 'package:gloryai/routing/app_route_generator.dart';
 import 'package:gloryai/routing/app_route_names.dart';
+import 'package:gloryai/screens/glory_insights_screen.dart';
 import 'package:gloryai/screens/home_screen2.dart';
 import 'package:gloryai/services/api_links.dart';
 import 'package:gloryai/services/notification_service.dart';
@@ -69,7 +70,7 @@ class _GloryAppState extends State<GloryApp> {
          initialRoute: AppRoutesNames.initial,
           navigatorKey: AppNavigation.navigatorKey,
           onGenerateRoute: RouteGenerator.generateRoute,
-        // home: HomeScreen2(),
+        home: GloryInsightsScreen(),
       ),
     );
   }

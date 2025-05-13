@@ -69,6 +69,13 @@ class AppImages {
 
 
 
+  // Face Icons
+
+  static final smileIcon = _concatPathAndImage("smile_icon.svg");
+  static final smileIconWithStar = _concatPathAndImage("smile_icon_with_star.svg");
+
+
+
 
   // Lotties
   static final loadingLottie = _concatPathAndLottie("loading.json");

@@ -8,6 +8,7 @@ import 'package:gloryai/screens/edit_gender_screen.dart';
 import 'package:gloryai/screens/edit_tradition_select_screen.dart';
 import 'package:gloryai/screens/glory_bible_lines_explanation_screen.dart';
 import 'package:gloryai/screens/glory_bible_lines_screen.dart';
+import 'package:gloryai/screens/glory_insights_screen.dart';
 import 'package:gloryai/screens/home_screen2.dart';
 import 'package:gloryai/screens/intro/intro_age_group_screen.dart';
 import 'package:gloryai/screens/intro/intro_always_together_screen.dart';
@@ -225,7 +226,9 @@ class RouteGenerator {
       case AppRoutesNames.gloryBibleLinesExplanationScreen:
         return _screenRoute(screen: const GloryBibleLinesExplanationScreen());  
       case AppRoutesNames.contactSupportScreen:
-        return _screenRoute(screen: const ContactSupportScreen());    
+        return _screenRoute(screen: const ContactSupportScreen());  
+      case AppRoutesNames.gloryInsightsScreen:
+        return _screenRoute(screen: const GloryInsightsScreen());      
       default:
         return _errorRoute();
     }
