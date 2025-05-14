@@ -42,7 +42,7 @@ class IntroQuoteScreen extends StatelessWidget {
                 width: width * 0.6,
                 child: GloryAiAssetImage(imagePath: AppImages.applogo),
               ),
-              AddHeight(0.03),
+              AddHeight(0.055),
               SizedBox(
                 height: height * 0.05,
                 width: double.maxFinite,

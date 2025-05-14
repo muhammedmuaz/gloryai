@@ -27,10 +27,6 @@ class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
   Widget build(BuildContext context) {
     final height = ScreenHelper.getScreenCompleteHeight(context);
     final width = ScreenHelper.getScreenWidth(context);
-        final screenWidth = MediaQuery.of(context).size.width;
-    final isSmallScreen =
-        screenWidth < 600; // Example breakpoint for small screens
-
 
     return Scaffold(
       body: Container(
@@ -57,18 +53,19 @@ class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
                 width: width * 0.6,
                 child: GloryAiAssetImage(imagePath: AppImages.applogo),
               ),
-              
+
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    AddHeight(0.1),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: DataConstants.kScreenHorizontalPadding,
                       ),
                       child: Text(
-                        'Where should Glory address you?',
+                        'How should Glory address you?',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontSize: 24,
@@ -92,7 +89,9 @@ class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: DataConstants.kScreenHorizontalPadding),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: DataConstants.kScreenHorizontalPadding,
+                      ),
                       child: GloryAiAssetImage(imagePath: AppImages.cloudIcon),
                     ),
                   ],
@@ -113,7 +112,7 @@ class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
             onTap:
                 _selectedOption != null
                     ? () {
-  final AuthenticationProvider authProvider = Get.find();
+                      final AuthenticationProvider authProvider = Get.find();
 
                       authProvider.saveFormAnswer('gender', _selectedOption);
                       AppNavigation.navigateTo(
@@ -205,7 +204,7 @@ class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
           horizontal: DataConstants.kScreenHorizontalPadding,
         ),
         width: double.maxFinite,
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           color:
               isSelected
@@ -237,7 +236,7 @@ class _IntroGenderSelectScreenState extends State<IntroGenderSelectScreen> {
                 title,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: 21,
+                  fontSize: 18,
                   fontWeight: FontWeight.w400,
                   color:
                       isSelected ? Colors.white : Colors.white.withOpacity(0.9),

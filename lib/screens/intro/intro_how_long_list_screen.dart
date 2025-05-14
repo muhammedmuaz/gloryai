@@ -208,7 +208,7 @@ class _IntroHowLongistScreenState extends State<IntroHowLongistScreen> {
         duration: 300.ms,
         curve: Curves.easeOutQuad,
         width: double.maxFinite,
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           color:
               isSelected
@@ -242,7 +242,7 @@ class _IntroHowLongistScreenState extends State<IntroHowLongistScreen> {
                 title,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: 21,
+                  fontSize: 18,
                   fontWeight: FontWeight.w400,
                   color:
                       // ignore: deprecated_member_use

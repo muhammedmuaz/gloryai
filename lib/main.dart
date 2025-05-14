@@ -37,7 +37,7 @@ void main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
     .then((_) async {
       await ImagePreloader.preloadImages();
-      await NotificationService.initialize();
+      // await NotificationService.initialize();
       runApp(const GloryApp());
     });
   
@@ -70,7 +70,7 @@ class _GloryAppState extends State<GloryApp> {
          initialRoute: AppRoutesNames.initial,
           navigatorKey: AppNavigation.navigatorKey,
           onGenerateRoute: RouteGenerator.generateRoute,
-        home: HomeScreen2(),
+        // home: HomeScreen2(),
       ),
     );
   }

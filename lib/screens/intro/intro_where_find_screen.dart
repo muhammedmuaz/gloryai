@@ -64,13 +64,14 @@ class _IntroWhereFindScreenState extends State<IntroWhereFindScreen> {
                 width: width * 0.6,
                 child: GloryAiAssetImage(imagePath: AppImages.applogo),
               ),
-              AddHeight(0.03),
+              AddHeight(0.08),
+              
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: DataConstants.kScreenHorizontalPadding,
                 ),
                 child: Text(
-                  'Where did you find out about Glory?',
+                  'Where did you find out\nabout Glory?',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontSize: 24,
@@ -203,7 +204,7 @@ class _IntroWhereFindScreenState extends State<IntroWhereFindScreen> {
           horizontal: DataConstants.kScreenHorizontalPadding,
         ),
         width: double.maxFinite,
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           color:
               isSelected
@@ -235,7 +236,7 @@ class _IntroWhereFindScreenState extends State<IntroWhereFindScreen> {
                 title,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: 21,
+                  fontSize: 18,
                   fontWeight: FontWeight.w400,
                   color:
                       isSelected ? Colors.white : Colors.white.withOpacity(0.9),

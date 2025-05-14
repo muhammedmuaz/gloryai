@@ -261,19 +261,14 @@ class _CalendarPageState extends State<CalendarPage> {
                   ),
                 ),
                 Expanded(child: SizedBox()),
-                Container(
-                  height: 55,
-                  width: 55,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: DesignConstants.kTextLightColor,
-                  ),
-                  child: Icon(
-                    Icons.tag_faces_outlined,
-                    color: Colors.white,
-                    size: 32,
-                  ),
-                ),
+               SizedBox(
+                      height: 55,
+                      width: 55,
+                      child: 
+                      GloryAiAssetImage(
+                        imagePath: AppImages.smileIcon,
+                      ),
+                    ),
               ],
             ),
             AddHeight(0.1),

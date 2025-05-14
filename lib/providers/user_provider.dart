@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:gloryai/models/user_profile_model.dart';
 import 'package:gloryai/providers/auth_provider.dart';
+import 'package:gloryai/services/gemini_service.dart';
 import 'package:gloryai/utils/helper_functions.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:toastification/toastification.dart';
 
 class UserProvider extends GetxController {
@@ -27,6 +29,22 @@ class UserProvider extends GetxController {
 
   bool _isUpdatingBibleVersion = false;
   bool get isUpdatingBibleVersion => _isUpdatingBibleVersion;
+
+  // Add these new variables to your UserProvider class
+  bool _isFetchingDailyVerse = false;
+  bool get isFetchingDailyVerse => _isFetchingDailyVerse;
+
+  String? _dailyVerse;
+  String? get dailyVerse => _dailyVerse;
+  String? _verseFrom;
+  String? get verseFrom => _verseFrom;
+
+  DateTime? _lastVerseFetchDate;
+  DateTime? get lastVerseFetchDate => _lastVerseFetchDate;
+
+  final GeminiService _geminiService = GeminiService(
+  apiKey: 'AIzaSyDG06EjCBBQSLpS-3dwVkrL43ZtbuAJq3s', // Replace with your actual API key
+);
 
   // Create or update user profile with form data
   Future<void> createUserProfile(Map<String, dynamic> formData) async {
@@ -187,6 +205,89 @@ class UserProvider extends GetxController {
     }
   }
 
+
+  Future<void> fetchDailyVerse() async {
+  try {
+    _isFetchingDailyVerse = true;
+    update();
+
+    // Check if we already have today's verse
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    
+    if (_lastVerseFetchDate != null && _lastVerseFetchDate!.isAtSameMomentAs(today)) {
+    
+    
+      return; // Already fetched today's verse
+
+
+    }
+
+    // Check Firestore for today's verse
+    final verseDoc = await _firestore
+        .collection('daily_verses')
+        .doc(today.toIso8601String().split('T').first)
+        .get();
+
+    // if (verseDoc.exists) {
+
+
+    //   _dailyVerse = verseDoc.data()?['verse'];
+    //   _lastVerseFetchDate = today;
+    //   update();
+    //   return;
+    // }
+
+    // If no verse exists for today, generate a new one
+    const apiKey = 'AIzaSyDG06EjCBBQSLpS-3dwVkrL43ZtbuAJq3s'; // Replace with your actual API key
+    final model = GenerativeModel(model: 'gemini-pro', apiKey: apiKey);
+    
+    final prompt = """
+    Generate an inspirational Bible verse with interpretation based on the user's profile.
+    User details: 
+    - Christian Tradition: ${_userProfile?.christianTradition ?? 'Not specified'}
+    - Prayer Frequency: ${_userProfile?.prayerFrequency ?? 'Not specified'}
+    - Support Needed: ${_userProfile?.supportNeeded ?? 'Not specified'}
+    - Age Category: ${_userProfile?.ageCategory ?? 'Not specified'}
+    - Bible Version: ${_userProfile?.bibleVersion ?? 'Not specified'}
+    - Practice Duration: ${_userProfile?.practiceDuration ?? 'Not specified'}
+    
+    Respond in this exact format:
+    
+    "Exact verse quote"|-Book 1:1*
+    
+    **Meaning**: Brief explanation (1-2 sentences)
+    
+    **Application**: Practical way to apply this today (start with "▶ ")
+    """;
+
+    final response = await model.generateContent([Content.text(prompt)]);
+    final verse = response.text ?? "'The Lord is my shepherd, I lack nothing.'|-Psalm 23:1*";
+    print("respooonsssee:  $verse");
+    // Save the new verse to Firestore for today
+    await _firestore
+        .collection('daily_verses')
+        .doc(today.toIso8601String().split('T').first)
+        .set({
+          'verse': verse,
+          'createdAt': FieldValue.serverTimestamp(),
+          'from': verse.split('|-').last,
+          'forDate': today,
+        });
+
+    _dailyVerse = verse.split('|-').first;
+    _verseFrom = verse.split('|-').last;
+    _lastVerseFetchDate = today;
+    
+  } catch (e) {
+    // Get.snackbar('Error', 'Failed to fetch daily verse: ${e.toString()}');
+    // Fallback verse
+    _dailyVerse = "**Verse**: *'The Lord is my shepherd, I lack nothing.' - Psalm 23:1*";
+  } finally {
+    _isFetchingDailyVerse = false;
+    update();
+  }
+}
   // Clear user data
   void clearUserData() {
     _userProfile = null;

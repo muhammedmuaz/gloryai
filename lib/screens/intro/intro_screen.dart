@@ -61,7 +61,7 @@ class _IntroScreenState extends State<IntroScreen> {
               ),
               AddHeight(0.06),
               Text(
-                '",,Divine Wisdom, Daily"',
+                '"Divine Wisdom, Daily"',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: 24,

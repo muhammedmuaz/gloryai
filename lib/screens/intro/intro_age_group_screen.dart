@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
@@ -20,7 +19,6 @@ class IntroAgeGroupScreen extends StatefulWidget {
 }
 
 class _IntroAgeGroupScreenState extends State<IntroAgeGroupScreen> {
-  
   String? _selectedOption;
   final List<String> _options = [
     '10-17',
@@ -39,7 +37,6 @@ class _IntroAgeGroupScreenState extends State<IntroAgeGroupScreen> {
         screenWidth < 600; // Example breakpoint for small screens
     final height = ScreenHelper.getScreenCompleteHeight(context);
     final width = ScreenHelper.getScreenWidth(context);
-    
 
     return Scaffold(
       body: Container(
@@ -66,22 +63,8 @@ class _IntroAgeGroupScreenState extends State<IntroAgeGroupScreen> {
                 width: width * 0.6,
                 child: GloryAiAssetImage(imagePath: AppImages.applogo),
               ),
-              AddHeight(0.03),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: DataConstants.kScreenHorizontalPadding,
-                ),
-                child: Text(
-                  'Faith journeys evolve based on life experiences. This allows us to offer scripture and guidance that aligns with your life stage.',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: isSmallScreen ? 16 :18,
-                    fontWeight: FontWeight.w400,
-                    color: DesignConstants.kTextPurpleColor,
-                  ),
-                ),
-              ),
-              AddHeight(0.03),
+              AddHeight(0.05),
+
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: DataConstants.kScreenHorizontalPadding,
@@ -90,8 +73,23 @@ class _IntroAgeGroupScreenState extends State<IntroAgeGroupScreen> {
                   'Which age category do you belong to?',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: isSmallScreen ? 22 :24,
+                    fontSize: 24,
                     fontWeight: FontWeight.w500,
+                    color: DesignConstants.kTextPurpleColor,
+                  ),
+                ),
+              ),
+              AddHeight(0.015),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: DataConstants.kScreenHorizontalPadding,
+                ),
+                child: Text(
+                  'Faith journeys evolve based on life experiences. This allows us to offer scripture and guidance that aligns with your life stage.',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: isSmallScreen ? 14 : 16,
+                    fontWeight: FontWeight.w400,
                     color: DesignConstants.kTextPurpleColor,
                   ),
                 ),
@@ -133,18 +131,21 @@ class _IntroAgeGroupScreenState extends State<IntroAgeGroupScreen> {
               'Your answers will remain private and secure.',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                fontSize: 14,
+                fontSize: 12,
                 fontWeight: FontWeight.w400,
                 color: DesignConstants.kTextPurpleColor,
               ),
             ),
           ),
-          AddHeight(0.01),
+          AddHeight(0.02),
           GestureDetector(
             onTap:
                 _selectedOption != null
                     ? () {
-                      authProvider.saveFormAnswer('ageCategory', _selectedOption);
+                      authProvider.saveFormAnswer(
+                        'ageCategory',
+                        _selectedOption,
+                      );
                       AppNavigation.navigateTo(
                         AppRoutesNames.introGenderSelectScreen,
                       );
@@ -235,7 +236,7 @@ class _IntroAgeGroupScreenState extends State<IntroAgeGroupScreen> {
           horizontal: DataConstants.kScreenHorizontalPadding,
         ),
         width: double.maxFinite,
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           color:
               isSelected
@@ -267,7 +268,7 @@ class _IntroAgeGroupScreenState extends State<IntroAgeGroupScreen> {
                 title,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: 21,
+                  fontSize: 18,
                   fontWeight: FontWeight.w400,
                   color:
                       isSelected ? Colors.white : Colors.white.withOpacity(0.9),
@@ -285,6 +286,4 @@ class _IntroAgeGroupScreenState extends State<IntroAgeGroupScreen> {
       ),
     );
   }
-
-
 }

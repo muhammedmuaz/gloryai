@@ -258,7 +258,7 @@ class _EditTraditionSelectScreenState extends State<EditTraditionSelectScreen> {
           horizontal: DataConstants.kScreenHorizontalPadding,
         ),
         width: double.maxFinite,
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           color:
               isSelected
@@ -290,7 +290,7 @@ class _EditTraditionSelectScreenState extends State<EditTraditionSelectScreen> {
                 title,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: 21,
+                  fontSize: 18,
                   fontWeight: FontWeight.w400,
                   color:
                       isSelected ? Colors.white : Colors.white.withOpacity(0.9),

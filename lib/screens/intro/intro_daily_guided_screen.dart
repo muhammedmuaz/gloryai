@@ -7,6 +7,7 @@ import 'package:gloryai/routing/app_navigator.dart';
 import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/services/app_images.dart';
 import 'package:gloryai/services/helper_widgets/add_height.dart';
+import 'package:gloryai/utils/helper_functions.dart';
 import 'package:gloryai/utils/screen_helper.dart';
 import '../../generic_widgets/image/gloryai_asset_image.dart';
 
@@ -22,140 +23,197 @@ class IntroDailyGuidedScreen extends StatelessWidget {
         height: height,
         width: width,
         decoration: const BoxDecoration(
-          color: DesignConstants.kBackgroundStartColor,
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              DesignConstants.kBackgroundEndColor,
+              DesignConstants.kBackgroundStartColor,
+            ],
+            stops: [0.0, 1.0],
+          ),
         ),
         child: SafeArea(
           child: ScreenPadding(
-            child:  Column(
-                children: [
-                  AddHeight(0.05),
-                  SizedBox(
-                    width: width * 0.6,
-                    child: GloryAiAssetImage(imagePath: AppImages.applogo),
-                  ),
-                  AddHeight(0.03),
-                  Expanded(child: Column(
+            child: Column(
+              children: [
+                AddHeight(0.05),
+                SizedBox(
+                  width: width * 0.6,
+                  child: GloryAiAssetImage(imagePath: AppImages.applogo),
+                ),
+                AddHeight(0.03),
+                Expanded(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center ,
-                    children: [
-   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Icon(Icons.done, color: Colors.white,),
-                      AddHeight(0.005),
-                      Text(
-                        'Daily Guided Devotionals',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 21,
-                          fontWeight: FontWeight.bold,
-                          color: DesignConstants.kTextGreenColor,
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 35,
+                            width: 35,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              color: DesignConstants.kLightColor,
+                            ),
+                            child: Icon(Icons.done, color: Colors.white),
+                          ),
+                          AddHeight(0.005),
+                          Text(
+                            'Daily Guided Devotionals',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.copyWith(
+                              fontSize: 21,
+                              fontWeight: FontWeight.bold,
+                              color: DesignConstants.kTextGreenColor,
+                            ),
+                          ),
+                          AddHeight(0.01),
+                          Text(
+                            'Experience inspirational messages each day',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.copyWith(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: DesignConstants.kTextPurpleColor,
+                            ),
+                          ),
+                        ],
                       ),
-                      AddHeight(0.01),
-                      Text(
-                        'Experience inspirational messages each day',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: DesignConstants.kTextPurpleColor,
-                        ),
+                      AddHeight(0.02),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 35,
+                            width: 35,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              color: DesignConstants.kLightColor,
+                            ),
+                            child: Icon(Icons.done, color: Colors.white),
+                          ),
+                          AddHeight(0.005),
+                          Text(
+                            'Limitless Prayer Resource',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.copyWith(
+                              fontSize: 21,
+                              fontWeight: FontWeight.bold,
+                              color: DesignConstants.kTextGreenColor,
+                            ),
+                          ),
+                          AddHeight(0.01),
+                          Text(
+                            'Access abundant prayer materials at no cost.',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.copyWith(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: DesignConstants.kTextPurpleColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      AddHeight(0.02),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 35,
+                            width: 35,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              color: DesignConstants.kLightColor,
+                            ),
+                            child: Icon(Icons.done, color: Colors.white),
+                          ),
+                          AddHeight(0.005),
+                          Text(
+                            'Personalized Guidance Conversations',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.copyWith(
+                              fontSize: 21,
+                              fontWeight: FontWeight.bold,
+                              color: DesignConstants.kTextGreenColor,
+                            ),
+                          ),
+                          AddHeight(0.01),
+                          Text(
+                            'Engage in spiritual discussions and receive tailored advice.',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.copyWith(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: DesignConstants.kTextPurpleColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      AddHeight(0.02),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 35,
+                            width: 35,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              color: DesignConstants.kLightColor,
+                            ),
+                            child: Icon(Icons.done, color: Colors.white),
+                          ),
+                          AddHeight(0.005),
+                          Text(
+                            'I want to explore the app for free',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.copyWith(
+                              fontSize: 21,
+                              fontWeight: FontWeight.bold,
+                              color: DesignConstants.kTextGreenColor,
+                            ),
+                          ),
+                          AddHeight(0.01),
+                          Text(
+                            'Absolutely free-no hidden fees.',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium!.copyWith(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: DesignConstants.kTextPurpleColor,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  AddHeight(0.02),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(Icons.done, color: Colors.white,),
-                      AddHeight(0.005),
-                      Text(
-                        'Limitless Prayer Resource',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 21,
-                          fontWeight: FontWeight.bold,
-                          color: DesignConstants.kTextGreenColor,
-                        ),
-                      ),
-                      AddHeight(0.01),
-                      Text(
-                        'Access abundant prayer materials at no cost.',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: DesignConstants.kTextPurpleColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                  AddHeight(0.02),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(Icons.done, color: Colors.white,),
-                      AddHeight(0.005),
-                      Text(
-                        'Personalized Guidance Conversations',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 21,
-                          fontWeight: FontWeight.bold,
-                          color: DesignConstants.kTextGreenColor,
-                        ),
-                      ),
-                      AddHeight(0.01),
-                      Text(
-                        'Engage in spiritual discussions and receive tailored advice.',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: DesignConstants.kTextPurpleColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                  AddHeight(0.02),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(Icons.done, color: Colors.white,),
-                      AddHeight(0.005),
-                      Text(
-                        'I want to explore the app for free',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 21,
-                          fontWeight: FontWeight.bold,
-                          color: DesignConstants.kTextGreenColor,
-                        ),
-                      ),
-                      AddHeight(0.01),
-                      Text(
-                        'Absolutely free-no hidden fees.',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: DesignConstants.kTextPurpleColor,
-                        ),
-                      ),
-                    ],
-                  ),
+                ),
 
-                    ],
-                  )),
-               
-                  AddHeight(0.2),
-                ],
-              ),
+                AddHeight(0.2),
+              ],
+            ),
           ),
         ),
       ),
@@ -244,6 +302,22 @@ class IntroDailyGuidedScreen extends StatelessWidget {
                   duration: 1800.ms,
                   color: Colors.white.withOpacity(0.3),
                 ),
+          ),
+          AddHeight(0.01),
+          GestureDetector(
+            onTap: () {
+              HelperFunctions.launchLink(context, url: "https://gloryai.com");
+            },
+            child: Text(
+              'Terms • Privacy',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: DesignConstants.kTextPurpleColor,
+                letterSpacing: -0.2,
+              ),
+            ),
           ),
         ],
       ),

@@ -13,6 +13,7 @@ import 'package:gloryai/routing/app_navigator.dart';
 import 'package:gloryai/routing/app_route_names.dart';
 import 'package:gloryai/screens/calendar_screen.dart';
 import 'package:gloryai/screens/devotional_screen.dart';
+import 'package:gloryai/screens/glory_insights_screen.dart';
 import 'package:gloryai/screens/select_bible_version.dart';
 import 'package:gloryai/screens/widgets/settings_tile.dart';
 import 'package:gloryai/services/app_images.dart';
@@ -32,7 +33,6 @@ class HomeScreen2 extends StatefulWidget {
 }
 
 class _HomeScreen2State extends State<HomeScreen2> {
-  
   final Duration _animationDuration = 300.ms;
   int activeWidget = 0;
 
@@ -45,40 +45,42 @@ class _HomeScreen2State extends State<HomeScreen2> {
       Get.put(UserProvider());
       final UserProvider userProvider = Get.find();
       Future.delayed(Duration(seconds: 2), () async {
-        await userProvider.fetchUserProfile().then((e){
-          SchedulerBinding.instance.addPostFrameCallback((_) {
-      final UserProvider userProvider = Get.find();
-      if (userProvider.userProfile != null) {
-        for (var i = 0; i < bibleBooks.length; i++) {
-          // print(bibleBooks[i].name);
-          print(userProvider.userProfile!.bibleVersion! == bibleBooks[i].name);
-          if (bibleBooks[i].name.toLowerCase() ==
-              userProvider.userProfile!.bibleVersion!.toLowerCase()) {
-                print("mattttccchhhhrrrdddd");
-            _selectedIndex = i;
-            setState(() {});
-          }
-        }
-      }
-    });
+        await userProvider.fetchUserProfile().then((e) {
+          SchedulerBinding.instance.addPostFrameCallback((_) async {
+            final UserProvider userProvider = Get.find();
+
+            if (userProvider.userProfile != null) {
+              for (var i = 0; i < bibleBooks.length; i++) {
+                // print(bibleBooks[i].name);
+                print(
+                  userProvider.userProfile!.bibleVersion! == bibleBooks[i].name,
+                );
+                if (bibleBooks[i].name.toLowerCase() ==
+                    userProvider.userProfile!.bibleVersion!.toLowerCase()) {
+                  print("mattttccchhhhrrrdddd");
+                  _selectedIndex = i;
+                  setState(() {});
+                }
+              }
+            }
+            await userProvider.fetchDailyVerse();
+          });
         });
       });
-    }
-    else {
-
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      final UserProvider userProvider = Get.find();
-      if (userProvider.userProfile != null) {
-        for (var i = 0; i < bibleBooks.length; i++) {
-          if (bibleBooks[i].name ==
-              userProvider.userProfile!.bibleVersion!.toLowerCase()) {
-                print("mattttccchhhhrrrdddd");
-            _selectedIndex = i;
-            setState(() {});
+    } else {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        final UserProvider userProvider = Get.find();
+        if (userProvider.userProfile != null) {
+          for (var i = 0; i < bibleBooks.length; i++) {
+            if (bibleBooks[i].name ==
+                userProvider.userProfile!.bibleVersion!.toLowerCase()) {
+              print("mattttccchhhhrrrdddd");
+              _selectedIndex = i;
+              setState(() {});
+            }
           }
         }
-      }
-    });
+      });
     }
 
     super.initState();
@@ -179,18 +181,10 @@ class _HomeScreen2State extends State<HomeScreen2> {
                       ),
                     ),
                     Expanded(child: SizedBox()),
-                    Container(
+                    SizedBox(
                       height: 55,
                       width: 55,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.0),
-                        color: DesignConstants.kTextLightColor,
-                      ),
-                      child: Icon(
-                        Icons.tag_faces_outlined,
-                        color: Colors.white,
-                        size: 32,
-                      ),
+                      child: GloryAiAssetImage(imagePath: AppImages.smileIcon),
                     ),
                   ],
                 ),
@@ -290,30 +284,95 @@ class _HomeScreen2State extends State<HomeScreen2> {
                   ],
                 ),
                 AddHeight(0.025),
-                Text(
-                  'and the messenger of the Lord appeared to him and said: The Lord is with you, you mighty warrior',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    color: DesignConstants.kTextPurpleColor,
-                  ),
-                ),
-                AddHeight(0.05),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Judge 6:12',
+                GetBuilder<UserProvider>(
+                  builder: (value) {
+                    if (value.isFetchingDailyVerse) {
+                     return Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Shimmer.fromColors(
+                              baseColor: DesignConstants.kAmethystSmoke
+                                  .withOpacity(0.5),
+                              highlightColor: Colors.white,
+                              child: Container(
+                                width: 200,
+                                height: 24,
+                                margin: EdgeInsets.symmetric(vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: DesignConstants.kTextPurpleColor
+                                      .withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              ),
+                            ),
+                            Shimmer.fromColors(
+                              baseColor: DesignConstants.kAmethystSmoke
+                                  .withOpacity(0.5),
+                              highlightColor: Colors.white,
+                              child: Container(
+                                width: 175,
+                                height: 20,
+                                margin: EdgeInsets.symmetric(vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: DesignConstants.kTextPurpleColor
+                                      .withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              ),
+                            ),
+                            Shimmer.fromColors(
+                              baseColor: DesignConstants.kAmethystSmoke
+                                  .withOpacity(0.5),
+                              highlightColor: Colors.white,
+                              child: Container(
+                                width: 150,
+                                height: 20,
+                                margin: EdgeInsets.symmetric(vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: DesignConstants.kTextPurpleColor
+                                      .withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              ),
+                            ),
+                         
+                          ],
+                        );
+                    }
+                    return Text(
+                      value.dailyVerse != null
+                          ? value.dailyVerse!
+                          : 'and the messenger of the Lord appeared to him and said: The Lord is with you, you mighty warrior',
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 18,
                         fontWeight: FontWeight.w400,
-                        color: DesignConstants.kTextGreenColor,
-                        fontStyle: FontStyle.italic,
+                        color: DesignConstants.kTextPurpleColor,
                       ),
-                    ),
-                  ],
+                    );
+                  },
+                ),
+                AddHeight(0.05),
+                       GetBuilder<UserProvider>(
+                  builder: (value) {
+                    // if (value.isFetchingDailyVerse) {}
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Judge 6:12',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: DesignConstants.kTextGreenColor,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ],
+                    );
+                  }
                 ),
                 AddHeight(0.01),
                 GestureDetector(
@@ -437,18 +496,10 @@ class _HomeScreen2State extends State<HomeScreen2> {
                     ),
                   ),
                   Expanded(child: SizedBox()),
-                  Container(
+                  SizedBox(
                     height: 55,
                     width: 55,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      color: DesignConstants.kTextLightColor,
-                    ),
-                    child: Icon(
-                      Icons.tag_faces_outlined,
-                      color: Colors.white,
-                      size: 32,
-                    ),
+                    child: GloryAiAssetImage(imagePath: AppImages.smileIcon),
                   ),
                 ],
               ),
@@ -642,18 +693,10 @@ class _HomeScreen2State extends State<HomeScreen2> {
                   ),
                 ),
                 Expanded(child: SizedBox()),
-                Container(
+                SizedBox(
                   height: 55,
                   width: 55,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: DesignConstants.kTextLightColor,
-                  ),
-                  child: Icon(
-                    Icons.tag_faces_outlined,
-                    color: Colors.white,
-                    size: 32,
-                  ),
+                  child: GloryAiAssetImage(imagePath: AppImages.smileIcon),
                 ),
               ],
             ),
@@ -730,17 +773,22 @@ class _HomeScreen2State extends State<HomeScreen2> {
                     ),
                     AddHeight(0.008),
                     SettingsTile(
-                      onTap: (){
+                      onTap: () {
                         // signOut()
-                        BottomSheetsAndDialogs.showLogoutDialog(context, onConfirm: ()async {
-                          final AuthenticationProvider authenticationProvider = Get.find();
-                           AppNavigation.goBack();
-        BottomSheetsAndDialogs.showLoadingDialogTitle(
-            AppNavigation.navigatorKey.currentContext!,
-            title: 'Logging out...');
-        
-                          await authenticationProvider.signOut();
-                        });
+                        BottomSheetsAndDialogs.showLogoutDialog(
+                          context,
+                          onConfirm: () async {
+                            final AuthenticationProvider
+                            authenticationProvider = Get.find();
+                            AppNavigation.goBack();
+                            BottomSheetsAndDialogs.showLoadingDialogTitle(
+                              AppNavigation.navigatorKey.currentContext!,
+                              title: 'Logging out...',
+                            );
+
+                            await authenticationProvider.signOut();
+                          },
+                        );
                       },
                       title: 'Log Out',
                       iconPath: AppImages.logOutIconGlory,
@@ -815,9 +863,8 @@ class _HomeScreen2State extends State<HomeScreen2> {
           ],
         ),
       ),
-   
-   
-   DevotionalScreen()
+
+      GloryInsightsScreen(),
     ];
     return Scaffold(
       body: Container(
@@ -838,7 +885,10 @@ class _HomeScreen2State extends State<HomeScreen2> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (activeWidget != 1 && activeWidget != 3 && activeWidget != 2) ...[
+          if (activeWidget != 1 &&
+              activeWidget != 3 &&
+              activeWidget != 2 &&
+              activeWidget != 4) ...[
             GestureDetector(
               onTap: () {
                 AppNavigation.navigateTo(AppRoutesNames.gloryBibleLinesScreen);
@@ -945,7 +995,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-               GestureDetector(
+              GestureDetector(
                 onTap: () {
                   activeWidget = 0;
                   print(activeWidget);
@@ -966,7 +1016,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
                 ),
               ),
               SizedBox(width: 18),
-             
+
               GestureDetector(
                 onTap: () {
                   activeWidget = 4;
@@ -981,8 +1031,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
                     color:
                         activeWidget == 4
                             ? DesignConstants.kTextPurpleColor
-                            :
-                             Colors.white,
+                            : Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: GloryAiAssetImage(imagePath: AppImages.prayIconGlory),
@@ -1062,8 +1111,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
                   width: 40,
                   padding: EdgeInsets.all(5.0),
                   decoration: BoxDecoration(
-                    color:
-                        Colors.white,
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: GloryAiAssetImage(imagePath: AppImages.shareIconGlory),

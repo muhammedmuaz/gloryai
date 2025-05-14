@@ -15,6 +15,9 @@ class IntroScriptureScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isSmallScreen =
+        screenWidth < 600; // Example breakpoint for small screens
     final height = ScreenHelper.getScreenCompleteHeight(context);
     final width = ScreenHelper.getScreenWidth(context);
     const initialDelay = 300;
@@ -61,12 +64,8 @@ class IntroScriptureScreen extends StatelessWidget {
                       AddHeight(0.03),
                       Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: DataConstants.kScreenHorizontalPadding,
-                            ),
-                            child: Text(
-                              'Daily Scripture to Light Your Path',
+                           Text(
+                              'Daily Scripture to Light\nYour Path',
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                                 fontSize: 24,
@@ -74,21 +73,17 @@ class IntroScriptureScreen extends StatelessWidget {
                                 color: DesignConstants.kTextPurpleColor,
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: DataConstants.kScreenHorizontalPadding,
-                            ),
-                            child: Text(
-                              'Every morning, we\'ll share a verse chosen for your faith journey-building a foundation for your daily walk with God.',
+                          
+                           Text(
+                              'Every morning, we\'ll share a verse chosen for your faith journey - building a foundation for your daily walk with God.',
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                fontSize: 16,
+                                fontSize: isSmallScreen ? 14 : 16,
                                 fontWeight: FontWeight.w400,
                                 color: DesignConstants.kTextPurpleColor,
                               ),
                             ),
-                          ),
+                          
                         ],
                       ),
                   
@@ -204,6 +199,18 @@ class IntroScriptureScreen extends StatelessWidget {
                   curve: Curves.easeInOut,
                 ),
           ),
+AddHeight(0.02),
+          Text(
+                              'Let\'s begin with today\'s verse...',
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: DesignConstants.kTextPurpleColor,
+                                fontStyle: FontStyle.italic
+                              ),
+
+                            ),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -217,6 +224,10 @@ class IntroScriptureScreen extends StatelessWidget {
     required String description,
     Duration delay = Duration.zero,
   }) {
+    
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isSmallScreen =
+        screenWidth < 600; // Example breakpoint for small screens
     return Column(
       children: [
         // Number badge with pop-in effect
@@ -264,8 +275,8 @@ class IntroScriptureScreen extends StatelessWidget {
                 title,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                   color: DesignConstants.kTextPurpleColor,
                 ),
               ),
@@ -281,7 +292,7 @@ class IntroScriptureScreen extends StatelessWidget {
                 description,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: 16,
+                  fontSize: isSmallScreen ?14 :16,
                   fontWeight: FontWeight.w400,
                   color: DesignConstants.kTextPurpleColor,
                 ),

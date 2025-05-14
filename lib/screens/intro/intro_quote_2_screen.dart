@@ -34,16 +34,16 @@ class IntroQuote2Screen extends StatelessWidget {
         child: SafeArea(
           child: Stack(
             children: [
-              Center(
-                child: Container(
+              Container(
                   width: width,
-                  margin: EdgeInsets.only(bottom: 12.0),
+                  alignment: Alignment.bottomCenter,
+                  margin: EdgeInsets.only(bottom: 100.0),
                   padding: EdgeInsets.symmetric(
                     horizontal: DataConstants.kScreenHorizontalPadding,
                   ),
                   child: GloryAiAssetImage(imagePath: AppImages.cloudIcon),
                 ),
-              ),
+              
               SizedBox(
                 height: height,
                 width: width,
@@ -56,7 +56,7 @@ class IntroQuote2Screen extends StatelessWidget {
                       width: width * 0.6,
                       child: GloryAiAssetImage(imagePath: AppImages.applogo),
                     ),
-                    AddHeight(0.15),
+                    AddHeight(0.25),
                     Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: DataConstants.kScreenHorizontalPadding,

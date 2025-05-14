@@ -29,7 +29,7 @@ class _ChatScreenState extends State<ChatScreen> {
     // Initialize OpenAI instance
     openAI = OpenAI.instance.build(
       token:
-          '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', // Replace with your actual API key
+          'skproj-05R3X34aEzA7Sd6suDg_xfp2hPEq1FVtkwjQmsYXXF_JRw5uGhH9poFuy2eAlKTwhydU1XgYLxT3BlbkFJ_6dWfj0vBrVgLc5NcNIlOHU2EbxmM5OENT-HxIzU665FxUxNVMee5FFFwmMQ1AxOQb4VObF7UA', // Replace with your actual API key
       baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 60)),
       enableLog: true,
     );

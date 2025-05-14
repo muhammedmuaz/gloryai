@@ -107,7 +107,7 @@ class _EditGenderSelectScreenState extends State<EditGenderSelectScreen> {
                         horizontal: DataConstants.kScreenHorizontalPadding,
                       ),
                       child: Text(
-                        'Where should Glory address you?',
+                        'How should Glory address you?',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontSize: 24,
@@ -249,7 +249,7 @@ class _EditGenderSelectScreenState extends State<EditGenderSelectScreen> {
           horizontal: DataConstants.kScreenHorizontalPadding,
         ),
         width: double.maxFinite,
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           color:
               isSelected
@@ -281,7 +281,7 @@ class _EditGenderSelectScreenState extends State<EditGenderSelectScreen> {
                 title,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: 21,
+                  fontSize: 18,
                   fontWeight: FontWeight.w400,
                   color:
                       isSelected ? Colors.white : Colors.white.withOpacity(0.9),
